@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using BlazorAppAutoWithAuth.Data;
+using CleanArchitecture.Infrastructure.Identity.Models;
 
 namespace BlazorAuto.Web.Components.Account;
 

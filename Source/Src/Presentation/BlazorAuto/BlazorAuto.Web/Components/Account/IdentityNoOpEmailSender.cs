@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using BlazorAppAutoWithAuth.Data;
+using CleanArchitecture.Infrastructure.Identity.Models;
 
 namespace BlazorAuto.Web.Components.Account;
 

@@ -2,20 +2,36 @@ using BlazorAuto.Web.Components;
 using BlazorAuto.Shared.Services;
 using BlazorAuto.Web.Services;
 using BlazorAuto.Web.Components.Account;
-using BlazorAppAutoWithAuth.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
-
 using Microsoft.EntityFrameworkCore;
 using BlazorAuto.Web.Client;
 using BlazorAuto.Web.Components.Account;
+using CleanArchitecture.Application;
+using CleanArchitecture.Application.Interfaces;
+using CleanArchitecture.Infrastructure.FileManager;
+using CleanArchitecture.Infrastructure.Identity;
+using CleanArchitecture.Infrastructure.Persistence;
+using CleanArchitecture.Infrastructure.Resources;
+using CleanArchitecture.WebApi.Infrastructure.Extensions;
+using CleanArchitecture.WebApi.Infrastructure.Middlewares;
+using CleanArchitecture.WebApi.Infrastructure.Services;
+using FluentValidation.AspNetCore;
+using Serilog;
+using CleanArchitecture.Infrastructure.Identity.Contexts;
+using CleanArchitecture.Infrastructure.FileManager.Contexts;
+using CleanArchitecture.Infrastructure.Identity.Seeds;
+using CleanArchitecture.Infrastructure.Persistence.Seeds;
+using CleanArchitecture.Infrastructure.Identity.Models;
+using CleanArchitecture.Infrastructure.Persistence.Contexts;
+
 
 
 namespace BlazorAuto;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -28,37 +44,49 @@ public class Program
         // Add device-specific services used by the BlazorAuto.Shared project
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
-
-        #region AspNet Identity System & Database
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddScoped<IdentityUserAccessor>();
         builder.Services.AddScoped<IdentityRedirectManager>();
         builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
-        builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultScheme = IdentityConstants.ApplicationScheme;
-            options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-        })
-            .AddGoogle(googleOptions =>
-             {
-                 googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-                 googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-             }).AddIdentityCookies();
+        // Add necessary program.cs calls of CleanArchitecture.WebApi
+        bool useInMemoryDatabase = builder.Configuration.GetValue<bool>("UseInMemoryDatabase");
 
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(connectionString));
-        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-        builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddSignInManager()
-            .AddDefaultTokenProviders();
+        builder.Services.AddApplicationLayer();
+        builder.Services.AddPersistenceInfrastructure(builder.Configuration, useInMemoryDatabase);
+        builder.Services.AddFileManagerInfrastructure(builder.Configuration, useInMemoryDatabase);
+        builder.Services.AddIdentityInfrastructure(builder.Configuration, useInMemoryDatabase);
+        builder.Services.AddResourcesInfrastructure();
+        builder.Services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
+        builder.Services.AddControllers();
+        builder.Services.AddVersioning();
+        builder.Services.AddFluentValidationAutoValidation();
+        builder.Services.AddSwaggerWithVersioning();
+        builder.Services.AddAnyCors();
+        builder.Services.AddCustomLocalization(builder.Configuration);
+        builder.Services.AddHealthChecks();
+        builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
         builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-        #endregion AspNet Identity System & Database
+
         var app = builder.Build();
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+
+            if (!useInMemoryDatabase)
+            {
+                await services.GetRequiredService<IdentityContext>().Database.MigrateAsync();
+                await services.GetRequiredService<ApplicationDbContext>().Database.MigrateAsync();
+                await services.GetRequiredService<FileManagerDbContext>().Database.MigrateAsync();
+            }
+
+            // Seed Data
+            await DefaultRoles.SeedAsync(services.GetRequiredService<RoleManager<ApplicationRole>>());
+            await DefaultBasicUser.SeedAsync(services.GetRequiredService<UserManager<ApplicationUser>>());
+            await DefaultData.SeedAsync(services.GetRequiredService<ApplicationDbContext>());
+        }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
@@ -87,6 +115,18 @@ public class Program
 
         // Add additional endpoints required by the Identity /Account Razor components.
         app.MapAdditionalIdentityEndpoints();
+
+        app.UseCustomLocalization();
+        app.UseAnyCors();
+        app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.UseAntiforgery();
+        app.UseSwaggerWithVersioning();
+        app.UseMiddleware<ErrorHandlerMiddleware>();
+        app.UseHealthChecks("/health");
+        app.MapControllers();
+        app.UseSerilogRequestLogging();
 
         app.Run();
     }

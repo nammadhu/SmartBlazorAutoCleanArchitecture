@@ -1,3 +1,30 @@
+application integrated but still authentication integration pending
+
+Am building SmartTown app using Blazor and Aspnet Core with below features, suggest me the right architecture.
+Have Town data,each town has row of data ,less likely changing
+With respect to each town, user,business owners can add their prefile called Cards. ANd can keep updating.
+ANy other users can view ,like,comment.
+Here all these things lively reflection necessary. 
+Also need to have caching of data,offline serving mechanism.
+
+Card Add,Update
+Comment,Like
+
+Live Reflection of these data 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 google login added
 
 connect the app with backend
