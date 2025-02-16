@@ -1,7 +1,6 @@
-change port,
-add google auth
+google login added
 
-connect the apps
+connect the app with backend
 
 
 then directly shift my codes
