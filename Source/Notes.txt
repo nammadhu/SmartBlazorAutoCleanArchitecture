@@ -1,0 +1,16 @@
+Connecting Blazor And Clean Architecture
+
+add reference of api in blazor project
+
+then making calls and using 
+
+
+
+change port,
+add google auth
+
+connect the apps
+
+
+then directly shift my codes
+in same folder,rather separate...so easy to maintain
