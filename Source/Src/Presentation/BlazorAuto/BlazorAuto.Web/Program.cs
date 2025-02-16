@@ -40,7 +40,11 @@ public class Program
             options.DefaultScheme = IdentityConstants.ApplicationScheme;
             options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
         })
-            .AddIdentityCookies();
+            .AddGoogle(googleOptions =>
+             {
+                 googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+                 googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+             }).AddIdentityCookies();
 
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
