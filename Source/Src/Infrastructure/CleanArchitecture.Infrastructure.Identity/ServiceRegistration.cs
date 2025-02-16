@@ -54,7 +54,7 @@ public static class ServiceRegistration
             options.Password.RequireLowercase = identitySettings.PasswordRequireLowercase;
 
         }).AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
-
+        /* Below are for API responding, not needed for Blazor Auto integrated
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -106,7 +106,7 @@ public static class ServiceRegistration
 
                 };
             });
-
+        */
         return services;
     }
 }
