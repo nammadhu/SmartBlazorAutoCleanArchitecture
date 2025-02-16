@@ -9,12 +9,20 @@
     <link rel="stylesheet" href="_content/BlazorAuto.Shared/app.css" />
     <link rel="stylesheet" href="BlazorAuto.Web.styles.css" />
     <link rel="icon" type="image/png" href="_content/BlazorAuto.Shared/favicon.png" />
-    <HeadOutlet @rendermode="InteractiveAuto" />
+    <HeadOutlet @rendermode="PageRenderMode" />
 </head>
 
 <body>
-    <Routes @rendermode="InteractiveAuto" />
+    <Routes @rendermode="PageRenderMode" />
     <script src="_framework/blazor.web.js"></script>
 </body>
 
 </html>
+
+@code {
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private IComponentRenderMode? PageRenderMode =>
+        HttpContext.AcceptsInteractiveRouting() ? InteractiveAuto : null;
+}

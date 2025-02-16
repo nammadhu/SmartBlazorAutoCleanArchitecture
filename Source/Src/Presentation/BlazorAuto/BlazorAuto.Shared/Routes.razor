@@ -1,6 +1,10 @@
-﻿<Router AppAssembly="typeof(Layout.MainLayout).Assembly">
+﻿<Router AppAssembly="typeof(BlazorAuto.Shared.Services.IFormFactor).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(BlazorAuto.Shared.Layout.MainLayout)">
+            <NotAuthorized>
+                <RedirectToLogin /> 
+            </NotAuthorized>
+        </AuthorizeRouteView>
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
 </Router>
