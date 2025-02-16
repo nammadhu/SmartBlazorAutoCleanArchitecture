@@ -1,6 +1,15 @@
 using BlazorAuto.Web.Components;
 using BlazorAuto.Shared.Services;
 using BlazorAuto.Web.Services;
+using BlazorAuto.Web.Components.Account;
+using BlazorAppAutoWithAuth.Data;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+
+using Microsoft.EntityFrameworkCore;
+using BlazorAuto.Web.Client;
+using BlazorAuto.Web.Components.Account;
+
 
 namespace BlazorAuto;
 
@@ -13,17 +22,45 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents()
-            .AddInteractiveWebAssemblyComponents();
+            .AddInteractiveWebAssemblyComponents()
+            .AddAuthenticationStateSerialization();
 
         // Add device-specific services used by the BlazorAuto.Shared project
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
+
+        #region AspNet Identity System & Database
+        builder.Services.AddCascadingAuthenticationState();
+        builder.Services.AddScoped<IdentityUserAccessor>();
+        builder.Services.AddScoped<IdentityRedirectManager>();
+        builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = IdentityConstants.ApplicationScheme;
+            options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+        })
+            .AddIdentityCookies();
+
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(connectionString));
+        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+        builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddSignInManager()
+            .AddDefaultTokenProviders();
+
+        builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+        #endregion AspNet Identity System & Database
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseWebAssemblyDebugging();
+            app.UseMigrationsEndPoint();
         }
         else
         {
@@ -34,9 +71,9 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.UseStaticFiles();
         app.UseAntiforgery();
 
+        app.MapStaticAssets();
         app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode()
             .AddInteractiveWebAssemblyRenderMode()
@@ -44,6 +81,10 @@ public class Program
                 typeof(BlazorAuto.Shared._Imports).Assembly,
                 typeof(BlazorAuto.Web.Client._Imports).Assembly);
 
+        // Add additional endpoints required by the Identity /Account Razor components.
+        app.MapAdditionalIdentityEndpoints();
+
         app.Run();
     }
 }
+
