@@ -110,8 +110,8 @@ public class Program
             .AddInteractiveServerRenderMode()
             .AddInteractiveWebAssemblyRenderMode()
             .AddAdditionalAssemblies(
-                typeof(BlazorAuto.Shared._Imports).Assembly,
-                typeof(BlazorAuto.Web.Client._Imports).Assembly);
+                typeof(Shared.Routes).Assembly,
+                typeof(Web.Client._Imports).Assembly);
 
         // Add additional endpoints required by the Identity /Account Razor components.
         app.MapAdditionalIdentityEndpoints();
