@@ -11,6 +11,10 @@ Role management page
 Owner,Products,Comments
 Town,Profiles,Comments
 
+Methodwise Dependency resolution
+
+Use minimal endpoints for quicks
+
 
 Am building SmartTown app using Blazor and Aspnet Core with below features, suggest me the right architecture.
 Have Town data,each town has row of data ,less likely changing
