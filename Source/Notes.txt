@@ -1,4 +1,16 @@
-application integrated but still authentication integration pending
+Blazor and Clean Archi authentication integrated with login also completed,even google fine.
+Do Some cleanup on Blazor for extra repeated code.
+
+Display Products on screen on public,
+for addition [authorize]
+add caching for products to public
+Ui Improvements
+Loading icon change
+
+Role management page
+Owner,Products,Comments
+Town,Profiles,Comments
+
 
 Am building SmartTown app using Blazor and Aspnet Core with below features, suggest me the right architecture.
 Have Town data,each town has row of data ,less likely changing
