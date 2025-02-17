@@ -54,7 +54,52 @@ public static class ServiceRegistration
             options.Password.RequireLowercase = identitySettings.PasswordRequireLowercase;
 
         }).AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
-        /* Below are for API responding, not needed for Blazor Auto integrated
+        //AddIdentity itself adds AddAuthentication() default features, if more like google required then below is required
+
+
+        services.AddAuthentication()
+            .AddGoogle(googleOptions =>
+        {
+            googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+            googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+        })
+            .AddCookie(cookieOptions =>
+            {
+                cookieOptions.LoginPath = "/Account/Login";
+                cookieOptions.LogoutPath = "/Account/Logout";
+                cookieOptions.AccessDeniedPath = "/Account/AccessDenied";
+                cookieOptions.ExpireTimeSpan = TimeSpan.FromDays(14); // Example expiration setting
+                cookieOptions.SlidingExpiration = true; // Renew the cookie if the user is active
+            });
+        /*
+         // Microsoft Authentication
+         .AddMicrosoftAccount(microsoftOptions =>
+         {
+             microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+             microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+         })
+         // Facebook Authentication
+         .AddFacebook(facebookOptions =>
+         {
+             facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
+             facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+         })
+         // LinkedIn Authentication
+         .AddLinkedIn(linkedInOptions =>
+         {
+             linkedInOptions.ClientId = configuration["Authentication:LinkedIn:ClientId"];
+             linkedInOptions.ClientSecret = configuration["Authentication:LinkedIn:ClientSecret"];
+         })
+         // Instagram Authentication
+         .AddInstagram(instagramOptions =>
+         {
+             instagramOptions.ClientId = configuration["Authentication:Instagram:ClientId"];
+             instagramOptions.ClientSecret = configuration["Authentication:Instagram:ClientSecret"];
+         })
+         */
+
+
+        /* Below are for API responding, not needed for Blazor integrated login
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
