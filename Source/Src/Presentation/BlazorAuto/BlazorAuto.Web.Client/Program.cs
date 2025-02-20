@@ -18,6 +18,11 @@ class Program
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddAuthenticationStateDeserialization();
 
+        builder.Services.AddHttpClient<ProductServiceClient>(client =>
+        {
+            client.BaseAddress = new Uri("https://yourapi.com/");
+        });
+
 
         await builder.Build().RunAsync();
     }

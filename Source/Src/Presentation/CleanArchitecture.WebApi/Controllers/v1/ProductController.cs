@@ -5,6 +5,7 @@ using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduc
 using CleanArchitecture.Application.Features.Products.Queries.GetProductById;
 using CleanArchitecture.Application.Wrappers;
 using CleanArchitecture.Domain.Products.DTOs;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.WebApi.Controllers.v1;
 
 [ApiVersion("1")]
-public class ProductController : BaseApiController
+public class ProductController(IMediator mediator) : BaseApiController(mediator)
 {
 
     [HttpGet]

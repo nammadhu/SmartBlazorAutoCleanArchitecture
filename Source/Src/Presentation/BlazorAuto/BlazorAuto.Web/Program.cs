@@ -5,8 +5,6 @@ using BlazorAuto.Web.Components.Account;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using BlazorAuto.Web.Client;
-using BlazorAuto.Web.Components.Account;
 using CleanArchitecture.Application;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Infrastructure.FileManager;
