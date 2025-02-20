@@ -23,9 +23,9 @@ using CleanArchitecture.Infrastructure.Persistence.Seeds;
 using CleanArchitecture.Infrastructure.Identity.Models;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 
+using BlazorAuto.Shared;
 
-
-namespace BlazorAuto;
+namespace BlazorAuto.Web;
 
 public class Program
 {
@@ -41,6 +41,9 @@ public class Program
 
         // Add device-specific services used by the BlazorAuto.Shared project
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
+
+        builder.Services.AddDependencyInjectionCommon();
+        builder.Services.AddDependencyInjectionServerRender();
 
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddScoped<IdentityUserAccessor>();
@@ -108,8 +111,8 @@ public class Program
             .AddInteractiveServerRenderMode()
             .AddInteractiveWebAssemblyRenderMode()
             .AddAdditionalAssemblies(
-                typeof(Shared.Routes).Assembly,
-                typeof(Web.Client._Imports).Assembly);
+                typeof(Routes).Assembly,
+                typeof(Client._Imports).Assembly);
 
         // Add additional endpoints required by the Identity /Account Razor components.
         app.MapAdditionalIdentityEndpoints();

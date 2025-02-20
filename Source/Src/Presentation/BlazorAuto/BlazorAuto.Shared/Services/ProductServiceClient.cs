@@ -5,45 +5,53 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Features.Products.Commands.CreateProduct;
+using CleanArchitecture.Application.Features.Products.Commands.DeleteProduct;
+using CleanArchitecture.Application.Features.Products.Commands.UpdateProduct;
+using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
+using CleanArchitecture.Application.Features.Products.Queries.GetProductById;
+using CleanArchitecture.Application.Wrappers;
 using CleanArchitecture.Domain.Products.DTOs;
+using CleanArchitecture.Domain.Products.Entities;
+using SharedResponse;
 
 namespace BlazorAuto.Shared.Services;
 
-public class ProductServiceClient
+public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProduct
 {
-    private readonly HttpClient _httpClient;
+    private readonly HttpClient _httpClient = httpClientFactory.CreateClient(PublicCommon.CONSTANTS.ClientAnonymous);
 
-    public ProductServiceClient(IHttpClientFactory  httpClientFactory)
+  
+    public async Task<BaseResult<long>> CreateProduct(CreateProductCommand model)
     {
-        _httpClient = httpClientFactory.CreateClient();
-    }
-
-    public async Task<List<ProductDto>> GetPagedListProduct(int pageNumber, int pageSize)
-    {
-        var response = await _httpClient.GetAsync($"api/product?pagenumber={pageNumber}&pagesize={pageSize}");
-        return await response.Content.ReadFromJsonAsync<List<ProductDto>>();
-    }
-
-    public async Task<ProductDto> GetProductById(long id)
-    {
-        var response = await _httpClient.GetAsync($"api/product/{id}");
-        return await response.Content.ReadFromJsonAsync<ProductDto>();
-    }
-
-    public async Task<long> CreateProduct(ProductDto product)
-    {
-        var response = await _httpClient.PostAsJsonAsync("api/product", product);
+        var response = await _httpClient.PostAsJsonAsync("api/product", model);
         return await response.Content.ReadFromJsonAsync<long>();
     }
 
-    public async Task UpdateProduct(ProductDto product)
+    public async Task<BaseResult> DeleteProduct(DeleteProductCommand model)
     {
-        await _httpClient.PutAsJsonAsync("api/product", product);
+        var response = await _httpClient.DeleteAsync($"api/product/{model.Id}");
+        return await response.Content.ReadFromJsonAsync<BaseResult>();
     }
 
-    public async Task DeleteProduct(long id)
+    public async Task<PagedResponse<ProductDto>> GetPagedListProduct(GetPagedListProductQuery model)
     {
-        await _httpClient.DeleteAsync($"api/product/{id}");
+        var response = await _httpClient.GetAsync($"api/product?pagenumber={model.PageNumber}&pagesize={model.PageSize}");
+        return await response.Content.ReadFromJsonAsync<PagedResponse<ProductDto>>();
+    }
+
+   
+    
+    public async Task<BaseResult<ProductDto>> GetProductById(GetProductByIdQuery model)
+    {
+        var response = await _httpClient.GetAsync($"api/product/{model.Id}");
+        return await response.Content.ReadFromJsonAsync<ProductDto>();
+    }
+   
+    public async Task<BaseResult> UpdateProduct(UpdateProductCommand model)
+    {
+        var response = await _httpClient.PutAsJsonAsync("api/product", model);
+        return await response.Content.ReadFromJsonAsync<BaseResult>();
     }
 }
 

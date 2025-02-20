@@ -1,4 +1,11 @@
 ﻿@page "/products"
+@using CleanArchitecture.Application.Features.Products.Commands.UpdateProduct
+@using CleanArchitecture.Domain.Products.DTOs
+@using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct
+@using CleanArchitecture.Application.Features.Products.Commands.DeleteProduct
+@using BlazorAuto.Shared.Services
+@using SharedResponse
+@inject IProduct ProductService
 
 <h3>Product List</h3>
 
@@ -35,17 +42,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        products = await ProductService.GetPagedListProduct(1, 10);
+        products = (await ProductService.GetPagedListProduct(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
     }
 
-    private void EditProduct(long id)
+    private async Task EditProduct(long id)
     {
-        // Navigate to edit page
+        await ProductService.UpdateProduct(new UpdateProductCommand() { Id = id });
     }
 
     private async Task DeleteProduct(long id)
     {
-        await ProductService.DeleteProduct(id);
-        products = await ProductService.GetPagedListProduct(1, 10);
+        await ProductService.DeleteProduct(new DeleteProductCommand() {Id=id });
+        products = (await ProductService.GetPagedListProduct(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
     }
 }

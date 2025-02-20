@@ -1,3 +1,32 @@
+  Unhandled exception rendering component: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+System.Text.Json.JsonException: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+ ---> System.Text.Json.JsonReaderException: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.Serialization.JsonConverter`1[[CleanArchitecture.Application.Wrappers.PagedResponse`1[[CleanArchitecture.Domain.Products.DTOs.ProductDto, CleanArchitecture.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], CleanArchitecture.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]].ReadCore(Utf8JsonReader& reader, PagedResponse`1& value, JsonSerializerOptions options, ReadStack& state)
+   --- End of inner exception stack trace ---
+   at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1[[CleanArchitecture.Application.Wrappers.PagedResponse`1[[CleanArchitecture.Domain.Products.DTOs.ProductDto, CleanArchitecture.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], CleanArchitecture.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]].ReadCore(Utf8JsonReader& reader, PagedResponse`1& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1[[CleanArchitecture.Application.Wrappers.PagedResponse`1[[CleanArchitecture.Domain.Products.DTOs.ProductDto, CleanArchitecture.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], CleanArchitecture.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]].ContinueDeserialize(ReadBufferState& bufferState, JsonReaderState& jsonReaderState, ReadStack& readStack, PagedResponse`1& value)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.<DeserializeAsync>d__1[[CleanArchitecture.Application.Wrappers.PagedResponse`1[[CleanArchitecture.Domain.Products.DTOs.ProductDto, CleanArchitecture.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], CleanArchitecture.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]].MoveNext()
+   at System.Net.Http.Json.HttpContentJsonExtensions.<ReadFromJsonAsyncCore>d__12`1[[CleanArchitecture.Application.Wrappers.PagedResponse`1[[CleanArchitecture.Domain.Products.DTOs.ProductDto, CleanArchitecture.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], CleanArchitecture.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]].MoveNext()
+   at BlazorAuto.Shared.Services.ProductServiceClient.GetPagedListProduct(GetPagedListProductQuery model) in C:\Users\MadhusudhanV\source\repos\Smart\Source\Src\Presentation\BlazorAuto\BlazorAuto.Shared\Services\ProductServiceClient.cs:line 40
+   at BlazorAuto.Shared.Pages.Products.ProductList.OnInitializedAsync() in C:\Users\MadhusudhanV\source\repos\Smart\Source\Src\Presentation\BlazorAuto\BlazorAuto.Shared\Pages\Products\ProductList.razor:line 45
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.GetErrorHandledTask(Task taskToHandle, ComponentState owningComponentState)
+   
+   
+   
+
+
+
+controllerready
+serviceclient
+interface ready
+
+service on client project,then server
+
+
 Blazor and Clean Archi authentication integrated with login also completed,even google fine.
 Do Some cleanup on Blazor for extra repeated code.
 
