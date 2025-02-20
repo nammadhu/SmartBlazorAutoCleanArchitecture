@@ -1,3 +1,10 @@
+controllerready
+serviceclient
+interface ready
+
+service on client project,then server
+
+
 Blazor and Clean Archi authentication integrated with login also completed,even google fine.
 Do Some cleanup on Blazor for extra repeated code.
 

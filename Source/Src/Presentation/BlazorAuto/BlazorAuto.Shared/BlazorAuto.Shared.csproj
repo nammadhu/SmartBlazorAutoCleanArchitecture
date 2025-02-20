@@ -17,7 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\CleanArchitecture.Application\CleanArchitecture.Application.csproj" />
     <ProjectReference Include="..\..\..\Core\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
+    <ProjectReference Include="..\..\..\PublicCommon\PublicCommon.csproj" />
+    <ProjectReference Include="..\..\SharedResponse\SharedResponse.csproj" />
   </ItemGroup>
 
 </Project>

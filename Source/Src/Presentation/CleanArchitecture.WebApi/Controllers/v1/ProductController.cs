@@ -8,12 +8,15 @@ using CleanArchitecture.Domain.Products.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedResponse;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebApi.Controllers.v1;
 
+
+
 [ApiVersion("1")]
-public class ProductController(IMediator mediator) : BaseApiController(mediator)
+public class ProductController(IMediator mediator) : BaseApiController(mediator), IProduct
 {
 
     [HttpGet]
