@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using BlazorAuto.Shared;
 using BlazorAuto.Shared.Services;
 using BlazorAuto.Web.Client.Services;
-using BlazorAuto.Shared;
-using SharedResponse;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace BlazorAuto.Web.Client;
 
