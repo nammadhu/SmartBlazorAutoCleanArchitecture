@@ -20,23 +20,24 @@ namespace BlazorAuto.Shared.Services;
 public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProduct
 {
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient(PublicCommon.CONSTANTS.ClientAnonymous);
+    const string apiKey = "api/v1/product/";
 
-  
+
     public async Task<BaseResult<long>> CreateProduct(CreateProductCommand model)
     {
-        var response = await _httpClient.PostAsJsonAsync("api/product", model);
+        var response = await _httpClient.PostAsJsonAsync($"{apiKey}{nameof(IProduct.CreateProduct)}", model);
         return await response.Content.ReadFromJsonAsync<long>();
     }
 
     public async Task<BaseResult> DeleteProduct(DeleteProductCommand model)
     {
-        var response = await _httpClient.DeleteAsync($"api/product/{model.Id}");
+        var response = await _httpClient.DeleteAsync($"{apiKey}{nameof(IProduct.DeleteProduct)}?{nameof(DeleteProductCommand.Id)}={model.Id}");
         return await response.Content.ReadFromJsonAsync<BaseResult>();
     }
 
     public async Task<PagedResponse<ProductDto>> GetPagedListProduct(GetPagedListProductQuery model)
     {
-        var response = await _httpClient.GetAsync($"api/product?pagenumber={model.PageNumber}&pagesize={model.PageSize}");
+        var response = await _httpClient.GetAsync($"{apiKey}{nameof(IProduct.GetPagedListProduct)}?{nameof(GetPagedListProductQuery.PageNumber)}={model.PageNumber}&{nameof(GetPagedListProductQuery.PageSize)}={model.PageSize}");
         return await response.Content.ReadFromJsonAsync<PagedResponse<ProductDto>>();
     }
 
@@ -44,13 +45,13 @@ public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProdu
     
     public async Task<BaseResult<ProductDto>> GetProductById(GetProductByIdQuery model)
     {
-        var response = await _httpClient.GetAsync($"api/product/{model.Id}");
+        var response = await _httpClient.GetAsync($"{apiKey}{nameof(IProduct.GetProductById)}?{nameof(GetProductByIdQuery.Id)}={model.Id}");
         return await response.Content.ReadFromJsonAsync<ProductDto>();
     }
    
     public async Task<BaseResult> UpdateProduct(UpdateProductCommand model)
     {
-        var response = await _httpClient.PutAsJsonAsync("api/product", model);
+        var response = await _httpClient.PutAsJsonAsync($"{apiKey}{nameof(IProduct.UpdateProduct)}", model);
         return await response.Content.ReadFromJsonAsync<BaseResult>();
     }
 }
