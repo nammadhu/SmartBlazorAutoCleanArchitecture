@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /Source/Src/Presentation/BlazorAuto/BlazorAuto.Web/appsettings.Development.json
 /Source/Smart/Smart.Web/appsettings.Development.json
 /Source/Src/Presentation/Smart.Web/appsettings.Development.json
+/Source/Src/Presentation/CleanArchitecture.WebApi/appsettings.Development.json

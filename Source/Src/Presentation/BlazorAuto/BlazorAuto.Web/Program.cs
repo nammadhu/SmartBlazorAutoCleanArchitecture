@@ -60,6 +60,10 @@ public class Program
         builder.Services.AddResourcesInfrastructure();
         builder.Services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
         builder.Services.AddControllers();
+
+        builder.Services.AddMemoryCache();  // Add MemoryCache
+        builder.Services.AddResponseCaching(); // Add ResponseCaching
+
         builder.Services.AddVersioning();
         builder.Services.AddFluentValidationAutoValidation();
         builder.Services.AddSwaggerWithVersioning();
@@ -123,6 +127,9 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseAntiforgery();
+
+        app.UseResponseCaching();// Add ResponseCaching middleware
+
         app.UseSwaggerWithVersioning();
         app.UseMiddleware<ErrorHandlerMiddleware>();
         app.UseHealthChecks("/health");

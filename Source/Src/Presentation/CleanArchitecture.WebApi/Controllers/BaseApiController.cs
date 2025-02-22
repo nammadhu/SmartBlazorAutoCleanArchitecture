@@ -1,6 +1,7 @@
 using CleanArchitecture.WebApi.Infrastructure.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArchitecture.WebApi.Controllers;
@@ -11,6 +12,7 @@ namespace CleanArchitecture.WebApi.Controllers;
 public abstract class BaseApiController : ControllerBase
 {
     private IMediator _mediator;
+    private readonly IMemoryCache _cache;
     protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
     protected BaseApiController()
@@ -21,5 +23,11 @@ public abstract class BaseApiController : ControllerBase
     protected BaseApiController(IMediator mediator)
     {
         _mediator ??= mediator;
+    }
+
+    protected BaseApiController(IMediator mediator, IMemoryCache cache)
+    {
+        _mediator ??= mediator;
+        _cache = cache;
     }
 }

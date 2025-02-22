@@ -33,6 +33,10 @@ builder.Services.AddIdentityInfrastructure(builder.Configuration, useInMemoryDat
 builder.Services.AddResourcesInfrastructure();
 builder.Services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
 builder.Services.AddControllers();
+
+builder.Services.AddMemoryCache();  // Add MemoryCache
+builder.Services.AddResponseCaching(); // Add ResponseCaching
+
 builder.Services.AddVersioning();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddSwaggerWithVersioning();
@@ -68,6 +72,8 @@ app.UseAuthorization();
 app.UseSwaggerWithVersioning();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHealthChecks("/health");
+
+app.UseResponseCaching();// Add ResponseCaching middleware
 app.MapControllers();
 app.UseSerilogRequestLogging();
 
