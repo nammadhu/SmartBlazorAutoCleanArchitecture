@@ -49,7 +49,7 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
         {
             var result = await Mediator.Send(model);
             return result.Data.ToList();
-        });
+        },TimeSpan.FromHours(12));
 
         // Filter and page the cached list as needed
         var pagedList = cachedList.Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToList();
