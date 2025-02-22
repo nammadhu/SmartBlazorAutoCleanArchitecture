@@ -18,6 +18,8 @@ namespace CleanArchitecture.WebApi.Controllers.v1;
 [ApiVersion("1")]
 public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApiController(mediator, cache), IProduct
 {
+    private const string CacheKey = "Products";
+
     [HttpGet]
     public string TestCache()
     {
@@ -31,11 +33,17 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
         return $"am from cache:{l1}";
     }
     [HttpGet]
+    public async Task<PagedResponse<ProductDto>> GetPagedListProductWithOutCache([FromQuery] GetPagedListProductQuery model)
+    => await Mediator.Send(model);
+
+    [HttpGet]
     public async Task<PagedResponse<ProductDto>> GetPagedListProduct([FromQuery] GetPagedListProductQuery model)
     {
-        cache.TryGetValue("last",out string l1);
-        cache.Set("last", DateTime.Now.ToString());
-     return   await Mediator.Send(model);
+        var cacheKey = $"{CacheKey}_Paged_{model.PageNumber}_{model.PageSize}";
+        return await GetOrSetCachedPagedResponseAsync(cacheKey, async () =>
+        {
+            return await Mediator.Send(model);
+        });
     }
 
     [HttpGet]
