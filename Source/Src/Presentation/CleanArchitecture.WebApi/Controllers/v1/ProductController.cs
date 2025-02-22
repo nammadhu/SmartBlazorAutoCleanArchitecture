@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using SharedResponse;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebApi.Controllers.v1;
@@ -19,6 +20,10 @@ namespace CleanArchitecture.WebApi.Controllers.v1;
 public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApiController(mediator, cache), IProduct
 {
     private const string CacheKey = "Products";
+
+    [HttpGet]
+    public async Task<BaseResult<ProductDto>> GetProductByIdWithOutCache([FromQuery] GetProductByIdQuery model)
+  => await Mediator.Send(model);
 
     [HttpGet]
     public string TestCache()
@@ -32,27 +37,58 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
         }
         return $"am from cache:{l1}";
     }
-    [HttpGet]
-    public async Task<PagedResponse<ProductDto>> GetPagedListProductWithOutCache([FromQuery] GetPagedListProductQuery model)
+    [HttpGet]//No Cache
+    public async Task<PagedResponse<ProductDto>> GetPagedListProduct([FromQuery] GetPagedListProductQuery model)
     => await Mediator.Send(model);
 
-    [HttpGet]
-    public async Task<PagedResponse<ProductDto>> GetPagedListProduct([FromQuery] GetPagedListProductQuery model)
+    [HttpGet]//with cache
+    public async Task<PagedResponse<ProductDto>> GetAllProductList([FromQuery] GetPagedListProductQuery model)
     {
-        var cacheKey = $"{CacheKey}_Paged_{model.PageNumber}_{model.PageSize}";
-        return await GetOrSetCachedPagedResponseAsync(cacheKey, async () =>
+        model.Name = string.Empty;
+        var cachedList = await GetOrSetCachedListAsync(CacheKey, async () =>
         {
-            return await Mediator.Send(model);
+            var result = await Mediator.Send(model);
+            return result.Data.ToList();
         });
+
+        // Filter and page the cached list as needed
+        var pagedList = cachedList.Skip((model.PageNumber - 1) * model.PageSize).Take(model.PageSize).ToList();
+        return new PagedResponse<ProductDto>() { Data = pagedList, PageNumber = model.PageNumber, PageSize = model.PageSize };
     }
+
 
     [HttpGet]
     public async Task<BaseResult<ProductDto>> GetProductById([FromQuery] GetProductByIdQuery model)
-        => await Mediator.Send(model);
+    {
+        //var cachedList = GetCachedList<ProductDto>(CacheKey);
+        //var product = cachedList.FirstOrDefault(p => p.Id == model.Id);
+        //instead of doing ,passing Func to baseapi as below
+        var product = GetItemFromCachedList<ProductDto>(CacheKey, p => p.Id == model.Id);
+
+        if (product != null)
+        {
+            return product;
+        }
+
+        var result = await Mediator.Send(model);
+        var cachedList = GetCachedList<ProductDto>(CacheKey);
+        cachedList.Add(result.Data);
+        SetOptimizedCachedItem(CacheKey, cachedList);
+        return result;
+    }
 
     [HttpPost, Authorize]
-    public async Task<BaseResult<long>> CreateProduct(CreateProductCommand model)
-        => await Mediator.Send(model);
+    public async Task<BaseResult<long>> CreateProduct(CreateProductCommand model) => await Mediator.Send(model);
+    //{
+    //    var result = await Mediator.Send(model);
+
+    //    // Add the newly created product to the cached list
+    //    var cachedList = GetCachedList<ProductDto>(CacheKey);
+    //    cachedList.Add(result.Data);
+    //    SetOptimizedCachedList(CacheKey, cachedList);
+
+    //    return result;
+    //}
 
     [HttpPut, Authorize]
     public async Task<BaseResult> UpdateProduct(UpdateProductCommand model)
@@ -60,6 +96,13 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
 
     [HttpDelete, Authorize]
     public async Task<BaseResult> DeleteProduct([FromQuery] DeleteProductCommand model)
-        => await Mediator.Send(model);
+    {
+        var result = await Mediator.Send(model);
+
+        // Remove item from cache
+        RemoveFromCachedList<ProductDto>(CacheKey, item => item.Id == model.Id);
+
+        return result;
+    }
 
 }

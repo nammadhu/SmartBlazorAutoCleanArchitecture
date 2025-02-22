@@ -56,6 +56,13 @@ public abstract class BaseApiController : ControllerBase
         return cachedList ?? new List<T>();
     }
 
+    // Get single item from cached list using a lambda predicate
+    protected T GetItemFromCachedList<T>(string cacheKey, Func<T, bool> predicate)
+    {
+        var cachedList = GetCachedList<T>(cacheKey);
+        return cachedList.FirstOrDefault(predicate);
+    }
+
     // Cache data retrieval and setting with optimization
     protected async Task<T> GetOrSetCachedResponse<T>(string cacheKey, Func<Task<T>> getDataFunc, TimeSpan? expiration = null)
     {
