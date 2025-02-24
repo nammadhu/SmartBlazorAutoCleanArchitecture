@@ -1,3 +1,21 @@
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllers();
+    services.AddNubeSyncServer(options =>
+    {
+        options.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+    });
+}
+
+
+1 client caching
+Sqlite with efcore and syncups
+
+adding one more entity,component
+signalr ,changes
+
+video of how to make pdf from docx
+
   Unhandled exception rendering component: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
 System.Text.Json.JsonException: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
  ---> System.Text.Json.JsonReaderException: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
