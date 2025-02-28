@@ -1,3 +1,10 @@
+currently sync working only for client side if on server then gives error. so make on server it should not appear, on wasm automatically should sync on timely basis.
+on navmenu hide on server mode also will be easy n quick
+
+neeed to add background services features..
+GetAllProducts change,currently its taking only paginated data
+
+
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddControllers();

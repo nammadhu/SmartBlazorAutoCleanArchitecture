@@ -40,9 +40,13 @@ public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProdu
         var response = await _httpClient.GetAsync($"{apiKey}{nameof(IProduct.GetPagedListProduct)}?{nameof(GetPagedListProductQuery.PageNumber)}={model.PageNumber}&{nameof(GetPagedListProductQuery.PageSize)}={model.PageSize}");
         return await response.Content.ReadFromJsonAsync<PagedResponse<ProductDto>>();
     }
+    public async Task<PagedResponse<ProductDto>> GetAllProductList(GetPagedListProductQuery model)
+    {
+        var response = await _httpClient.GetAsync($"{apiKey}{nameof(IProduct.GetAllProductList)}?{nameof(GetPagedListProductQuery.PageNumber)}={model.PageNumber}&{nameof(GetPagedListProductQuery.PageSize)}={model.PageSize}");
+        return await response.Content.ReadFromJsonAsync<PagedResponse<ProductDto>>();
+    }
 
-   
-    
+
     public async Task<BaseResult<ProductDto>> GetProductById(GetProductByIdQuery model)
     {
         var response = await _httpClient.GetAsync($"{apiKey}{nameof(IProduct.GetProductById)}?{nameof(GetProductByIdQuery.Id)}={model.Id}");
@@ -54,5 +58,6 @@ public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProdu
         var response = await _httpClient.PutAsJsonAsync($"{apiKey}{nameof(IProduct.UpdateProduct)}", model);
         return await response.Content.ReadFromJsonAsync<BaseResult>();
     }
+
 }
 

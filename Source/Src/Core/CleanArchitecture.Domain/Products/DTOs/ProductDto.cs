@@ -24,5 +24,6 @@ namespace CleanArchitecture.Domain.Products.DTOs
         public double Price { get; set; }
         public string BarCode { get; set; }
         public DateTime CreatedDateTime { get; set; }
+        public DateTime? LastModified { get; set; }
     }
 }

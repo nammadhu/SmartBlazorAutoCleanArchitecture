@@ -5,7 +5,7 @@
 @using CleanArchitecture.Application.Features.Products.Commands.DeleteProduct
 @using BlazorAuto.Shared.Services
 @using SharedResponse
-@inject IProduct ProductService
+@inject IProduct productService
 
 <h3>Product List</h3>
 
@@ -42,17 +42,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        products = (await ProductService.GetPagedListProduct(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
+        products = (await productService.GetPagedListProduct(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
     }
 
     private async Task EditProduct(long id)
     {
-        await ProductService.UpdateProduct(new UpdateProductCommand() { Id = id });
+        await productService.UpdateProduct(new UpdateProductCommand() { Id = id });
     }
 
     private async Task DeleteProduct(long id)
     {
-        await ProductService.DeleteProduct(new DeleteProductCommand() {Id=id });
-        products = (await ProductService.GetPagedListProduct(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
+        await productService.DeleteProduct(new DeleteProductCommand() {Id=id });
+        products = (await productService.GetPagedListProduct(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
     }
 }
