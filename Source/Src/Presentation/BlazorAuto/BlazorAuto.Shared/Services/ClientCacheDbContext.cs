@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 namespace BlazorAuto.Shared.Services;
 
 
-public class AppDbContext : DbContext
+public class ClientCacheDbContext : DbContext
 {
     public DbSet<ProductDto> Products { get; set; }
 
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public ClientCacheDbContext(DbContextOptions<ClientCacheDbContext> options) : base(options)
     {
         Database.EnsureCreated(); // Ensure the database and tables are created
     }

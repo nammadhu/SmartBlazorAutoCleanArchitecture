@@ -14,13 +14,14 @@ public class GetProductByIdQueryHandlerTests
     public async Task Handle_ProductExists_ReturnsSuccessResultWithProductDto()
     {
         // Arrange
+        CancellationTokenSource cancellationTokenSource = new();
         var productId = 1;
         var productName = "Test Product";
         var productPrice = 1000;
         var productBarCode = "123456789";
 
         var productRepositoryMock = new Mock<IProductRepository>();
-        productRepositoryMock.Setup(repo => repo.GetByIdAsync(It.IsAny<long>()))
+        productRepositoryMock.Setup(repo => repo.GetByIdAsync(It.IsAny<long>(), cancellationTokenSource.Token))
                              .ReturnsAsync(new Product(productName, productPrice, productBarCode) { Id = productId });
 
         var translatorMock = new Mock<ITranslator>();
@@ -30,7 +31,7 @@ public class GetProductByIdQueryHandlerTests
         var query = new GetProductByIdQuery { Id = productId };
 
         // Act
-        var result = await handler.Handle(query, CancellationToken.None);
+        var result = await handler.Handle(query, cancellationTokenSource.Token);
 
         // Assert
         result.ShouldNotBeNull();
@@ -47,9 +48,9 @@ public class GetProductByIdQueryHandlerTests
     {
         // Arrange
         var productId = 1;
-
+        CancellationTokenSource cancellationTokenSource = new();
         var productRepositoryMock = new Mock<IProductRepository>();
-        productRepositoryMock.Setup(repo => repo.GetByIdAsync(productId));
+        productRepositoryMock.Setup(repo => repo.GetByIdAsync(productId,cancellationTokenSource.Token));
 
         var translatorMock = new Mock<ITranslator>();
         translatorMock.Setup(translator => translator.GetString(It.IsAny<string>()))
@@ -60,7 +61,7 @@ public class GetProductByIdQueryHandlerTests
         var query = new GetProductByIdQuery { Id = productId };
 
         // Act
-        var result = await handler.Handle(query, CancellationToken.None);
+        var result = await handler.Handle(query, cancellationTokenSource.Token);
 
         // Assert
         result.ShouldNotBeNull();

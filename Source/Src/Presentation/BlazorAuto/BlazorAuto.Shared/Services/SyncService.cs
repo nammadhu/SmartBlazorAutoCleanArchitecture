@@ -11,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using SharedResponse;
 
 namespace BlazorAuto.Shared.Services;
-public class SyncService( AppDbContext dbContext, IProduct productService)
+public class SyncService( ClientCacheDbContext dbContext, IProduct productService)
 {
     //IHttpClientFactory httpClientFactory,
     //private readonly HttpClient _httpClient = httpClientFactory.CreateClient(PublicCommon.CONSTANTS.ClientAnonymous);
-    private readonly AppDbContext _dbContext = dbContext;
+    private readonly ClientCacheDbContext _dbContext = dbContext;
     public async Task SyncDataAsync()
     {
         var response=await productService.GetPagedListProductNoCache(new GetPagedListProductQuery());

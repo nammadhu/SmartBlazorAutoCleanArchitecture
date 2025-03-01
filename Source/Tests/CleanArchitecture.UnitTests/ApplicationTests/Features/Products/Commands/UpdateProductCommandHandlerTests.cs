@@ -14,13 +14,14 @@ public class UpdateProductCommandHandlerTests
     public async Task Handle_ProductExists_ReturnsSuccessResult()
     {
         // Arrange
+        CancellationTokenSource cancellationTokenSource = new();
         var productId = 1;
         var productName = "Updated Product";
         var productPrice = 1500;
         var productBarCode = "987654321";
 
         var productRepositoryMock = new Mock<IProductRepository>();
-        productRepositoryMock.Setup(repo => repo.GetByIdAsync(It.IsAny<long>()))
+        productRepositoryMock.Setup(repo => repo.GetByIdAsync(It.IsAny<long>(), cancellationTokenSource.Token))
                              .ReturnsAsync(new Product("", 100, "") { Id = productId });
 
         var unitOfWorkMock = new Mock<IUnitOfWork>();
@@ -37,24 +38,25 @@ public class UpdateProductCommandHandlerTests
         };
 
         // Act
-        var result = await handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(command, cancellationTokenSource.Token);
 
         // Assert
         result.ShouldNotBeNull();
         result.Success.ShouldBeTrue();
 
-        productRepositoryMock.Verify(repo => repo.GetByIdAsync(It.IsAny<long>()), Times.Once);
-        unitOfWorkMock.Verify(unit => unit.SaveChangesAsync(), Times.Once);
+        productRepositoryMock.Verify(repo => repo.GetByIdAsync(It.IsAny<long>(), cancellationTokenSource.Token), Times.Once);
+        unitOfWorkMock.Verify(unit => unit.SaveChangesAsync(cancellationTokenSource.Token), Times.Once);
     }
 
     [Fact]
     public async Task Handle_ProductNotExists_ReturnsNotFoundResult()
     {
         // Arrange
+        CancellationTokenSource cancellationTokenSource = new();
         var productId = 1;
 
         var productRepositoryMock = new Mock<IProductRepository>();
-        productRepositoryMock.Setup(repo => repo.GetByIdAsync(productId));
+        productRepositoryMock.Setup(repo => repo.GetByIdAsync(productId, cancellationTokenSource.Token));
 
         var unitOfWorkMock = new Mock<IUnitOfWork>();
         var translatorMock = new Mock<ITranslator>();
@@ -66,7 +68,7 @@ public class UpdateProductCommandHandlerTests
         var command = new UpdateProductCommand { Id = productId };
 
         // Act
-        var result = await handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(command, cancellationTokenSource.Token);
 
         // Assert
         result.ShouldNotBeNull();
@@ -74,6 +76,6 @@ public class UpdateProductCommandHandlerTests
         result.Errors.ShouldContain(err => err.ErrorCode == ErrorCode.NotFound);
 
         productRepositoryMock.Verify(repo => repo.Update(It.IsAny<Product>()), Times.Never);
-        unitOfWorkMock.Verify(unit => unit.SaveChangesAsync(), Times.Never);
+        unitOfWorkMock.Verify(unit => unit.SaveChangesAsync(cancellationTokenSource.Token), Times.Never);
     }
 }

@@ -16,8 +16,8 @@ public static class DIClientRender
     {
         services.AddScoped<IProduct, ProductServiceClient>();
 
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlite("Filename=BlazorApp.db"));//on client browser memory
+        services.AddDbContext<ClientCacheDbContext>(options =>
+            options.UseSqlite("Filename=SmartClientCache.db"));//on client browser memory
 
         services.AddScoped<SyncService>();
 

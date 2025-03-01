@@ -13,6 +13,7 @@ public class GetPagedListProductQueryHandlerTests
     public async Task Handle_ReturnsPagedListResponse()
     {
         // Arrange
+        CancellationTokenSource cancellationTokenSource = new();
         var pageNumber = 1;
         var pageSize = 10;
         var productName = "Test Product";
@@ -24,12 +25,12 @@ public class GetPagedListProductQueryHandlerTests
             };
 
         var productRepositoryMock = new Mock<IProductRepository>();
-        productRepositoryMock.Setup(repo => repo.GetPagedListAsync(pageNumber, pageSize, productName,false))
+        productRepositoryMock.Setup(repo => repo.GetPagedListAsync(pageNumber, pageSize, productName,false, null,cancellationTokenSource.Token))
                              .ReturnsAsync(new PaginationResponseDto<ProductDto>(products, 100, pageNumber, pageSize));
 
         var handler = new GetPagedListProductQueryHandler(productRepositoryMock.Object);
 
-        var query = new GetLatestProductQuery
+        var query = new GetPagedListProductQuery
         {
             PageNumber = pageNumber,
             PageSize = pageSize,
@@ -37,7 +38,7 @@ public class GetPagedListProductQueryHandlerTests
         };
 
         // Act
-        var result = await handler.Handle(query, CancellationToken.None);
+        var result = await handler.Handle(query, cancellationTokenSource.Token);
 
         // Assert
         result.ShouldNotBeNull();
