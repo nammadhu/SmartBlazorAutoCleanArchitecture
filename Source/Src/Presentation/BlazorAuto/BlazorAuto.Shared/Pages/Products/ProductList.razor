@@ -42,7 +42,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        products = (await productService.GetPagedListProduct(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
+        products = (await productService.GetPagedListProductNoCache(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
     }
 
     private async Task EditProduct(long id)
@@ -53,6 +53,6 @@ else
     private async Task DeleteProduct(long id)
     {
         await productService.DeleteProduct(new DeleteProductCommand() {Id=id });
-        products = (await productService.GetPagedListProduct(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
+        products = (await productService.GetPagedListProductNoCache(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
     }
 }

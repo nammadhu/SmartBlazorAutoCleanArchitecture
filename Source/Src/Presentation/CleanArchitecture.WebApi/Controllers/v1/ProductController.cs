@@ -21,10 +21,7 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
 {
     private const string CacheKey = "Products";
 
-    [HttpGet]
-    public async Task<BaseResult<ProductDto>> GetProductByIdWithOutCache([FromQuery] GetProductByIdQuery model)
-  => await Mediator.Send(model);
-
+   
     [HttpGet]
     public string TestCache()
     {
@@ -38,11 +35,11 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
         return $"am from cache:{l1}";
     }
     [HttpGet]//No Cache
-    public async Task<PagedResponse<ProductDto>> GetPagedListProduct([FromQuery] GetPagedListProductQuery model)
+    public async Task<PagedResponse<ProductDto>> GetPagedListProductNoCache([FromQuery] GetPagedListProductQuery model)
     => await Mediator.Send(model);
 
     [HttpGet]
-    public async Task<PagedResponse<ProductDto>> GetPagedListProductWithCache([FromQuery] GetPagedListProductQuery model)
+    public async Task<PagedResponse<ProductDto>> GetPagedListProduct([FromQuery] GetPagedListProductQuery model)
     { //TODO change to ALL
         model.Name = string.Empty;
         var cachedList = await GetOrSetCachedListAsync(CacheKey, async () =>
@@ -56,6 +53,10 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
         return new PagedResponse<ProductDto>() { Data = pagedList, PageNumber = model.PageNumber, PageSize = model.PageSize };
     }
 
+
+    [HttpGet]
+    public async Task<BaseResult<ProductDto>> GetProductByIdNoCache([FromQuery] GetProductByIdQuery model)
+ => await Mediator.Send(model);
 
     [HttpGet]
     public async Task<BaseResult<ProductDto>> GetProductById([FromQuery] GetProductByIdQuery model)

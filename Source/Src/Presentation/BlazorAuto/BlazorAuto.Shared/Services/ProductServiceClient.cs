@@ -35,11 +35,11 @@ public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProdu
         return await response.Content.ReadFromJsonAsync<BaseResult>();
     }
 
-    public async Task<PagedResponse<ProductDto>> GetPagedListProduct(GetPagedListProductQuery model)
-     => await ParameterApprend(model, nameof(IProduct.GetPagedListProduct));
+    public async Task<PagedResponse<ProductDto>> GetPagedListProductNoCache(GetPagedListProductQuery model)
+     => await ParameterApprend(model, nameof(IProduct.GetPagedListProductNoCache));
 
-    public async Task<PagedResponse<ProductDto>> GetPagedListProductWithCache(GetPagedListProductQuery model)
-    => await ParameterApprend(model, nameof(IProduct.GetPagedListProductWithCache));
+    public async Task<PagedResponse<ProductDto>> GetPagedListProduct(GetPagedListProductQuery model)
+    => await ParameterApprend(model, nameof(IProduct.GetPagedListProduct));
 
     async Task<PagedResponse<ProductDto>> ParameterApprend(GetPagedListProductQuery model, string endpoint)
     {
@@ -51,7 +51,7 @@ public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProdu
         $"&{nameof(GetPagedListProductQuery.PageSize)}={model.PageSize}");
         return await response.Content.ReadFromJsonAsync<PagedResponse<ProductDto>>();
     }
-
+   
     public async Task<BaseResult<ProductDto>> GetProductById(GetProductByIdQuery model)
     {
         var response = await _httpClient.GetAsync($"{apiKey}{nameof(IProduct.GetProductById)}?{nameof(GetProductByIdQuery.Id)}={model.Id}");

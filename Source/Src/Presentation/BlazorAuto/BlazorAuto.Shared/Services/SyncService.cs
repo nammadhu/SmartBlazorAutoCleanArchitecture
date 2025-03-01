@@ -18,7 +18,7 @@ public class SyncService( AppDbContext dbContext, IProduct productService)
     private readonly AppDbContext _dbContext = dbContext;
     public async Task SyncDataAsync()
     {
-        var response=await productService.GetPagedListProductWithCache(new GetPagedListProductQuery());
+        var response=await productService.GetPagedListProductNoCache(new GetPagedListProductQuery());
         if (response != null)
         {
             foreach (var item in response.Data)
