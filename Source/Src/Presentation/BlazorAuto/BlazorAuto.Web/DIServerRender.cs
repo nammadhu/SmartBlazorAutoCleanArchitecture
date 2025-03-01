@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlazorAuto.Shared.Services;
+using BlazorAuto.Web.Services;
+using CleanArchitecture.Domain.Products.DTOs;
 using CleanArchitecture.WebApi.Controllers.v1;
 using Microsoft.Extensions.DependencyInjection;
 using SharedResponse;
@@ -15,6 +17,8 @@ public static class DIServerRender
     public static void AddDependencyInjectionServerRender(this IServiceCollection services)
     {
         services.AddScoped<IProduct, ProductController>();
+        services.AddScoped<IOfflineSyncService<ProductDto>, ProductOfflineSyncServiceNothing>();
+        
     }
 
 }

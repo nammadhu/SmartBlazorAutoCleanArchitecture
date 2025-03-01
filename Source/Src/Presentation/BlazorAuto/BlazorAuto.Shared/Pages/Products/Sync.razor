@@ -1,17 +1,35 @@
 ﻿@page "/sync"
-@inject ProductOfflineSyncService SyncService
+@using SharedResponse
+@inject IOfflineSyncService<ProductDto> SyncService
 
-<button @onclick="SyncData">Sync Data</button>
 
-<ProductList></ProductList>
+@if (FormFactor.IsClientRender)
+{
+	<h3>Press here to sync data for offline & refresh</h3>
+	<button @onclick="SyncData">Offline Sync Products</button>
+}
+else
+{
+	<h3>Now Server Render so Offline Sync not available</h3>
+}
+<button @onclick="GetData">Check Offline Products</button>
+<ProductList products="@products"></ProductList>
 
 @code {
-	private async Task SyncData()
+	List<ProductDto> products=[];
+
+	async Task SyncData()
 	{
 		var modifiedResult = await SyncService.SyncDataAsync();
 		if (modifiedResult)
 		{//TODO on change we need to re show the updated component
 			StateHasChanged();
 		}
+	}
+
+	async Task GetData()
+	{
+		products = await SyncService.GetDataAsync();
+		StateHasChanged();
 	}
 }

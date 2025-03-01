@@ -10,7 +10,14 @@ public class ClientCacheDbContext : DbContext
 
     public ClientCacheDbContext(DbContextOptions<ClientCacheDbContext> options) : base(options)
     {
-        Database.EnsureCreated(); // Ensure the database and tables are created
+        if (Database.GetPendingMigrations().Any())
+        {
+            Database.Migrate();
+        }
+        else
+        {
+            Database.EnsureCreated();
+        }
     }
 }
 
