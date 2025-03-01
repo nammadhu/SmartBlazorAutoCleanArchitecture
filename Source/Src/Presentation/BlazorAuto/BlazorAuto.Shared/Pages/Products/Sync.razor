@@ -1,7 +1,8 @@
 ﻿@page "/sync"
-@inject SyncService SyncService
+@inject ProductOfflineSyncService SyncService
 
 <button @onclick="SyncData">Sync Data</button>
+<ProductList></ProductList>
 
 @code {
     private async Task SyncData()

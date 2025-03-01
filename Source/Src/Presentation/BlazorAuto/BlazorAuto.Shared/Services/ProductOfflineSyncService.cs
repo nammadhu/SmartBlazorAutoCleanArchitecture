@@ -1,34 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
-using CleanArchitecture.Domain.Products.DTOs;
+﻿using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
 using Microsoft.EntityFrameworkCore;
 using SharedResponse;
 
 namespace BlazorAuto.Shared.Services;
-public class SyncService( ClientCacheDbContext dbContext, IProduct productService)
+public class ProductOfflineSyncService(ClientCacheDbContext _dbContext, IProduct productService)
 {
-    //IHttpClientFactory httpClientFactory,
-    //private readonly HttpClient _httpClient = httpClientFactory.CreateClient(PublicCommon.CONSTANTS.ClientAnonymous);
-    private readonly ClientCacheDbContext _dbContext = dbContext;
     public async Task SyncDataAsync()
     {
-        var response=await productService.GetPagedListProductNoCache(new GetPagedListProductQuery());
-        if (response != null)
+        DateTime? latestTimestamp = await _dbContext.Products.AnyAsync() ?
+                         //.Select(x => new { CreatedDateTime = x.CreatedDateTime, LastModified = x.LastModified ?? DateTime.MinValue })
+                         await _dbContext.Products.MaxAsync(x => x.CreatedDateTime) : DateTime.MinValue;
+
+        var response = await productService.GetPagedListProductNoCache(new GetPagedListProductQuery()
+        { MinDateTimeToFetch = latestTimestamp });
+        if (response?.Success == true && response.Data.Count != 0)
         {
             foreach (var item in response.Data)
             {
-                var existingItem = await _dbContext.Products
-                    .FirstOrDefaultAsync(i => i.Id == item.Id);
+                var existingItem = await _dbContext.Products.FirstOrDefaultAsync(i => i.Id == item.Id);
                 if (existingItem == null)
-                {
                     await _dbContext.Products.AddAsync(item);
-                }
                 else
                 {
                     existingItem.Name = item.Name;

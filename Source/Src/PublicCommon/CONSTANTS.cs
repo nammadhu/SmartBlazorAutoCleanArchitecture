@@ -58,6 +58,11 @@ namespace PublicCommon
 
     public static class CONSTANTS
     {
+        //BELOW ARE CURRENTLY NEWLY USING
+        public static readonly string WebAssembly = "WebAssembly";
+        public static readonly string Web = "Web";
+        //ABOVE ARE CURRENTLY NEWLY USING
+
         public const string UrlMain = "https://smarttown.in";
         public static readonly TimeSpan Default_MaxCacheTimeSpan = TimeSpan.FromDays(15);
         public static readonly TimeSpan Default_MinCacheTimeSpan = TimeSpan.FromHours(6);

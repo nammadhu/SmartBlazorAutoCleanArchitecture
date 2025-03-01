@@ -19,7 +19,7 @@ public static class DIClientRender
         services.AddDbContext<ClientCacheDbContext>(options =>
             options.UseSqlite("Filename=SmartClientCache.db"));//on client browser memory
 
-        services.AddScoped<SyncService>();
+        services.AddScoped<ProductOfflineSyncService>();
 
 
         services.AddMemoryCache();

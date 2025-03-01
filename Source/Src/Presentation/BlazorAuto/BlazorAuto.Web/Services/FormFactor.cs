@@ -1,4 +1,5 @@
 using BlazorAuto.Shared.Services;
+using PublicCommon;
 
 namespace BlazorAuto.Web.Services;
 
@@ -6,7 +7,7 @@ public class FormFactor : IFormFactor
 {
     public string GetFormFactor()
     {
-        return "Web";
+        return CONSTANTS.Web;
     }
 
     public string GetPlatform()

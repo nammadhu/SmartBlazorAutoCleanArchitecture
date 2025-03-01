@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
 public class GenericRepository<T>(DbContext dbContext) : IGenericRepository<T> where T : class, IAuditableBaseEntity
-{
+{ 
     public virtual async Task<T> GetByIdAsync(object id, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Set<T>().FindAsync(id, cancellationToken);
+        return await dbContext.Set<T>().FindAsync(new object[] { id, cancellationToken }, cancellationToken: cancellationToken);
     }
 
     public async Task<T> AddAsync(T entity,CancellationToken cancellationToken = default)

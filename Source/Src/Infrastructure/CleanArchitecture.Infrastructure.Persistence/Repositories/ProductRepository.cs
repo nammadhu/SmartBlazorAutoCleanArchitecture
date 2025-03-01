@@ -22,8 +22,11 @@ public class ProductRepository(ApplicationDbContext dbContext) : GenericReposito
             query = query.Where(p => p.Name.Contains(name));
         }
 
-        if (minDateTimeToFetch.HasValue)
-            query = query.Where(x => x.Created > minDateTimeToFetch || (x.LastModified.HasValue && x.LastModified.Value > minDateTimeToFetch));
+        if (minDateTimeToFetch.HasValue && minDateTimeToFetch.Value > DateTime.MinValue)
+        {
+            minDateTimeToFetch = minDateTimeToFetch.Value.AddSeconds(1);
+            query = query.Where(x => x.Created >= minDateTimeToFetch.Value || (x.LastModified.HasValue && x.LastModified.Value >= minDateTimeToFetch));
+        }
 
         return await Paged(
                 query.Select(p => new ProductDto(p)),
