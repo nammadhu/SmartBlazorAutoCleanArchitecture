@@ -24,12 +24,12 @@ public class GetPagedListProductQueryHandlerTests
             };
 
         var productRepositoryMock = new Mock<IProductRepository>();
-        productRepositoryMock.Setup(repo => repo.GetPagedListAsync(pageNumber, pageSize, productName))
+        productRepositoryMock.Setup(repo => repo.GetPagedListAsync(pageNumber, pageSize, productName,false))
                              .ReturnsAsync(new PaginationResponseDto<ProductDto>(products, 100, pageNumber, pageSize));
 
         var handler = new GetPagedListProductQueryHandler(productRepositoryMock.Object);
 
-        var query = new GetPagedListProductQuery
+        var query = new GetLatestProductQuery
         {
             PageNumber = pageNumber,
             PageSize = pageSize,

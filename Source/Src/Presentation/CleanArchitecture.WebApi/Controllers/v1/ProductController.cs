@@ -41,9 +41,9 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
     public async Task<PagedResponse<ProductDto>> GetPagedListProduct([FromQuery] GetPagedListProductQuery model)
     => await Mediator.Send(model);
 
-    [HttpGet]//with cache
-    public async Task<PagedResponse<ProductDto>> GetAllProductList([FromQuery] GetPagedListProductQuery model)
-    {
+    [HttpGet]
+    public async Task<PagedResponse<ProductDto>> GetPagedListProductWithCache([FromQuery] GetPagedListProductQuery model)
+    { //TODO change to ALL
         model.Name = string.Empty;
         var cachedList = await GetOrSetCachedListAsync(CacheKey, async () =>
         {

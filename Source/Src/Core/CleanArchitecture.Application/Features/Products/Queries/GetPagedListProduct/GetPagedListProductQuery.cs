@@ -1,3 +1,4 @@
+using System;
 using CleanArchitecture.Application.Parameters;
 using CleanArchitecture.Application.Wrappers;
 using CleanArchitecture.Domain.Products.DTOs;
@@ -8,4 +9,8 @@ namespace CleanArchitecture.Application.Features.Products.Queries.GetPagedListPr
 public class GetPagedListProductQuery : PaginationRequestParameter, IRequest<PagedResponse<ProductDto>>
 {
     public string Name { get; set; }
+
+    public bool GetTotalCount { get; set; }
+
+    public DateTime? MinDateTimeToFetch { get; set; } //= DateTime.Now;
 }

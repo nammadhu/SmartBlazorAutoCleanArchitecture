@@ -1,0 +1,11 @@
+﻿@page "/sync"
+@inject SyncService SyncService
+
+<button @onclick="SyncData">Sync Data</button>
+
+@code {
+    private async Task SyncData()
+    {
+        await SyncService.SyncDataAsync();
+    }
+}

@@ -14,8 +14,8 @@ public class CreateProductCommandHandler(IProductRepository productRepository, I
     {
         var product = new Product(request.Name, request.Price, request.BarCode);
 
-        await productRepository.AddAsync(product);
-        await unitOfWork.SaveChangesAsync();
+        await productRepository.AddAsync(product, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return product.Id;
     }

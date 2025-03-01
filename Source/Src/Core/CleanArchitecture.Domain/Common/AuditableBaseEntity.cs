@@ -2,7 +2,15 @@
 
 namespace CleanArchitecture.Domain.Common
 {
-    public abstract class AuditableBaseEntity<TKey> : BaseEntity<TKey>
+    public interface IAuditableBaseEntity
+    {
+        DateTime Created { get; set; }
+        Guid CreatedBy { get; set; }
+        DateTime? LastModified { get; set; }
+        Guid? LastModifiedBy { get; set; }
+    }
+
+    public abstract class AuditableBaseEntity<TKey> : BaseEntity<TKey>, IAuditableBaseEntity
     {
         public Guid CreatedBy { get; set; }
         public DateTime Created { get; set; }
@@ -10,7 +18,7 @@ namespace CleanArchitecture.Domain.Common
         public DateTime? LastModified { get; set; }
     }
 
-    public abstract class AuditableBaseEntity : AuditableBaseEntity<long>
+    public abstract class AuditableBaseEntity : AuditableBaseEntity<long>, IAuditableBaseEntity
     {
     }
 }

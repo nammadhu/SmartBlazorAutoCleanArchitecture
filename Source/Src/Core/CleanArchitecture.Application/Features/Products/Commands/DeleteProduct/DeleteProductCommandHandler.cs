@@ -20,7 +20,7 @@ public class DeleteProductCommandHandler(IProductRepository productRepository, I
         }
 
         productRepository.Delete(product);
-        await unitOfWork.SaveChangesAsync();
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return BaseResult.Ok();
     }

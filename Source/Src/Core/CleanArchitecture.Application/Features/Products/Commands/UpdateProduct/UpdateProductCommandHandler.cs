@@ -12,7 +12,7 @@ public class UpdateProductCommandHandler(IProductRepository productRepository, I
 {
     public async Task<BaseResult> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await productRepository.GetByIdAsync(request.Id);
+        var product = await productRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (product is null)
         {
@@ -20,7 +20,7 @@ public class UpdateProductCommandHandler(IProductRepository productRepository, I
         }
 
         product.Update(request.Name, request.Price, request.BarCode);
-        await unitOfWork.SaveChangesAsync();
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return BaseResult.Ok();
     }

@@ -14,14 +14,14 @@ class Program
         // Add device-specific services used by the BlazorAuto.Shared project
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
         
-        builder.Services.AddDependencyInjectionCommon();
-        builder.Services.AddDependencyInjectionClientRender();
+        builder.Services.AddDependencyInjectionCommon();//server & client common
+        builder.Services.AddDependencyInjectionClientRender();//only client(wasm+MAUI apps)
    
 
         builder.Services.AddAuthorizationCore();
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddAuthenticationStateDeserialization();
-
+        
         //builder.Services.AddHttpClient<ProductServiceClient>("",client =>
         //{
         //    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);

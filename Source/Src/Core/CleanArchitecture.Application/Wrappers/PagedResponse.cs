@@ -20,8 +20,8 @@ public class PagedResponse<T> : BaseResult<List<T>>
             Data = model.Data,
             PageNumber = model.PageNumber,
             PageSize = model.PageSize,
-            TotalItems = model.Count,
-            TotalPages = (int)Math.Ceiling(model.Count / (double)model.PageSize)
+            TotalItems = model.TotalCount,
+            TotalPages = (int)Math.Ceiling(model.TotalCount / (double)model.PageSize)
         };
     }
 

@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application.Interfaces;
+using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ public abstract class BaseEfRepoTestFixture
         return builder.Options;
     }
 
-    protected GenericRepository<T> GetRepository<T>() where T : class
+    protected GenericRepository<T> GetRepository<T>() where T : class,IAuditableBaseEntity
     {
         return new GenericRepository<T>(dbContext);
     }
