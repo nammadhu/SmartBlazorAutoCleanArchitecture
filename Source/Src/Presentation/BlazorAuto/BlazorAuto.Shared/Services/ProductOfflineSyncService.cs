@@ -5,7 +5,7 @@ using SharedResponse;
 namespace BlazorAuto.Shared.Services;
 public class ProductOfflineSyncService(ClientCacheDbContext _dbContext, IProduct productService)
 {
-    public async Task SyncDataAsync()
+    public async Task<bool> SyncDataAsync()
     {
         DateTime? latestTimestamp = await _dbContext.Products.AnyAsync() ?
                          //.Select(x => new { CreatedDateTime = x.CreatedDateTime, LastModified = x.LastModified ?? DateTime.MinValue })
@@ -27,9 +27,10 @@ public class ProductOfflineSyncService(ClientCacheDbContext _dbContext, IProduct
                 }
             }
             await _dbContext.SaveChangesAsync();
+            return true;//modified
         }
-
-        /*
+        return false;//no modification
+        /* avoid api calls here ,instead do separately
         var response = await _httpClient.GetFromJsonAsync<List<ProductDto>>($"api/{nameof(IProduct.GetAllProductList)}");
         if (response != null)
         {

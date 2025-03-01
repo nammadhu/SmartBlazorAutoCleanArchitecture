@@ -2,11 +2,16 @@
 @inject ProductOfflineSyncService SyncService
 
 <button @onclick="SyncData">Sync Data</button>
+
 <ProductList></ProductList>
 
 @code {
-    private async Task SyncData()
-    {
-        await SyncService.SyncDataAsync();
-    }
+	private async Task SyncData()
+	{
+		var modifiedResult = await SyncService.SyncDataAsync();
+		if (modifiedResult)
+		{//TODO on change we need to re show the updated component
+			StateHasChanged();
+		}
+	}
 }

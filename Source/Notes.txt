@@ -1,3 +1,6 @@
+on press, sync working 
+but had to reshow 
+
 offline sync , polling
 signalr 
 
