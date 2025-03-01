@@ -1,4 +1,7 @@
+offline sync , polling
+signalr 
 
+readme update, 
 on clientside, wrt each like product,card had to maintain which was the last sync time
 
 add cancellation token for all palce wherever possible
