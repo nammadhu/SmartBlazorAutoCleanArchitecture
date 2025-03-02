@@ -1,0 +1,3 @@
+Curently authentication, or any http calls not happening i think
+
+added sqllite from shared project to here for offline sync but not tested as api call feature not yet enabled

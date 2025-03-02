@@ -78,7 +78,7 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
         return result;
     }
 
-    [HttpPost, Authorize]
+    [HttpPost]//, Authorize]
     public async Task<BaseResult<long>> CreateProduct(CreateProductCommand model) => await Mediator.Send(model);
     //{
     //    var result = await Mediator.Send(model);
@@ -91,7 +91,7 @@ public class ProductController(IMediator mediator, IMemoryCache cache) : BaseApi
     //    return result;
     //}
 
-    [HttpPut, Authorize]
+    [HttpPut]//, Authorize]
     public async Task<BaseResult> UpdateProduct(UpdateProductCommand model)
         => await Mediator.Send(model);
 
