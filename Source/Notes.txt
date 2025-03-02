@@ -1,3 +1,7 @@
+add signalr
+sync page
+readme update
+
 on press, sync working 
 but had to reshow 
 
