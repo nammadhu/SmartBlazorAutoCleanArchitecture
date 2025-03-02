@@ -5,8 +5,10 @@ namespace BlazorAuto.Web.Client.Services;
 
 public class FormFactor : IFormFactor
 {
-    public bool IsClientRender { get { return true; } }
-    public bool IsServerRender { get { return false; } }
+    public bool IsClientRender => true;
+    public bool IsServerRender => false;
+
+    public bool IsMAUI => false;
     public string GetFormFactor()
     {
         return CONSTANTS.WebAssembly;

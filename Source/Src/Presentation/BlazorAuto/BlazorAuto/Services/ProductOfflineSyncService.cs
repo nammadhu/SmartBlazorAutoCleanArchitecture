@@ -3,7 +3,7 @@ using CleanArchitecture.Domain.Products.DTOs;
 using Microsoft.EntityFrameworkCore;
 using SharedResponse;
 
-namespace BlazorAuto.Shared.Services;
+namespace BlazorAuto.Services;
 
 public class ProductOfflineSyncService(ClientCacheDbContext _dbContext, IProduct productService) : IOfflineSyncService<ProductDto>
 {

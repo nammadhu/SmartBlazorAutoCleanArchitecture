@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BlazorAuto.Shared.Services;
 using CleanArchitecture.Domain.Products.DTOs;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SharedResponse;
 
@@ -16,10 +15,7 @@ public static class DIClientRender
     public static void AddDependencyInjectionClientRender(this IServiceCollection services)
     {
         services.AddScoped<IProduct, ProductServiceClient>();
-        services.AddScoped<IOfflineSyncService<ProductDto>, ProductOfflineSyncService>();
-        services.AddDbContext<ClientCacheDbContext>(options =>
-            options.UseSqlite("Filename=SmartClientCache.db"));//on client browser memory
-
+      
         services.AddMemoryCache();
         
     }

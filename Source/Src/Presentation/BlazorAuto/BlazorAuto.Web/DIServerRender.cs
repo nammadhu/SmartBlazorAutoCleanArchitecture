@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SharedResponse;
 
 namespace BlazorAuto.Web;
-//This will be shared between client and APP, not server
+//This is only for server,no client or maui
 public static class DIServerRender
 {
     public static void AddDependencyInjectionServerRender(this IServiceCollection services)

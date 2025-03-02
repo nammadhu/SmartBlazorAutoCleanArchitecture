@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Domain.Products.DTOs;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazorAuto.Shared.Services;
+namespace BlazorAuto.Services;
 
 
 public class ClientCacheDbContext : DbContext

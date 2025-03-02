@@ -1,8 +1,11 @@
 ﻿using System.Security.Claims;
 using BlazorAuto.Services;
 using BlazorAuto.Shared.Services;
+using CleanArchitecture.Domain.Products.DTOs;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SharedResponse;
 
 namespace BlazorAuto;
 
@@ -22,6 +25,13 @@ public static class MauiProgram
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
         builder.Services.AddMauiBlazorWebView();
+
+
+        builder.Services.AddScoped<IOfflineSyncService<ProductDto>, ProductOfflineSyncService>();
+        builder.Services.AddDbContext<ClientCacheDbContext>(options =>
+            options.UseSqlite("Filename=SmartClientCache.db"));//on client browser memory
+
+
 
         // Add basic authentication and authorization services
         builder.Services.AddAuthorizationCore();
