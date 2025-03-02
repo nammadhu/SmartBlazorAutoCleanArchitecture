@@ -3,7 +3,7 @@ using SharedResponse;
 
 namespace BlazorAuto.Web.Services;
 
-public class ProductOfflineSyncServiceNothing : IOfflineSyncService<ProductDto>
+public class ProductNoCacheService : ICacheService<ProductDto>
 {
     public async Task<List<ProductDto>> GetDataAsync(CancellationToken cancellationToken = default)
     {

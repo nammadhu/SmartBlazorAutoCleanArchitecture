@@ -1,31 +1,21 @@
-﻿using Blazor.IndexedDB;
-using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
+﻿using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
 using CleanArchitecture.Domain.Products.DTOs;
+using Microsoft.EntityFrameworkCore;
 using SharedResponse;
 
-namespace BlazorAuto.Web.Client.Services;
+namespace BlazorAuto.Services;
 
-public class ProductOfflineSyncService(IIndexedDbFactory DbFactory, IProduct productService) : IOfflineSyncService<ProductDto>
+public class ProductCacheServiceMAUI(ClientCacheSqLiteDbContext _dbContext, IProduct productService) : ICacheService<ProductDto>
 {
-    public async Task<bool> Create(CancellationToken cancellationToken = default)
-    {
-        using var db = await DbFactory.Create<ClientCacheDb>();
-        var personWithId1 = db.Products.Single(x => x.Id == 1);
-        personWithId1.Name = "This is 100% a first name";
-        await db.SaveChanges();
-        return true;
-    }
-
     public async Task<List<ProductDto>> GetDataAsync(CancellationToken cancellationToken = default)
-    => [.. (await DbFactory.Create<ClientCacheDb>()).Products];
-      
-
+    {
+        return await _dbContext.Products.ToListAsync(cancellationToken);
+    }
     public async Task<bool> SyncDataAsync(CancellationToken cancellationToken = default)
     {
-        using var _dbContext = await DbFactory.Create<ClientCacheDb>();
-        DateTime? latestTimestamp = _dbContext.Products.Count != 0 ?
+        DateTime? latestTimestamp = await _dbContext.Products.AnyAsync(cancellationToken: cancellationToken) ?
                          //.Select(x => new { CreatedDateTime = x.CreatedDateTime, LastModified = x.LastModified ?? DateTime.MinValue })
-                         _dbContext.Products.Max(x => x.CreatedDateTime) : DateTime.MinValue;
+                         await _dbContext.Products.MaxAsync(x => x.CreatedDateTime, cancellationToken: cancellationToken) : DateTime.MinValue;
 
         var response = await productService.GetPagedListProductNoCache(new GetPagedListProductQuery()
         { MinDateTimeToFetch = latestTimestamp });
@@ -33,15 +23,15 @@ public class ProductOfflineSyncService(IIndexedDbFactory DbFactory, IProduct pro
         {
             foreach (var item in response.Data)
             {
-                var existingItem = _dbContext.Products.FirstOrDefault(i => i.Id == item.Id);
+                var existingItem = await _dbContext.Products.FirstOrDefaultAsync(i => i.Id == item.Id, cancellationToken: cancellationToken);
                 if (existingItem == null)
-                    _dbContext.Products.Add(item);
+                    await _dbContext.Products.AddAsync(item, cancellationToken);
                 else
                 {
                     existingItem = item;
                 }
             }
-            await _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return true;//modified
         }
         return false;//no modification

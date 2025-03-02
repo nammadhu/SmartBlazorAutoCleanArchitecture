@@ -1,6 +1,6 @@
 ﻿@page "/sync"
 @using SharedResponse
-@inject IOfflineSyncService<ProductDto> SyncService
+@inject ICacheService<ProductDto> SyncService
 
 
 @if (FormFactor.IsClientRender)

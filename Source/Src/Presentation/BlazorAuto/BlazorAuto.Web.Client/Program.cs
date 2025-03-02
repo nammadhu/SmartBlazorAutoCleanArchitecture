@@ -26,7 +26,7 @@ class Program
         builder.Services.AddAuthenticationStateDeserialization();
 
         builder.Services.AddSingleton<IIndexedDbFactory, IndexedDbFactory>();
-        builder.Services.AddScoped<IOfflineSyncService<ProductDto>, ProductOfflineSyncService>();
+        builder.Services.AddScoped<ICacheService<ProductDto>, ProductCacheServiceWasm>();
 
         //builder.Services.AddHttpClient<ProductServiceClient>("",client =>
         //{

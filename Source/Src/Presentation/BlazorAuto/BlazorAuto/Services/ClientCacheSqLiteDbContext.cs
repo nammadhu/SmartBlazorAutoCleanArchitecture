@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 namespace BlazorAuto.Services;
 
 
-public class ClientCacheDbContext : DbContext
+public class ClientCacheSqLiteDbContext : DbContext
 {
     public DbSet<ProductDto> Products { get; set; }
 
-    public ClientCacheDbContext(DbContextOptions<ClientCacheDbContext> options) : base(options)
+    public ClientCacheSqLiteDbContext(DbContextOptions<ClientCacheSqLiteDbContext> options) : base(options)
     {
         if (Database.GetPendingMigrations().Any())
         {

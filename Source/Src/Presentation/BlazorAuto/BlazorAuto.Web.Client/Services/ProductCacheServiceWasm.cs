@@ -1,21 +1,32 @@
-﻿using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
+﻿using Blazor.IndexedDB;
+using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
 using CleanArchitecture.Domain.Products.DTOs;
-using Microsoft.EntityFrameworkCore;
 using SharedResponse;
 
-namespace BlazorAuto.Services;
-
-public class ProductOfflineSyncService(ClientCacheDbContext _dbContext, IProduct productService) : IOfflineSyncService<ProductDto>
+namespace BlazorAuto.Web.Client.Services;
+//https://github.com/brianly1003/Blazor.IndexedDB
+//https://www.syncfusion.com/faq/blazor/general/how-do-i-use-indexeddb-in-blazor-webassembly
+public class ProductCacheServiceWasm(IIndexedDbFactory DbFactory, IProduct productService) : ICacheService<ProductDto>
 {
-    public async Task<List<ProductDto>> GetDataAsync(CancellationToken cancellationToken = default)
+    public async Task<bool> Create(CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Products.ToListAsync(cancellationToken);
+        using var db = await DbFactory.Create<ClientCacheIndexedDb>();
+        var personWithId1 = db.Products.Single(x => x.Id == 1);
+        personWithId1.Name = "This is 100% a first name";
+        await db.SaveChanges();
+        return true;
     }
+
+    public async Task<List<ProductDto>> GetDataAsync(CancellationToken cancellationToken = default)
+    => [.. (await DbFactory.Create<ClientCacheIndexedDb>()).Products];
+      
+
     public async Task<bool> SyncDataAsync(CancellationToken cancellationToken = default)
     {
-        DateTime? latestTimestamp = await _dbContext.Products.AnyAsync(cancellationToken: cancellationToken) ?
+        using var _dbContext = await DbFactory.Create<ClientCacheIndexedDb>();
+        DateTime? latestTimestamp = _dbContext.Products.Count != 0 ?
                          //.Select(x => new { CreatedDateTime = x.CreatedDateTime, LastModified = x.LastModified ?? DateTime.MinValue })
-                         await _dbContext.Products.MaxAsync(x => x.CreatedDateTime, cancellationToken: cancellationToken) : DateTime.MinValue;
+                         _dbContext.Products.Max(x => x.CreatedDateTime) : DateTime.MinValue;
 
         var response = await productService.GetPagedListProductNoCache(new GetPagedListProductQuery()
         { MinDateTimeToFetch = latestTimestamp });
@@ -23,15 +34,15 @@ public class ProductOfflineSyncService(ClientCacheDbContext _dbContext, IProduct
         {
             foreach (var item in response.Data)
             {
-                var existingItem = await _dbContext.Products.FirstOrDefaultAsync(i => i.Id == item.Id, cancellationToken: cancellationToken);
+                var existingItem = _dbContext.Products.FirstOrDefault(i => i.Id == item.Id);
                 if (existingItem == null)
-                    await _dbContext.Products.AddAsync(item, cancellationToken);
+                    _dbContext.Products.Add(item);
                 else
                 {
                     existingItem = item;
                 }
             }
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChanges();
             return true;//modified
         }
         return false;//no modification

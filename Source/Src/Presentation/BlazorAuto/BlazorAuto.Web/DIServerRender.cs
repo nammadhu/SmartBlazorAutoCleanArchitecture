@@ -17,7 +17,7 @@ public static class DIServerRender
     public static void AddDependencyInjectionServerRender(this IServiceCollection services)
     {
         services.AddScoped<IProduct, ProductController>();
-        services.AddScoped<IOfflineSyncService<ProductDto>, ProductOfflineSyncServiceNothing>();
+        services.AddScoped<ICacheService<ProductDto>, ProductNoCacheService>();
         
     }
 

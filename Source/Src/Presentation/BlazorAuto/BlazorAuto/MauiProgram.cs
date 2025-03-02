@@ -27,8 +27,8 @@ public static class MauiProgram
         builder.Services.AddMauiBlazorWebView();
 
 
-        builder.Services.AddScoped<IOfflineSyncService<ProductDto>, ProductOfflineSyncService>();
-        builder.Services.AddDbContext<ClientCacheDbContext>(options =>
+        builder.Services.AddScoped<ICacheService<ProductDto>, ProductCacheServiceMAUI>();
+        builder.Services.AddDbContext<ClientCacheSqLiteDbContext>(options =>
             options.UseSqlite("Filename=SmartClientCache.db"));//on client browser memory
 
 
