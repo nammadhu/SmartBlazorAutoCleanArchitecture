@@ -38,11 +38,12 @@ else
 }
 
 @code {
-    private List<ProductDto> products;
+    [Parameter]
+    public List<ProductDto>? products { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        products = (await productService.GetPagedListProductNoCache(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
+        products??= (await productService.GetPagedListProductNoCache(new GetPagedListProductQuery() { PageNumber = 1, PageSize = 10 })).Data;
     }
 
     private async Task EditProduct(long id)

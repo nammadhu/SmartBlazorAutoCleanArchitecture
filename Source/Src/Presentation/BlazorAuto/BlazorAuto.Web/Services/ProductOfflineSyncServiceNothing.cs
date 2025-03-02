@@ -1,0 +1,17 @@
+﻿using CleanArchitecture.Domain.Products.DTOs;
+using SharedResponse;
+
+namespace BlazorAuto.Web.Services;
+
+public class ProductOfflineSyncServiceNothing : IOfflineSyncService<ProductDto>
+{
+    public async Task<List<ProductDto>> GetDataAsync(CancellationToken cancellationToken = default)
+    {
+        return null;
+    }
+    public async Task<bool> SyncDataAsync(CancellationToken cancellationToken = default)
+    {
+        Console.WriteLine("Am dedicated for webassembly only,sorry I should not have been called");
+        return false;
+    }
+}
