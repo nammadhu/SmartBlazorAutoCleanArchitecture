@@ -17,7 +17,14 @@ public static class DIClientRender
         services.AddScoped<IProduct, ProductServiceClient>();
       
         services.AddMemoryCache();
-        
+
+
+        //for wasm its as 
+        //  builder.Services.AddSingleton<SignalRService>(sp => new SignalRService(builder.HostEnvironment.BaseAddress+ "chathub"));
+
+        //for maui its as 
+        //services.AddSingleton<SignalRService>(sp => new SignalRService("https://yourserver.com/chathub"));
+
     }
 
 }

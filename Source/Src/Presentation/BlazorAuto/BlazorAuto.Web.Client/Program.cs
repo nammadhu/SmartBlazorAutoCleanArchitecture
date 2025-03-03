@@ -43,6 +43,8 @@ class Program
         });
 
 
+        builder.Services.AddSingleton<SignalRService>(sp => new SignalRService(builder.HostEnvironment.BaseAddress+ "chathub"));
+
         await builder.Build().RunAsync();
     }
 }

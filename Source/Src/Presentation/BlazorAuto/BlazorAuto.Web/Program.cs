@@ -24,6 +24,7 @@ using CleanArchitecture.Infrastructure.Identity.Models;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 
 using BlazorAuto.Shared;
+using CleanArchitecture.WebApi;
 
 namespace BlazorAuto.Web;
 
@@ -70,6 +71,9 @@ public class Program
         builder.Services.AddAnyCors();
         builder.Services.AddCustomLocalization(builder.Configuration);
         builder.Services.AddHealthChecks();
+
+        builder.Services.AddSignalR();
+
         builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
         builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
@@ -134,6 +138,7 @@ public class Program
         app.UseMiddleware<ErrorHandlerMiddleware>();
         app.UseHealthChecks("/health");
         app.MapControllers();
+        app.MapHub<ChatHub>("/chathub");
         app.UseSerilogRequestLogging();
 
         app.Run();

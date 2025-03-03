@@ -10,6 +10,7 @@ using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Infrastructure.Persistence.Seeds;
 using CleanArchitecture.Infrastructure.Resources;
+using CleanArchitecture.WebApi;
 using CleanArchitecture.WebApi.Infrastructure.Extensions;
 using CleanArchitecture.WebApi.Infrastructure.Middlewares;
 using CleanArchitecture.WebApi.Infrastructure.Services;
@@ -43,6 +44,9 @@ builder.Services.AddSwaggerWithVersioning();
 builder.Services.AddAnyCors();
 builder.Services.AddCustomLocalization(builder.Configuration);
 builder.Services.AddHealthChecks();
+
+builder.Services.AddSignalR();
+
 builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 var app = builder.Build();
@@ -75,6 +79,7 @@ app.UseHealthChecks("/health");
 
 app.UseResponseCaching();// Add ResponseCaching middleware
 app.MapControllers();
+app.MapHub<ChatHub>("/chathub");
 app.UseSerilogRequestLogging();
 
 app.Run();
