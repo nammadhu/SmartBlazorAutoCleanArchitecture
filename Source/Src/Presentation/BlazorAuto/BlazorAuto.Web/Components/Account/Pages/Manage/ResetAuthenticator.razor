@@ -1,7 +1,6 @@
 ﻿@page "/Account/Manage/ResetAuthenticator"
 
 @using Microsoft.AspNetCore.Identity
-@using CleanArchitecture.Infrastructure.Identity.Models
 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -26,7 +25,7 @@
 <div>
     <form @formname="reset-authenticator" @onsubmit="OnSubmitAsync" method="post">
         <AntiforgeryToken />
-        <button class="btn btn-danger" type="submit">Reset authenticator key</button>
+        <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Reset authenticator key</FluentButton>
     </form>
 </div>
 
