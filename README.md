@@ -1,3 +1,22 @@
+# Smart Blazor Auto with Smart Clean Architecture 
+
+## What Special Here
+1. Common Challenges in Blazor Auto Mode is "No Information except base definitions"
+2. MAUI apps development with Same shared code for webpage itself. Code ones and use anywhere.
+3. Caching at client & Server side both with smart handling.
+4. End to end Social Account Authentication & Authorization.
+
+## Auto Mode Definition: 
+Initial request using Blazor Server mode with Quick & User Smile
+Subsequent request will be served with webassembly files and api(Client-Server) Calls.
+
+Here Switching between these mode requires special attention. So thats addressed here with 
+- Client Side Caching Using SqlLite on MAUI, IndexedDb on WebAssembly
+- Server Side caching with InMemory & can be expanded to Redis or any
+
++ ++ Utilized Clean Architecture with all below features.
+Thanks to @Saman For the nice Clean Architecture
+
 # ASP Dotnet Core Clean Architecture
 
 [![NuGet](https://img.shields.io/nuget/vpre/Sam.CleanArchitecture.Template.svg)](https://www.nuget.org/packages/Sam.CleanArchitecture.Template)
