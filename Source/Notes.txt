@@ -2,8 +2,9 @@ town => cards => like,comments
 carousel,slider,card
 
 
-i have jio sim card on iphone ,using this 5G hotspot but when i tried to access cosmos db its throwing error,what is the reason or logic behind this ,someone please give some hint on this to understand.
-Any other combination works fine like on same device airtel sim card or same jio sim on other samsung device all works fine.
+Jio sim card on iphone 5G good range,on hotspot access cosmos db connectivity its throwing error,what is the reason or logic behind this ,someone please give some hint on this to understand.
+Any other combination works fine like on same device airtel sim card 
+or same jio sim on other samsung device all works fine.
 
 
 i have iphone 12 indian version, it has one physical sim  card slot. but having an option to add esim, but if i add esim then is still i can use physical sim card slot for other sim card number or not?
