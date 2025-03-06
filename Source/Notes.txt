@@ -1,3 +1,10 @@
+currently signalr issue of if already in connected state then again should not retrigger
+
+Add Town
+Add Card
+
+Add Use Case
+
 town => cards => like,comments
 carousel,slider,card
 
