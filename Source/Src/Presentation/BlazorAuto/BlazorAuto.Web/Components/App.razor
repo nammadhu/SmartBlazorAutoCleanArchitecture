@@ -5,17 +5,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
-    <link rel="stylesheet" href="_content/BlazorAuto.Shared/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="_content/BlazorAuto.Shared/app.css" />
-    <link rel="stylesheet" href="BlazorAuto.Web.styles.css" />
-    <link rel="icon" type="image/png" href="_content/BlazorAuto.Shared/favicon.png" />
+    <link rel="stylesheet" href="@Assets["_content/BlazorAuto.Shared/app.css"]" />
+    <link rel="stylesheet" href="@Assets["BlazorAuto.Web.styles.css"]" />
+    <link rel="icon" type="image/x-icon" href="_content/BlazorAuto.Shared/favicon.ico" />
     <HeadOutlet @rendermode="PageRenderMode" />
 </head>
 
 <body>
     <Routes @rendermode="PageRenderMode" />
     <script src="_framework/blazor.web.js"></script>
-  
+
 </body>
 
 </html>
@@ -26,4 +25,4 @@
 
     private IComponentRenderMode? PageRenderMode =>
         HttpContext.AcceptsInteractiveRouting() ? InteractiveAuto : null;
-}
+    }

@@ -5,14 +5,15 @@ using CleanArchitecture.Domain.Products.DTOs;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.FluentUI.AspNetCore.Components;
 using SharedResponse;
 
 namespace BlazorAuto;
 
 public static class MauiProgram
-{
-    public static MauiApp CreateMauiApp()
     {
+    public static MauiApp CreateMauiApp()
+        {
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
@@ -25,6 +26,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
         builder.Services.AddMauiBlazorWebView();
+        builder.Services.AddFluentUIComponents();
 
 
         builder.Services.AddScoped<ICacheService<ProductDto>, ProductCacheServiceMAUI>();
@@ -55,33 +57,33 @@ public static class MauiProgram
 #endif
 
         return builder.Build();
+        }
     }
-}
 
 public class CustomAuthenticationStateProvider : AuthenticationStateProvider
-{
+    {
     private ClaimsPrincipal _currentUser;
 
     public CustomAuthenticationStateProvider()
-    {
+        {
         _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
-    }
+        }
 
     public override Task<AuthenticationState> GetAuthenticationStateAsync()
-    {
+        {
         return Task.FromResult(new AuthenticationState(_currentUser));
-    }
+        }
 
     public void NotifyUserAuthentication(ClaimsPrincipal user)
-    {
+        {
         _currentUser = user;
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
-    }
+        }
 
     public void NotifyUserLogout()
-    {
+        {
         _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
         NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
+        }
     }
-}
 

@@ -22,6 +22,7 @@ using CleanArchitecture.Infrastructure.Identity.Seeds;
 using CleanArchitecture.Infrastructure.Persistence.Seeds;
 using CleanArchitecture.Infrastructure.Identity.Models;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 using BlazorAuto.Shared;
 using CleanArchitecture.WebApi;
@@ -39,7 +40,7 @@ public class Program
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents()
             .AddAuthenticationStateSerialization();
-
+        builder.Services.AddFluentUIComponents();
         // Add device-specific services used by the BlazorAuto.Shared project
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
