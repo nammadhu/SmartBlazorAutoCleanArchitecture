@@ -80,7 +80,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.5" />
     <ProjectReference Include="..\BlazorAuto.Shared\BlazorAuto.Shared.csproj" />
   </ItemGroup>
 
