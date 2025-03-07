@@ -18,7 +18,7 @@ namespace CleanArchitecture.Domain.Common
         public DateTime? LastModified { get; set; }
     }
 
-    public abstract class AuditableBaseEntity : AuditableBaseEntity<long>, IAuditableBaseEntity
+    public abstract class AuditableBaseEntity : AuditableBaseEntity<int>, IAuditableBaseEntity
     {
     }
 }
