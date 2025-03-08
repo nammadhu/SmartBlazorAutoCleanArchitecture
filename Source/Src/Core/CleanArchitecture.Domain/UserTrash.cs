@@ -3,8 +3,7 @@
 public class UserTrash : AuditableBaseEntity
 {
     //non auto generated key
-    [Key]
-    public new Guid Id { get; set; }
+    public Guid UserId { get; set; }
 
     public string UserDataAsJsonString { get; set; } = default!;
 }

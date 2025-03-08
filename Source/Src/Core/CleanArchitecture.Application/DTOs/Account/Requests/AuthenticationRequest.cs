@@ -1,6 +1,6 @@
 using CleanArchitecture.Application.Helpers;
-using CleanArchitecture.Application.Interfaces;
 using FluentValidation;
+using SharedResponse;
 
 namespace CleanArchitecture.Application.DTOs.Account.Requests;
 
@@ -10,6 +10,7 @@ public class AuthenticationRequest
 
     public string Password { get; set; }
 }
+
 public class AuthenticationRequestValidator : AbstractValidator<AuthenticationRequest>
 {
     public AuthenticationRequestValidator(ITranslator translator)

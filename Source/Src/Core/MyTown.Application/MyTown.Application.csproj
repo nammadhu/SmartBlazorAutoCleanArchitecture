@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+    <Compile Remove="Features\Cards\Commands\CreateCardCommandHandler.cs" />
+    <Compile Remove="Features\Cards\Commands\CU Update CardKeyInfo.cs" />
+    <Compile Remove="Features\Cards\Commands\CU Update CardKeyInfoPlusData.cs" />
+    <Compile Remove="Features\Cards\Commands\CU Update partial - Backup.cs" />
+    <Compile Remove="Features\Cards\Commands\UpdateCardCommandHandler.cs" />
+    <Compile Remove="Features\CardTypes\Commands\CreateTownCardTypeCommandHandler.cs" />
+    <Compile Remove="Features\CardTypes\Commands\UpdateTownCardTypeCommandHandler.cs" />
+    <Compile Remove="Features\Towns\Commands\CreateTownCommandHandler.cs" />
+    <Compile Remove="Features\Towns\Commands\UpdateTownCommandHandler.cs" />
+    <Compile Remove="iCardsHubSignalR - Copy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\CleanArchitecture.Application\CleanArchitecture.Application.csproj" />
+    <ProjectReference Include="..\MyTown.SharedModels\MyTown.SharedModels.csproj" />
+  </ItemGroup>
+
+</Project>

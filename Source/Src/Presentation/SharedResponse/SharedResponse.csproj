@@ -7,7 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\CleanArchitecture.Application\CleanArchitecture.Application.csproj" />
+    <Compile Remove="EndPoints\**" />
+    <EmbeddedResource Remove="EndPoints\**" />
+    <None Remove="EndPoints\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTOs\UserInfo.cs" />
+    <Compile Remove="DTOs\UserInfoOld.cs" />
+    <Compile Remove="DTOs\UserRoleDto.cs" />
+    <Compile Remove="ValidateAppRequest.cs" />
+    <Compile Remove="Wrappers\AuthenticationResponse.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PublicCommon\PublicCommon.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 namespace CleanArchitecture.Application.Wrappers;
-
+//moved to sharedresponse
 public class Error(ErrorCode errorCode, string description = null, string fieldName = null)
 {
     public ErrorCode ErrorCode { get; set; } = errorCode;

@@ -1,8 +1,9 @@
 using CleanArchitecture.Application.DTOs;
+using SharedResponse.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+//moved to sharedresponse
 namespace CleanArchitecture.Application.Wrappers;
 
 public class PagedResponse<T> : BaseResult<List<T>>
@@ -20,8 +21,8 @@ public class PagedResponse<T> : BaseResult<List<T>>
             Data = model.Data,
             PageNumber = model.PageNumber,
             PageSize = model.PageSize,
-            TotalItems = model.TotalCount,
-            TotalPages = (int)Math.Ceiling(model.TotalCount / (double)model.PageSize)
+            TotalItems = model.Count,
+            TotalPages = (int)Math.Ceiling(model.Count / (double)model.PageSize)
         };
     }
 

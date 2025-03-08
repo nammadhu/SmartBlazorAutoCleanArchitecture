@@ -1,6 +1,6 @@
 using CleanArchitecture.Application.Helpers;
-using CleanArchitecture.Application.Interfaces;
 using FluentValidation;
+using SharedResponse;
 
 namespace CleanArchitecture.Application.DTOs.Account.Requests;
 
@@ -9,6 +9,7 @@ public class ChangePasswordRequest
     public string Password { get; set; }
     public string ConfirmPassword { get; set; }
 }
+
 public class ChangePasswordRequestValidator : AbstractValidator<ChangePasswordRequest>
 {
     public ChangePasswordRequestValidator(ITranslator translator)
