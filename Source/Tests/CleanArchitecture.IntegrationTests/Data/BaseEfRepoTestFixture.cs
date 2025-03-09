@@ -1,9 +1,9 @@
 ﻿using CleanArchitecture.Application.Interfaces;
-using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using PublicCommon.Common;
 
 namespace CleanArchitecture.IntegrationTests.Data;
 public abstract class BaseEfRepoTestFixture

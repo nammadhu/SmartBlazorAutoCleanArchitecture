@@ -1,8 +1,8 @@
 using CleanArchitecture.Application.Features.Products.Commands.CreateProduct;
 using CleanArchitecture.Application.Features.Products.Commands.UpdateProduct;
 using CleanArchitecture.Application.Wrappers;
-using CleanArchitecture.Domain.Products.DTOs;
 using CleanArchitecture.FunctionalTests.Common;
+using Shared.DTOs;
 using Shouldly;
 
 namespace CleanArchitecture.FunctionalTests.ApiEndpoints;

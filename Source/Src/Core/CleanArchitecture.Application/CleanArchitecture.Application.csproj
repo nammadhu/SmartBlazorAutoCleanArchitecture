@@ -1,17 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
-    <PackageReference Include="MediatR" Version="12.4.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.2" />
-    <PackageReference Include="Serilog" Version="4.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
-  </ItemGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Features\Cards\Commands\CreateCardCommandHandler.cs" />
+	  <Compile Remove="Features\Cards\Commands\CU Update CardKeyInfo.cs" />
+	  <Compile Remove="Features\Cards\Commands\CU Update CardKeyInfoPlusData.cs" />
+	  <Compile Remove="Features\Cards\Commands\CU Update partial - Backup.cs" />
+	  <Compile Remove="Features\Cards\Commands\UpdateCardCommandHandler.cs" />
+	  <Compile Remove="Features\CardTypes\Commands\CreateTownCardTypeCommandHandler.cs" />
+	  <Compile Remove="Features\CardTypes\Commands\UpdateTownCardTypeCommandHandler.cs" />
+	  <Compile Remove="Features\Towns\Commands\CreateTownCommandHandler.cs" />
+	  <Compile Remove="Features\Towns\Commands\UpdateTownCommandHandler.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+		<PackageReference Include="MediatR" Version="12.4.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="9.0.2" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Shared\Shared.csproj" />
+	  <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Parameters\" />
+	</ItemGroup>
+
 </Project>

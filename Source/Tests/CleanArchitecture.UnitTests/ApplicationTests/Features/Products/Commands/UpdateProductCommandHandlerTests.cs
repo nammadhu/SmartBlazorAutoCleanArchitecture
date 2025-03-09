@@ -2,7 +2,7 @@ using CleanArchitecture.Application.Features.Products.Commands.UpdateProduct;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Application.Wrappers;
-using CleanArchitecture.Domain.Products.Entities;
+using CleanArchitecture.Domain;
 using Moq;
 using Shouldly;
 

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using BlazorAuto.Shared.Services;
 using BlazorAuto.Web.Services;
-using CleanArchitecture.Domain.Products.DTOs;
 using CleanArchitecture.WebApi.Controllers.v1;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.DTOs;
 using SharedResponse;
 
 namespace BlazorAuto.Web;

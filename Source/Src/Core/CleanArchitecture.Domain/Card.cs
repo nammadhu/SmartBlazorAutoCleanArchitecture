@@ -1,6 +1,5 @@
-﻿using PublicCommon;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CleanArchitecture.Domain;
+using PublicCommon;
 
 namespace CleanArchitecture.Domain;
 
@@ -99,7 +98,7 @@ public class Card : _CardBase
             if (source == null && other == null) return true;
             else if (source == null || other == null) return false;
             return source.IsAdminVerified == other.IsAdminVerified &&
-                ListExtensions.AreListsEqualIgnoringOrder<int>(source.ApprovedPeerCardIds?.ToList(), other.ApprovedPeerCardIds?.ToList())
+                ListExtensions.AreListsEqualIgnoringOrder(source.ApprovedPeerCardIds?.ToList(), other.ApprovedPeerCardIds?.ToList())
                 && source.LikeCount == other.LikeCount && source.DisLikeCount == other.DisLikeCount;
         }
         else return false;

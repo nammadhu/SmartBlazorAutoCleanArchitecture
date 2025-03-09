@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Products.DTOs;
+﻿using Shared.DTOs;
 using SharedResponse;
 
 namespace BlazorAuto.Web.Services;

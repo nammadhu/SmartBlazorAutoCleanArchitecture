@@ -1,10 +1,9 @@
-using CleanArchitecture.Application.DTOs;
-using CleanArchitecture.Application.DTOs.Account.Requests;
-using CleanArchitecture.Application.DTOs.Account.Responses;
 using CleanArchitecture.Application.Interfaces.UserInterfaces;
-using CleanArchitecture.Application.Wrappers;
 using CleanArchitecture.Infrastructure.Identity.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Shared.DTOs;
+using Shared.DTOs.Account.Responses;
+using Shared.Wrappers;
 using System.Linq;
 using System.Threading.Tasks;
 

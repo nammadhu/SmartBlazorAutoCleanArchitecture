@@ -1,8 +1,10 @@
-using CleanArchitecture.Application.DTOs;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Infrastructure.Resources.ProjectResources;
+using SharedResponse;
+using Shared.DTOs;
 using System.Globalization;
 using System.Resources;
+using Shared;
 
 namespace CleanArchitecture.Infrastructure.Resources.Services;
 

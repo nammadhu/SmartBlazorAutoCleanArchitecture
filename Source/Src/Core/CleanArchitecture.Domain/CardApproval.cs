@@ -1,4 +1,7 @@
-﻿namespace CleanArchitecture.Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using PublicCommon;
+
+namespace CleanArchitecture.Domain;
 
 public class CardApproval : AuditableBaseEntity, IEquatable<CardApproval>
 {
@@ -34,7 +37,7 @@ public class CardApproval : AuditableBaseEntity, IEquatable<CardApproval>
     public int? IdTown { get; set; }
 
     [NotMapped]
-    public string? Title { get; set; } = "Town Admin"; //ConstantString.TownAdmin;//only for UI purpose
+    public string? Title { get; set; } = ConstantString.TownAdmin;//only for UI purpose
 
     [NotMapped]
     public bool IsSelected { get; set; }
