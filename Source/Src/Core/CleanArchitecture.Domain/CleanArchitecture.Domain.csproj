@@ -10,10 +10,17 @@
 	  <None Remove="AspNetIdentity\**" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Include="AspNetIdentity\ApplicationRole.cs" />
+	  <Compile Include="AspNetIdentity\ApplicationUser.cs" />
+	</ItemGroup>
+	<ItemGroup>
 	  <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.2" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\..\PublicCommon\PublicCommon.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="AspNet\" />
 	</ItemGroup>
 </Project>
   

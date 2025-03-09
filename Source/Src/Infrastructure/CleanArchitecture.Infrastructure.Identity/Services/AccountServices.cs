@@ -1,6 +1,7 @@
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Interfaces.UserInterfaces;
-using CleanArchitecture.Infrastructure.Identity.Models;
+using CleanArchitecture.Domain.AspNetIdentity;
+using CleanArchitecture.Infrastructure.Identity.Contexts;
 using CleanArchitecture.Infrastructure.Identity.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,8 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Identity.Services;
 
-public class AccountServices(UserManager<ApplicationUser> userManager, IAuthenticatedUserService authenticatedUser, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, JwtSettings jwtSettings, ITranslator translator) : IAccountServices
+public class AccountServices(UserManager<ApplicationUser> userManager, IAuthenticatedUserService authenticatedUser, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, JwtSettings jwtSettings, ITranslator translator
+    ,IdentityContext dbContext) : IAccountServices
     {
 
     public async Task<ApplicationUser> GetUserAsync(Guid userId)
@@ -163,9 +165,9 @@ public class AccountServices(UserManager<ApplicationUser> userManager, IAuthenti
                 }
 
             //Remove User Tokens
-            //var userTokens = await dbContext.UserTokens.Where(t => t.UserId == user.Id).ToListAsync();
-            //dbContext.UserTokens.RemoveRange(userTokens);
-            //await dbContext.SaveChangesAsync();
+            var userTokens = await dbContext.UserTokens.Where(t => t.UserId == user.Id).ToListAsync();
+            dbContext.UserTokens.RemoveRange(userTokens);
+            await dbContext.SaveChangesAsync();
 
             // Remove the user
             var result = await userManager.DeleteAsync(user);
@@ -178,6 +180,79 @@ public class AccountServices(UserManager<ApplicationUser> userManager, IAuthenti
             return IdentityResult.Failed(new IdentityError { Description = "An error occurred while removing the user." });
             }
         }
+    public async Task<List<ApplicationUser>> SearchUsersByNameOrEmail(string searchTerm)
+        {
+        try
+            {
+          return await userManager.Users
+                .Where(u => u.UserName.Contains(searchTerm,StringComparison.OrdinalIgnoreCase) || u.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .ToListAsync();
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Error searching users: {ex.Message}");
+            return [];
+            }
+        }
+
+    public async Task<IdentityResult> RemoveUserRoles(Guid userId, List<string> roleNames, Guid operatorId)
+        {
+        try
+            {
+            var user = await userManager.FindByIdAsync(userId.ToString());
+
+            if (user == null)
+                {
+                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+                }
+
+            var existingRoles = await userManager.GetRolesAsync(user);
+
+            var rolesToRemove = roleNames.Where(roleName => existingRoles.Contains(roleName)).ToList();
+
+            if (rolesToRemove.Count == 0)
+                {
+                return IdentityResult.Success; // No roles needed to be removed.
+                }
+
+            var result = await userManager.RemoveFromRolesAsync(user, rolesToRemove);
+
+            /*
+            if (result.Succeeded)
+                {
+                // Audit log entries for each removed role
+                foreach (var roleName in rolesToRemove)
+                    {
+                    var rl = (await roleManager.FindByNameAsync(roleName));
+                    var applicationUserRole = await dbContext.UserRoles
+                        .FirstOrDefaultAsync(ur => ur.UserId == user.Id && ur.RoleId == rl.Id);
+
+                    if (applicationUserRole != null)
+                        {
+                        applicationUserRole.OperatorId = operatorId;
+                        applicationUserRole.Timestamp = DateTime.UtcNow;
+                        dbContext.UserRoles.Remove(applicationUserRole);
+                        await dbContext.SaveChangesAsync();
+                        }
+                    }
+                return result;
+                }
+            else
+                {
+                return result;
+                }
+            */
+            return result;
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Error removing user roles: {ex.Message}");
+            return IdentityResult.Failed(new IdentityError { Description = "An error occurred while removing the roles." });
+            }
+        }
+
+
+
 
     public async Task<BaseResult> ChangePassword(ChangePasswordRequest model)
         {

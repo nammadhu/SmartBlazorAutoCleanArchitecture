@@ -1,6 +1,20 @@
 ﻿@using BlazorAuto.Web.Components.Account
 @using BlazorAuto.Web.Components.Account.Shared
 
-@using CleanArchitecture.Infrastructure.Identity.Models
+@using CleanArchitecture.Domain.AspNetIdentity
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Authentication
+
+
+@inject IdentityRedirectManager RedirectManager
+@inject UserManager<ApplicationUser> UserManager
+@inject IEmailSender<ApplicationUser> EmailSender
+
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IdentityUserAccessor UserAccessor
+
 
 @attribute [ExcludeFromInteractiveRouting]

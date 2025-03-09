@@ -1,7 +1,9 @@
 ﻿namespace CleanArchitecture.WebApi.Controllers.v1;
 
 [ApiVersion("1")]
-public class IdentityController(IIdentityRepository identityRepository, IMediator mediator,
+public class IdentityController(
+    //IIdentityRepository identityRepository,
+    IMediator mediator,
      IAuthenticatedUserService authenticatedUserService, IMapper mapper) : BaseApiController(mediator), IIdentityController
 //IUserDetailRepository userDetailRepository,
 //IMediator mediator, IAuthenticatedUserService authenticatedUserService) : BaseApiController(mediator)

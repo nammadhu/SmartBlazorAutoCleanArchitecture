@@ -25,7 +25,7 @@ public class AuthenticatedUserService(IHttpContextAccessor httpContextAccessor) 
 
     public bool IsInRole(string role) => httpContextAccessor.HttpContext?.User?.IsInRole(role) ?? false;
 
-    public bool IsInAnyOfRoles(string[] roles) => roles?.Length > 0 ? httpContextAccessor.HttpContext?.User?.IsInAnyOfRoles(roles) ?? false : false;
+    public bool IsInAnyOfRoles(string[] roles) => roles?.Length > 0 && (httpContextAccessor.HttpContext?.User?.IsInAnyOfRoles(roles) ?? false);
 
     public bool IsInAnyOfRoles(List<string> roles) => roles?.Count > 0 ? IsInAnyOfRoles(roles.ToArray()) : false;
 

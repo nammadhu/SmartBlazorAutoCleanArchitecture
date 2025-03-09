@@ -1,3 +1,4 @@
+using CleanArchitecture.Domain.AspNetIdentity;
 using Shared.DTOs.Account.Requests;
 using Shared.DTOs.Account.Responses;
 
@@ -11,6 +12,9 @@ public interface IAccountServices
     // Task<IList<ApplicationUser>> GetUsersInRoleAsync(string roleName);
     Task<IdentityResult> AddRoleToUserAsync(Guid userId, List<string> roleNames,Guid operatorId);
     Task<IdentityResult> DeleteUserCompletely(Guid userId);
+    Task<IdentityResult> RemoveUserRoles(Guid userId, List<string> roleNames, Guid operatorId);
+    Task<List<ApplicationUser>> SearchUsersByNameOrEmail(string searchTerm);
+
 
     Task<BaseResult<string>> RegisterGhostAccount();
     Task<BaseResult> ChangePassword(ChangePasswordRequest model);

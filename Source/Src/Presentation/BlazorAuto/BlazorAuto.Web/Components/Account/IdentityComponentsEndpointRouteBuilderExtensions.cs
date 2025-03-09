@@ -1,6 +1,6 @@
 using BlazorAuto.Web.Components.Account.Pages;
 using BlazorAuto.Web.Components.Account.Pages.Manage;
-using CleanArchitecture.Infrastructure.Identity.Models;
+using CleanArchitecture.Domain.AspNetIdentity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;

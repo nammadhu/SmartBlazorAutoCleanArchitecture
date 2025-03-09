@@ -1,6 +1,6 @@
 using CleanArchitecture.Application.Interfaces.UserInterfaces;
+using CleanArchitecture.Domain.AspNetIdentity;
 using CleanArchitecture.Infrastructure.Identity.Contexts;
-using CleanArchitecture.Infrastructure.Identity.Models;
 using CleanArchitecture.Infrastructure.Identity.Services;
 using CleanArchitecture.Infrastructure.Identity.Settings;
 using Microsoft.AspNetCore.Identity;
