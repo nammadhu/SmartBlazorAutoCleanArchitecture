@@ -5,15 +5,11 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
-using CleanArchitecture.Application.Features.Products.Commands.CreateProduct;
-using CleanArchitecture.Application.Features.Products.Commands.DeleteProduct;
-using CleanArchitecture.Application.Features.Products.Commands.UpdateProduct;
-using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
-using CleanArchitecture.Application.Features.Products.Queries.GetProductById;
-using CleanArchitecture.Application.Wrappers;
-using CleanArchitecture.Domain.Products.DTOs;
-using CleanArchitecture.Domain.Products.Entities;
 using SharedResponse;
+using Shared.Wrappers;
+using Shared.Features.Products.Commands;
+using Shared.Features.Products.Queries;
+using Shared.DTOs;
 
 namespace BlazorAuto.Shared.Services;
 
@@ -45,7 +41,7 @@ public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProdu
     {
         var response = await _httpClient.GetAsync($"{apiKey}{endpoint}?" +
             $"{nameof(GetPagedListProductQuery.PageNumber)}={model.PageNumber}" +
-            $"&{nameof(GetPagedListProductQuery.GetTotalCount)}={model.GetTotalCount}" +
+            $"&{nameof(GetPagedListProductQuery.TotalCount)}={model.TotalCount}" +
         $"&{nameof(GetPagedListProductQuery.Name)}={model.Name}" +
         $"&{nameof(GetPagedListProductQuery.MinDateTimeToFetch)}={model.MinDateTimeToFetch}" +
         $"&{nameof(GetPagedListProductQuery.PageSize)}={model.PageSize}");

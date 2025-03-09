@@ -1,6 +1,6 @@
-using CleanArchitecture.Application.Wrappers;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Shared.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Net;

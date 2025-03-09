@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\CleanArchitecture.Application\CleanArchitecture.Application.csproj" />
+    <Compile Remove="EndPoints\**" />
+    <EmbeddedResource Remove="EndPoints\**" />
+    <None Remove="EndPoints\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ValidateAppRequest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PublicCommon\PublicCommon.csproj" />
   </ItemGroup>
 
 </Project>

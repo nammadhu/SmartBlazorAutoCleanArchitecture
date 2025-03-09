@@ -1,6 +1,6 @@
-using CleanArchitecture.Application.DTOs.Account.Requests;
-using CleanArchitecture.Application.DTOs.Account.Responses;
-using CleanArchitecture.Application.Wrappers;
+using Shared.DTOs;
+using Shared.DTOs.Account.Responses;
+using Shared.Wrappers;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Interfaces.UserInterfaces;

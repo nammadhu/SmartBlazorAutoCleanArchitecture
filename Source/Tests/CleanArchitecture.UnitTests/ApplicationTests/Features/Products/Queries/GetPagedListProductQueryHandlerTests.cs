@@ -1,8 +1,9 @@
-using CleanArchitecture.Application.DTOs;
-using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
+using CleanArchitecture.Application.Features.Products.Queries;
 using CleanArchitecture.Application.Interfaces.Repositories;
-using CleanArchitecture.Domain.Products.DTOs;
 using Moq;
+using Shared.DTOs;
+using Shared.Features.Products.Queries;
+using Shared.Wrappers;
 using Shouldly;
 
 namespace CleanArchitecture.UnitTests.ApplicationTests.Features.Products.Queries;

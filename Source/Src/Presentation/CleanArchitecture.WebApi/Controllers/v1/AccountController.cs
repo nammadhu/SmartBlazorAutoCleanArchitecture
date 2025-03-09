@@ -1,9 +1,9 @@
-using CleanArchitecture.Application.DTOs.Account.Requests;
-using CleanArchitecture.Application.DTOs.Account.Responses;
 using CleanArchitecture.Application.Interfaces.UserInterfaces;
-using CleanArchitecture.Application.Wrappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.DTOs.Account.Requests;
+using Shared.DTOs.Account.Responses;
+using Shared.Wrappers;
 using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebApi.Controllers.v1;

@@ -1,5 +1,5 @@
-using CleanArchitecture.Application.Wrappers;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

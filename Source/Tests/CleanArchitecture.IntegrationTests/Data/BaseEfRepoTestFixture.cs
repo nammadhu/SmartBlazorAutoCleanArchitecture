@@ -1,22 +1,27 @@
 ﻿using CleanArchitecture.Application.Interfaces;
-using CleanArchitecture.Domain.Common;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using PublicCommon.Common;
 
 namespace CleanArchitecture.IntegrationTests.Data;
 public abstract class BaseEfRepoTestFixture
 {
-    protected ApplicationDbContext dbContext;
+    protected DbContextProvider dbContextProvider;
+    ApplicationDbContext dbContext;
+    ILogger<UnitOfWork> logger;
 
-    protected BaseEfRepoTestFixture()
-    {
+    protected BaseEfRepoTestFixture(DbContextProvider _dbContextProvider, ILogger<UnitOfWork> _logger)
+        {
         var options = CreateNewContextOptions();
         IAuthenticatedUserService authenticatedUserService = new AuthenticatedUserService(Guid.NewGuid().ToString(), "UserName");
 
         dbContext = new ApplicationDbContext(options, authenticatedUserService);
-    }
+        dbContextProvider = _dbContextProvider;
+        logger = _logger;
+        }
 
     protected static DbContextOptions<ApplicationDbContext> CreateNewContextOptions()
     {
@@ -37,12 +42,12 @@ public abstract class BaseEfRepoTestFixture
 
     protected GenericRepository<T> GetRepository<T>() where T : class,IAuditableBaseEntity
     {
-        return new GenericRepository<T>(dbContext);
+        return new GenericRepository<T>(dbContextProvider);
     }
 
     protected IUnitOfWork GetUnitOfWork()
     {
-        return new UnitOfWork(dbContext);
+        return new UnitOfWork(dbContextProvider, logger);
     }
 }
 internal record AuthenticatedUserService(string UserId, string UserName) : IAuthenticatedUserService;

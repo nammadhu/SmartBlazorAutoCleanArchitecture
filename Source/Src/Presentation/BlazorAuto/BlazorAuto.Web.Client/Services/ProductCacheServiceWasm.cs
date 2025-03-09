@@ -1,6 +1,7 @@
 ﻿using Blazor.IndexedDB;
-using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
-using CleanArchitecture.Domain.Products.DTOs;
+using Shared;
+using Shared.DTOs;
+using Shared.Features.Products.Queries;
 using SharedResponse;
 
 namespace BlazorAuto.Web.Client.Services;

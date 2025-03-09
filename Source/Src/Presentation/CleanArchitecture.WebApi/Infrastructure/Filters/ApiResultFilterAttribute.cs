@@ -1,6 +1,6 @@
-using CleanArchitecture.Application.Wrappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Shared.Wrappers;
 using System.Net;
 
 namespace CleanArchitecture.WebApi.Infrastructure.Filters;

@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Application.Interfaces;
-using CleanArchitecture.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using PublicCommon.Common;
 using System;
 using System.Linq;
 

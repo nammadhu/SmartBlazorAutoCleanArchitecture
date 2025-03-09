@@ -1,4 +1,4 @@
-using CleanArchitecture.Domain.Products.Entities;
+using CleanArchitecture.Domain;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

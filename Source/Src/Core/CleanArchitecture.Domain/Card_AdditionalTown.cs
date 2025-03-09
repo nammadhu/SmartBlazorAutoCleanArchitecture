@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CleanArchitecture.Domain
 {
     public class Card_AdditionalTown : AuditableBaseEntity

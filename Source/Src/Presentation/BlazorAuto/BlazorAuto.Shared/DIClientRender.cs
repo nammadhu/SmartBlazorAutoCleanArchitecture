@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlazorAuto.Shared.Services;
-using CleanArchitecture.Domain.Products.DTOs;
 using Microsoft.Extensions.DependencyInjection;
 using SharedResponse;
 

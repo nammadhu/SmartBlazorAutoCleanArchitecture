@@ -1,18 +1,20 @@
-using CleanArchitecture.Application.DTOs.Account.Requests;
-using CleanArchitecture.Application.DTOs.Account.Responses;
-using CleanArchitecture.Application.Helpers;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Interfaces.UserInterfaces;
-using CleanArchitecture.Application.Wrappers;
 using CleanArchitecture.Infrastructure.Identity.Models;
 using CleanArchitecture.Infrastructure.Identity.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using SharedResponse;
+using Shared.Wrappers;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.DTOs;
+using Shared.DTOs.Account.Requests;
+using Shared;
+using Shared.DTOs.Account.Responses;
 
 namespace CleanArchitecture.Infrastructure.Identity.Services;
 

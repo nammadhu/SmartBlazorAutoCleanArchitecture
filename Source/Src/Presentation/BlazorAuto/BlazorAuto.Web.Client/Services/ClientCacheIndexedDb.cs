@@ -1,6 +1,6 @@
-﻿using CleanArchitecture.Domain.Products.DTOs;
-using Blazor.IndexedDB;
+﻿using Blazor.IndexedDB;
 using Microsoft.JSInterop;
+using Shared.DTOs;
 
 namespace BlazorAuto.Web.Client.Services;
 //https://github.com/brianly1003/Blazor.IndexedDB
