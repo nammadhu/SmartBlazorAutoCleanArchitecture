@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PublicCommon;
+namespace PublicCommon.Common;
 
 //moved from BlazorWebAppAuto.Client
 //add values at PersistingRevalidatingAuthenticationStateProvider & access at clientside by AuthenticationStateProviders
@@ -9,7 +9,7 @@ namespace PublicCommon;
 
 //this is combined of UserInfo + UserDto
 public class UserDetailBase
-{
+    {
     //non db entity
     //ApplicationUser is with Aspnet Identity System
     //AzureAd_B2C uses UserInfo of sharedResponse
@@ -26,4 +26,4 @@ public class UserDetailBase
 
     public List<string>? Roles { get; set; }//required to pass to clientSide
     public List<int>? CardIds { get; set; }
-}
+    }

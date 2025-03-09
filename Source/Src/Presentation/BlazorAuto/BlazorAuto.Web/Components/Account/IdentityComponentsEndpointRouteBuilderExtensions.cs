@@ -1,22 +1,22 @@
-using System.Security.Claims;
-using System.Text.Json;
+using BlazorAuto.Web.Components.Account.Pages;
+using BlazorAuto.Web.Components.Account.Pages.Manage;
+using CleanArchitecture.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
-using BlazorAuto.Web.Components.Account.Pages;
-using BlazorAuto.Web.Components.Account.Pages.Manage;
-using CleanArchitecture.Infrastructure.Identity.Models;
+using System.Security.Claims;
+using System.Text.Json;
 
 namespace Microsoft.AspNetCore.Routing;
 
 internal static class IdentityComponentsEndpointRouteBuilderExtensions
-{
+    {
     // These endpoints are required by the Identity Razor components defined in the /Components/Account/Pages directory of this project.
     public static IEndpointConventionBuilder MapAdditionalIdentityEndpoints(this IEndpointRouteBuilder endpoints)
-    {
+        {
         ArgumentNullException.ThrowIfNull(endpoints);
 
         var accountGroup = endpoints.MapGroup("/Account");
@@ -82,9 +82,9 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
         {
             var user = await userManager.GetUserAsync(context.User);
             if (user is null)
-            {
+                {
                 return Results.NotFound($"Unable to load user with ID '{userManager.GetUserId(context.User)}'.");
-            }
+                }
 
             var userId = await userManager.GetUserIdAsync(user);
             downloadLogger.LogInformation("User with ID '{UserId}' asked for their personal data.", userId);
@@ -94,15 +94,15 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
             var personalDataProps = typeof(ApplicationUser).GetProperties().Where(
                 prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
             foreach (var p in personalDataProps)
-            {
+                {
                 personalData.Add(p.Name, p.GetValue(user)?.ToString() ?? "null");
-            }
+                }
 
             var logins = await userManager.GetLoginsAsync(user);
             foreach (var l in logins)
-            {
+                {
                 personalData.Add($"{l.LoginProvider} external login provider key", l.ProviderKey);
-            }
+                }
 
             personalData.Add("Authenticator Key", (await userManager.GetAuthenticatorKeyAsync(user))!);
             var fileBytes = JsonSerializer.SerializeToUtf8Bytes(personalData);
@@ -112,10 +112,10 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
         });
 
         return accountGroup;
-    }
+        }
 
     private static string TemporaryFluentButtonFix(string provider)
-    {
+        {
         // Temporary workaround for FluentButton returning a provider value twice
         // Split the comma-separated list of strings
         var providers = provider.Split(',');
@@ -126,5 +126,5 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
                             .Select(g => g.Key)
                             .First();
         return provider;
+        }
     }
-}

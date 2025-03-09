@@ -1,9 +1,11 @@
-using CleanArchitecture.Application.Features.Products.Commands.UpdateProduct;
+using CleanArchitecture.Application.Features.Products.Commands;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Interfaces.Repositories;
-using CleanArchitecture.Application.Wrappers;
-using CleanArchitecture.Domain.Products.Entities;
+using CleanArchitecture.Domain;
 using Moq;
+using Shared;
+using Shared.Features.Products.Commands;
+using Shared.Wrappers;
 using Shouldly;
 
 namespace CleanArchitecture.UnitTests.ApplicationTests.Features.Products.Commands;

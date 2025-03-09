@@ -1,10 +1,8 @@
-﻿using CleanArchitecture.Domain.Common;
-using PublicCommon;
-using System;
+﻿using PublicCommon;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CleanArchitecture.Domain
-{
+    {
     //town table
     //townItemType master data table
     //townId+ townItem table
@@ -27,28 +25,28 @@ namespace CleanArchitecture.Domain
 
     //CardBase NonDbEntity
     public class _CardBase : AuditableBaseEntity, IEquatable<_CardBase>
-    {
-        public bool IsCardMainDataChanged(_CardBase old)
         {
+        public bool IsCardMainDataChanged(_CardBase old)
+            {
             return !(IdCardType == old.IdCardType && IdTown == old.IdTown && Title == old.Title && SubTitle == old.SubTitle
                 && Image1 == old.Image1 && Image2 == old.Image2);
-        }
+            }
 
         public _CardBase()
-        {
+            {
             Title = string.Empty;//only to avoid warnings
                                  //this should never be called,1ly for the sake of EF cores
-        }
+            }
 
         public _CardBase(string title)
-        {
+            {
             Title = title;
-        }
+            }
 
         public _CardBase(string title, string subtitle) : this(title)
-        {
+            {
             SubTitle = subtitle;
-        }
+            }
 
         //public CardBase(int id, string title, string subtitle) : this(title, subtitle)
         //    {
@@ -98,46 +96,46 @@ namespace CleanArchitecture.Domain
         public string? Image2 { get; set; }
 
         public void ResetImages()
-        {
+            {
             Image1 = null;
             Image2 = null;
-        }
+            }
 
         public void NullifyNavigatingObjectsTownCardType()
-        {
+            {
             Town = null;
             Type = null;
-        }
+            }
 
         public static bool IsNotImageUrls(_CardBase? card) => card == null ? true :
      (!ImageInfoBase64Url.IsUrl(card.Image1) && !ImageInfoBase64Url.IsUrl(card.Image2));
 
         public virtual bool EqualImages(_CardBase? otherCard)//compares without id
-        {//usage bool isEqual1 = person1.EqualImages(person2);
+            {//usage bool isEqual1 = person1.EqualImages(person2);
             if (otherCard == null) return false; // Not the same type
 
             //IdCardBrand == otherCard.IdCardBrand //here wont check for id
             return EqualImages(this, otherCard); // Compare properties
-        }
+            }
 
         public static bool EqualImages(_CardBase source, _CardBase? otherDetails)//compares without id
-        {
+            {
             if (otherDetails == null) return false; // Not the same type
 
             //IdCardBrand == otherCard.IdCardBrand //here wont check for id
             return
                 StringExtensions.Equals(source.Image1, otherDetails.Image1) &&
                 StringExtensions.Equals(source.Image2, otherDetails.Image2);
-        }
+            }
 
         public bool Equals(_CardBase? otherDetails)//compares including id
-        {//usage bool isEqual1 = person1.Equals(person2);
+            {//usage bool isEqual1 = person1.Equals(person2);
             if (otherDetails == null) return false; // Not the same type
             return Equals(this, otherDetails);
-        }
+            }
 
         public static bool Equals(_CardBase? source, _CardBase? otherDetails)//compares including id
-        {//usage bool isEqual1 = person1.Equals(person2);
+            {//usage bool isEqual1 = person1.Equals(person2);
             if (source == null && otherDetails == null) return true; // Not the same type
             if (source == null || otherDetails == null) return false;
             //id card compare on derived
@@ -148,7 +146,7 @@ namespace CleanArchitecture.Domain
                 StringExtensions.Equals(source.SubTitle, otherDetails.SubTitle) &&
                 StringExtensions.Equals(source.Address, otherDetails.Address) &&
               EqualImages(source, otherDetails); // Compare properties
-        }
+            }
 
         //2 types of images...
         //1 as BrandMainImages(1 or 2) ,fixed and always needs approval on change...
@@ -168,5 +166,5 @@ namespace CleanArchitecture.Domain
             SubTitle = subTitle;
             Description = description;
             }*/
+        }
     }
-}

@@ -10,9 +10,9 @@ using System.Linq;
 namespace CleanArchitecture.WebApi.Infrastructure.Extensions;
 
 public static class LocalizationExtensions
-{
-    public static IServiceCollection AddCustomLocalization(this IServiceCollection services, IConfiguration configuration)
     {
+    public static IServiceCollection AddCustomLocalization(this IServiceCollection services, IConfiguration configuration)
+        {
         var supportedCultures = configuration.GetSection("Localization:SupportedCultures")
             .Get<List<string>>().Select(p => new CultureInfo(p)).ToArray();
 
@@ -24,12 +24,12 @@ public static class LocalizationExtensions
         });
 
         return services;
-    }
+        }
     public static IApplicationBuilder UseCustomLocalization(this IApplicationBuilder app)
-    {
+        {
         app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
         return app;
-    }
+        }
 
-}
+    }

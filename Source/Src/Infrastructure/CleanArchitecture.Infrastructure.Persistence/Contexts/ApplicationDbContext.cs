@@ -1,17 +1,11 @@
 using CleanArchitecture.Application.Interfaces;
-using CleanArchitecture.Domain;
-using CleanArchitecture.Domain.Products.Entities;
 using CleanArchitecture.Infrastructure.Persistence.Extensions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using System;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Contexts;
 
@@ -254,9 +248,9 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
     public ApplicationDbContext CreateDbContext(string[] args)
         {
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())//requires Microsoft.Extensions.Options.ConfigurationExtensions nuget 
-            .AddJsonFile("appsettings.Development.json")//requires Microsoft.extensions.Options
+        var configuration = new ConfigurationBuilder()//Microsoft.Extensions.Options.ConfigurationExtensions
+            .SetBasePath(Directory.GetCurrentDirectory()) //Microsoft.Extensions.Configuration.FileExtensions
+            .AddJsonFile("appsettings.Development.json")//Microsoft.Extensions.Configuration.Json
             .Build();
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");

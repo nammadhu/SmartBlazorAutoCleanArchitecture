@@ -1,37 +1,43 @@
 using CleanArchitecture.Application.Interfaces.UserInterfaces;
-using CleanArchitecture.Application.Wrappers;
 using CleanArchitecture.Infrastructure.Identity.Contexts;
 using CleanArchitecture.Infrastructure.Identity.Models;
 using CleanArchitecture.Infrastructure.Identity.Services;
 using CleanArchitecture.Infrastructure.Identity.Settings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 
 namespace CleanArchitecture.Infrastructure.Identity;
 
 public static class ServiceRegistration
-{
-    public static IServiceCollection AddIdentityInfrastructure(this IServiceCollection services, IConfiguration configuration, bool useInMemoryDatabase)
     {
+    public static IServiceCollection AddIdentityInfrastructure(this IServiceCollection services, IConfiguration configuration, bool useInMemoryDatabase)
+        {
+
         if (useInMemoryDatabase)
-        {
-            services.AddDbContext<IdentityContext>(options =>
+            {
+            //use AddDbContextFactory instead of AddDbContext to avoid second operation query issue
+            services.AddDbContextFactory<IdentityContext>(options =>
                 options.UseInMemoryDatabase(nameof(IdentityContext)));
-        }
+            }
         else
-        {
-            services.AddDbContext<IdentityContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
-        }
+            {
+            //services.AddDbContext<IdentityContext>(options =>
+            //    options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")));
+
+            //use AddDbContextFactory instead of AddDbContext to avoid second operation query issue
+            services.AddDbContextFactory<IdentityContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("IdentityConnection")
+                , sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 3,
+                        maxRetryDelay: TimeSpan.FromSeconds(3),
+                        errorNumbersToAdd: null);
+                }));
+            }
 
         services.AddTransient<IGetUserServices, GetUserServices>();
         services.AddTransient<IAccountServices, AccountServices>();
@@ -153,5 +159,5 @@ public static class ServiceRegistration
             });
         */
         return services;
+        }
     }
-}

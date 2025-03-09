@@ -1,7 +1,8 @@
-using CleanArchitecture.Application.Features.Products.Commands.CreateProduct;
+using CleanArchitecture.Application.Features.Products.Commands;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Interfaces.Repositories;
 using Moq;
+using Shared.Features.Products.Commands;
 using Shouldly;
 
 namespace CleanArchitecture.UnitTests.ApplicationTests.Features.Products.Commands;

@@ -2,7 +2,7 @@
 
 #pragma warning disable
 public class ConfigurationsForWasmClient
-{
+    {
     //common for all apps
     public string PublicDomainAbsoluteUrl { get; set; }//Next-Mp.in
     public string PublicDomainAbsoluteUrlSecond { get; set; }//MP24.in
@@ -16,5 +16,5 @@ public class ConfigurationsForWasmClient
     //below are specific to app like vote
     public string? SystemType { get; set; }//MP
     public string? CandidateType { get; set; }//MP
-}
+    }
 #pragma warning restore

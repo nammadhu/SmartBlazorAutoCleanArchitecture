@@ -1,5 +1,5 @@
 ﻿namespace PublicCommon
-{
+    {
     /// <summary>
     /// MyLogger.Log("Message to log file", LogLevel.Info, true);
     /*
@@ -28,37 +28,37 @@ MyLogger.Log("Debug message", LogLevel.Verbose); // Will print
 
     /// </summary>
     public static class MyLogger
-    {
+        {
         private static readonly bool IsDevelopment = true;//Environment.GetEnvironmentVariable("ENVIRONMENT")?.ToLower(System.Globalization.CultureInfo.CurrentCulture) == "development";
         private static readonly bool IsVerbose = Environment.GetEnvironmentVariable("VERBOSE")?.ToLower() == "true";
         private static readonly string LogFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "myapp.log"); // Change "myapp" to your application name
 
         public static void Log(string message, LogLevel level = LogLevel.Info, bool writeToLogFile = false)
-        {
-            if ((IsDevelopment && level <= LogLevel.Info) || (IsVerbose && level <= LogLevel.Verbose))
             {
+            if ((IsDevelopment && level <= LogLevel.Info) || (IsVerbose && level <= LogLevel.Verbose))
+                {
                 Console.WriteLine($"{level}: {message}");
-            }
+                }
 
             if (writeToLogFile)
-            {
+                {
                 WriteToFile($"{level}: {message}");
+                }
             }
-        }
 
         private static void WriteToFile(string message)
-        {
-            using (StreamWriter writer = File.AppendText(LogFilePath))
             {
+            using (StreamWriter writer = File.AppendText(LogFilePath))
+                {
                 writer.WriteLine(message);
+                }
             }
-        }
 
         public enum LogLevel
-        {
+            {
             Info,
             Verbose,
             Error
+            }
         }
     }
-}

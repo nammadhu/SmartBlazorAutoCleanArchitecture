@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CleanArchitecture.WebApi.Infrastructure.Extensions;
 
 public static class VersioningExtensions
-{
-    public static IServiceCollection AddVersioning(this IServiceCollection services)
     {
+    public static IServiceCollection AddVersioning(this IServiceCollection services)
+        {
         services.AddApiVersioning(setup =>
         {
             setup.DefaultApiVersion = new ApiVersion(1, 0);
@@ -21,6 +21,6 @@ public static class VersioningExtensions
         });
 
         return services;
-    }
+        }
 
-}
+    }

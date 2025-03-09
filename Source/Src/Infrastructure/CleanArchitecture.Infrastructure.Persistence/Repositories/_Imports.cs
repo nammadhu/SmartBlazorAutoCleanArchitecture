@@ -1,0 +1,15 @@
+﻿global using CleanArchitecture.Application.Interfaces.Repositories;
+global using CleanArchitecture.Domain;
+global using CleanArchitecture.Infrastructure.Persistence.Contexts;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.EntityFrameworkCore;
+global using PublicCommon;
+global using PublicCommon.Common;
+global using Shared.DTOs;
+global using Shared.Features.Cards.Commands;
+global using Shared.Wrappers;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Threading;
+global using System.Threading.Tasks;

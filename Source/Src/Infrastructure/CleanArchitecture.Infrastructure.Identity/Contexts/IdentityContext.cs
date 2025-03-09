@@ -7,9 +7,9 @@ using System;
 namespace CleanArchitecture.Infrastructure.Identity.Contexts;
 
 public class IdentityContext(DbContextOptions<IdentityContext> options) : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>(options)
-{
-    protected override void OnModelCreating(ModelBuilder builder)
     {
+    protected override void OnModelCreating(ModelBuilder builder)
+        {
         base.OnModelCreating(builder);
         builder.HasDefaultSchema("Identity");
         builder.Entity<ApplicationUser>(entity =>
@@ -46,5 +46,5 @@ public class IdentityContext(DbContextOptions<IdentityContext> options) : Identi
         {
             entity.ToTable("UserTokens");
         });
+        }
     }
-}

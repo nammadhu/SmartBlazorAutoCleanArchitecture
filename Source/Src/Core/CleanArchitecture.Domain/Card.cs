@@ -1,41 +1,39 @@
 ﻿using PublicCommon;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CleanArchitecture.Domain;
 
 //each called iCard , internet card of any user or business entity
 //dbentity, once verified then will be moving the verified entity to Card_Verified table
 public class Card : _CardBase
-{
-    public Card()
     {
+    public Card()
+        {
         IdOwner = CreatedBy;
         VerifiedCardDisplayDates = [];//new HashSet<TownVerifiedCardSelectedDate>();
-    }
+        }
 
     public Card(int typeId, string title) : this()
-    {
+        {
         IdCardType = typeId;
         Title = title;
-    }
+        }
 
     public Card(CardType type, string title) : this()
-    {
+        {
         Type = type;
         Title = title;
-    }
+        }
 
     public Card(CardType type, string title, string subtitle) : this(type, title)
-    {
+        {
         SubTitle = subtitle;
-    }
+        }
 
     public Card(CardType type, int id, string title, string subtitle) : this(type, title, subtitle)
-    {
+        {
         //this should be removed later,as id is from db or from screen its 0/null only
         Id = id;
-    }
+        }
 
     [Key]
     public override int Id { get; set; }
@@ -86,25 +84,25 @@ public class Card : _CardBase
     public virtual ICollection<CardDisplayDate> VerifiedCardDisplayDates { get; set; }
 
     public void AddDate(CardDisplayDate date)
-    {
+        {
         // The HashSet will handle uniqueness and performance efficiently
         VerifiedCardDisplayDates.Add(date);
-    }
+        }
 
     public static bool Equals(Card? source, Card? other)//compares including id
-    {
+        {
         var baseCompare = _CardBase.Equals(source, other);
         if (baseCompare)//then check remaining comparison
-        {
+            {
             if (source == null && other == null) return true;
             else if (source == null || other == null) return false;
             return source.IsAdminVerified == other.IsAdminVerified &&
-                ListExtensions.AreListsEqualIgnoringOrder<int>(source.ApprovedPeerCardIds?.ToList(), other.ApprovedPeerCardIds?.ToList())
+                ListExtensions.AreListsEqualIgnoringOrder(source.ApprovedPeerCardIds?.ToList(), other.ApprovedPeerCardIds?.ToList())
                 && source.LikeCount == other.LikeCount && source.DisLikeCount == other.DisLikeCount;
-        }
+            }
         else return false;
+        }
     }
-}
 
 //[NotMapped]
 //public int? IdTownFirst { get; set; }

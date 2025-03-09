@@ -1,9 +1,7 @@
-﻿using CleanArchitecture.Domain.Common;
-
-namespace CleanArchitecture.Domain;
+﻿namespace CleanArchitecture.Domain;
 
 public class _SocialConnections : AuditableBaseEntity
-{//nondbentity
+    {//nondbentity
     //below are non sensitive informations
     [Display(Name = "Mobile Number")]
     [RegularExpression(@"^(\+91|0\d{10}|\d{10})$", ErrorMessage = "Invalid mobile number format.")]
@@ -40,4 +38,4 @@ public class _SocialConnections : AuditableBaseEntity
 
     [Range(-180, 180, ErrorMessage = "Longitude must be between -180 and 180.")]
     public double? Longitude { get; set; }
-}
+    }

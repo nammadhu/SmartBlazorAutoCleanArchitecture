@@ -1,7 +1,7 @@
 ﻿namespace PublicCommon
-{
-    public static class DateTimeExtension
     {
+    public static class DateTimeExtension
+        {
         //todo must in prod add to utc ,so better ,then can change to anything easily
         public static DateTime CurrentTime => DateTime.Now;
 
@@ -9,5 +9,5 @@
 
         public const string StandardFormat = "yyyy-MM-ddTHH:mm:ss";//even on air safe & excludes '/'
         public static string CurrentTimeInString => DateTime.Now.ToString(StandardFormat);
+        }
     }
-}

@@ -5,18 +5,18 @@ namespace CleanArchitecture.Domain;
 
 //db entity
 public class Town : _SocialConnections, IEquatable<Town>
-{
+    {
     [Key]
     public override int Id { get; set; }
 
     public Town()
-    {
-    }
+        {
+        }
 
     public Town(string title)
-    {
+        {
         Title = title;
-    }
+        }
 
     public string Title { get; set; }// = default;
     public string? SubTitle { get; set; }
@@ -60,13 +60,13 @@ public class Town : _SocialConnections, IEquatable<Town>
     public virtual List<Card_AdditionalTown>? VerifiedCardsAdditional { get; set; } = [];
 
     public bool Equals(Town? otherDetails)//compares including id
-    {//usage bool isEqual1 = person1.Equals(person2);
+        {//usage bool isEqual1 = person1.Equals(person2);
         if (otherDetails == null) return false; // Not the same type
         return Equals(this, otherDetails);
-    }
+        }
 
     public static bool Equals(Town? source, Town? other)//compares including id
-    {//usage bool isEqual1 = person1.Equals(person2);
+        {//usage bool isEqual1 = person1.Equals(person2);
         if (source == null && other == null) return true; // Not the same type
         if (source == null || other == null) return false;
         //id card compare on derived
@@ -92,18 +92,18 @@ public class Town : _SocialConnections, IEquatable<Town>
             StringExtensions.Equals(source.OtherReferenceUrl, other.OtherReferenceUrl) &&
             StringExtensions.Equals(source.DetailDescription, other.DetailDescription) &&
             EqualImages(source, other);
-    }
+        }
 
     public virtual bool EqualImages(Town? other)//compares without id
-    {//usage bool isEqual1 = person1.EqualImages(person2);
+        {//usage bool isEqual1 = person1.EqualImages(person2);
         if (other == null) return false; // Not the same type
 
         //IdCardBrand == otherCard.IdCardBrand //here wont check for id
         return EqualImages(this, other); // Compare properties
-    }
+        }
 
     public static bool EqualImages(Town source, Town? other)//compares without id
-    {
+        {
         if (other == null) return false; // Not the same type
 
         //IdCardBrand == otherCard.IdCardBrand //here wont check for id
@@ -115,7 +115,7 @@ public class Town : _SocialConnections, IEquatable<Town>
             StringExtensions.Equals(source.Image5, other.Image5) &&
             StringExtensions.Equals(source.Image6, other.Image6) &&
             StringExtensions.Equals(source.MoreImages, other.MoreImages);
-    }
+        }
 
     //may be this is also not required
     public DateTime? LastCardUpdateTime { get; set; }
@@ -129,4 +129,4 @@ public class Town : _SocialConnections, IEquatable<Town>
     //public int? IdTownCard { get; set; }//only id,no relationship...so had to fetch separately & attach if needed
     //public virtual Card_Draft? TownDraftCard { get; set; }
     //public virtual Card_Verified? TownVerifiedCard { get; set; }
-}
+    }

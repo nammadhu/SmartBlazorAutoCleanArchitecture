@@ -5,7 +5,7 @@ namespace PublicCommon;
 //keep this place for common settings only
 //town or app specific inside MyTown.SharedModels
 public static class UserClaimsExtensionsBase
-{
+    {
     public static bool IsAdmin(this ClaimsPrincipal user)
         => user != null && user.IsInRole(CONSTANTS.ROLES.Role_Admin);// || user.IsInRole(CONSTANTS.ROLES.Role_InternalAdmin);
 
@@ -31,4 +31,4 @@ public static class UserClaimsExtensionsBase
 
     public static bool IsInAnyOfRoles(this ClaimsPrincipal user, List<string> inputRoles)
         => user.IsInAnyOfRoles(inputRoles.ToArray());
-}
+    }

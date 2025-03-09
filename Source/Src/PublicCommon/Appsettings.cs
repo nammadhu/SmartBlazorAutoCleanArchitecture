@@ -3,28 +3,28 @@ using Microsoft.Extensions.Configuration;
 using static PublicCommon.CONSTANTS;
 
 namespace PublicCommon
-{
+    {
 #pragma warning disable
     public class AppConfigurations
-    {
+        {
         public AppConfigurations() : this(null)
-        {
-
-        }
-        public AppConfigurations(EnvironmentEnum? nameSetForce = null)
-        {
-            if (nameSetForce == null)
             {
+
+            }
+        public AppConfigurations(EnvironmentEnum? nameSetForce = null)
+            {
+            if (nameSetForce == null)
+                {
                 if (System.Diagnostics.Debugger.IsAttached)
                     EnvironmentName = EnvironmentConsts.Name ?? EnvironmentConsts.Development;
                 else
                     //above IfElse  is only to handle local deployment switch handling
                     EnvironmentName = EnvironmentConsts.Production;
-            }
+                }
             else { EnvironmentName = Enum.GetName(typeof(EnvironmentEnum), nameSetForce) ?? EnvironmentConsts.Production; }
 
             Environment.SetEnvironmentVariable(EnvironmentConsts.ASPNETCORE_ENVIRONMENT, EnvironmentName);
-        }
+            }
 
 
 
@@ -37,7 +37,7 @@ namespace PublicCommon
         public string EnvironmentName { get; private set; }
 
         public void Initialize(IConfiguration configuration, string environmentName, bool isDevelopment)
-        {
+            {
             //locally Environment.IsDevelopment() for local//this checks for env varibale ASPNETCORE_ENVIRONMENT 
             //string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME"))) null for local,webapp has value
 
@@ -52,12 +52,12 @@ namespace PublicCommon
             AppSettings = configuration.Get<AppSettings>();
             //this copies exactly like appsettings.json but wont get anything from environment variable
             if (AppSettings != null)
-            {
+                {
                 //madhu continue here
                 if (isDevelopment)
-                { //only for local
+                    { //only for local
                     AppSettings.ConnectionStrings.StorageAccountConnectionString = Environment.GetEnvironmentVariable(EnvironmentConsts.StorageAccountConnectionString) ?? "its blank man";
-                }
+                    }
                 else
                     AppSettings.ConnectionStrings.StorageAccountConnectionString =
                         configuration.GetConnectionString(EnvironmentConsts.StorageAccountConnectionString) ?? "its blank mannnn";
@@ -75,36 +75,36 @@ namespace PublicCommon
 
                 if (AppSettings.Authentications != null && AppSettings.Authentications.Any())
                     foreach (var item in AppSettings.Authentications)
-                    {
+                        {
                         item.ClientSecret = null;
-                    }
+                        }
+                }
             }
-        }
 
-    }
+        }
 
     public class AppSettingsForClient : AppSettingsBase
-    {
+        {
         public string BuildNumber { get; set; } = PublicCommon.DateTimeExtension.CurrentTimeInString;
         public DateTime LoadedDate { get; set; } = PublicCommon.DateTimeExtension.CurrentTime;
-    }
-    public class AppSettingsToClientSettingsProfile : Profile
-    {
-        public AppSettingsToClientSettingsProfile()
-        {
-            CreateMap<AppSettings, AppSettingsForClient>();
         }
-    }
+    public class AppSettingsToClientSettingsProfile : Profile
+        {
+        public AppSettingsToClientSettingsProfile()
+            {
+            CreateMap<AppSettings, AppSettingsForClient>();
+            }
+        }
     public class AppSettings : AppSettingsBase
-    {
+        {
         // public string BuildNumber { get; set; } = PublicCommon.DateTimeExtension.CurrentTimeInString;
         //here environment specific settings will be added
         public required ConnectionStrings ConnectionStrings { get; set; }//db & storageaccountconnection string both here only
 
         public required JwtSettings JWTSettings { get; set; }
-    }
+        }
     public class AppSettingsBase
-    {
+        {
         public string EnvironmentName { get; set; }
         public string CompanyName { get; set; } = "Katthe Softwares & Solutions, India";
         public string CompanTagLine { get; set; } = "Software & Solutions with a Cause";
@@ -129,11 +129,11 @@ namespace PublicCommon
         public bool DetailedErrors { get; set; }
         public string IpAddressClientUser { get; set; }
         public VotingSystem VotingSystem { get; set; }
-    }
+        }
 
 
     public class AuthenticationConfigurations
-    {
+        {
         public string Type { get; set; }//google,facebook
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
@@ -155,12 +155,12 @@ namespace PublicCommon
         //"RedirectUri": "https://localhost:7195/account/login-callback",
         //"ResponseType": "id_token"
 
-    }
+        }
 
 
     //moved from CleanArchitecture.Infrastructure.Identity.Settings
     public class JwtSettings
-    {
+        {
         /* "JWTSettings": {
     "Key": "C1CF4B7DC4C4175B6618DE4F55CA4AAA",
     "Issuer": "CoreIdentity",
@@ -171,10 +171,10 @@ namespace PublicCommon
         public string Issuer { get; set; }
         public string Audience { get; set; }
         public double DurationInMinutes { get; set; }
-    }
+        }
 
     public class ConnectionStrings
-    {
+        {
         public string DefaultConnection { get; set; }
         public string IdentityConnection { get; set; }
 
@@ -189,19 +189,19 @@ namespace PublicCommon
         //"IdentityConnection": "Data Source=.\\sqlexpress;Initial Catalog=CleanA17i;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True",
         //"FileManagerConnection": "Data Source=.\\sqlexpress;Initial Catalog=CleanAFile15;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True",
         //"StorageAccountConnectionString"
-    }
+        }
 
     public class LoggingSettings
-    {
+        {
         public Dictionary<string, string> LogLevel { get; set; }
-    }
+        }
     public class VotingSystem
-    {
+        {
         public string SystemType { get; set; }//MP
         public string CandidateType { get; set; }//MP
                                                  // public string PublicDomainUrl { get; set; }//Next-Mp.in //moved to top level
 
-    }
+        }
 
-}
+    }
 #pragma warning restore

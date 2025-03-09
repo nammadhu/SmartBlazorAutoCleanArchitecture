@@ -1,5 +1,5 @@
 ﻿namespace CleanArchitecture.Domain
-{
+    {
     //town table
     //townitemtype master data table
     //townid+ townitem table
@@ -22,24 +22,24 @@
 
     //db entity
     public class CardType : AuditableBaseEntity, IMasterData
-    {//this is only masterdata
+        {//this is only masterdata
         [Key]
         public override int Id { get; set; }
 
         public CardType()
-        {
+            {
             Name = string.Empty;
             ShortName = string.Empty;
-        }
+            }
 
         public CardType(int id, string name, string iconClass, string iconColor)
-        {
+            {
             Id = id;
             Name = name;
             ShortName = name;
             IconClass = iconClass;
             IconColor = iconColor;
-        }
+            }
 
         //public CardType(int id, string name, string iconPath, string iconColor, string shortName) : this(id, name, iconPath, iconColor)
         //{
@@ -47,10 +47,10 @@
         //}
         public CardType(int id, string name, string iconClass, string iconColor, string html5MarkupIcon)
             : this(id, name, iconClass, iconColor)
-        {
+            {
             ShortName = name;
             IconMarkupString = html5MarkupIcon;
-        }
+            }
 
         /*
         public CardType(string name)
@@ -113,5 +113,5 @@
             return StandardList.Where(x => x.Name.Contains(nameContains, StringComparison.InvariantCultureIgnoreCase)).ToList();
             }
         */
+        }
     }
-}

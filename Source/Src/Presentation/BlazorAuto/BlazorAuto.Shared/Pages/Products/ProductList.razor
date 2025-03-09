@@ -1,10 +1,9 @@
 ﻿@page "/products"
-@using CleanArchitecture.Application.Features.Products.Commands.UpdateProduct
-@using CleanArchitecture.Domain.Products.DTOs
-@using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct
-@using CleanArchitecture.Application.Features.Products.Commands.DeleteProduct
 @using BlazorAuto.Shared.Services
 @using SharedResponse
+@using global::Shared.DTOs
+@using global::Shared.Features.Products.Commands
+@using global::Shared.Features.Products.Queries
 @inject IProduct productService
 
 <h3>Product List</h3>

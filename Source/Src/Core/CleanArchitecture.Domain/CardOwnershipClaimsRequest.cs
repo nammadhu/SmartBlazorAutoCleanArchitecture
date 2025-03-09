@@ -3,7 +3,7 @@
 namespace CleanArchitecture.Domain;
 
 public class CardOwnershipClaimsRequest : AuditableBaseEntity
-{
+    {
     //idcard can be duplicate entries,as multiple users might be claiming
     public int IdCard { get; set; }
 
@@ -27,4 +27,4 @@ public class CardOwnershipClaimsRequest : AuditableBaseEntity
     public bool DoNotShowRequest { get; set; } = false;
 
     public bool IsProcessed { get; set; }
-}
+    }

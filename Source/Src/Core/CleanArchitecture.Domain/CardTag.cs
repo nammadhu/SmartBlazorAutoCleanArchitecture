@@ -3,7 +3,7 @@
 namespace CleanArchitecture.Domain;
 
 public class CardTag : AuditableBaseEntity
-{
+    {
     //here its actually one tag for one town,so had to be unique with townid
     //later we can plan for multiple taf for single town or card
     //[Required]
@@ -16,4 +16,4 @@ public class CardTag : AuditableBaseEntity
 
     //here its actually one tag for one town,so had to be unique with townid
     public string Tag { get; set; } = default!; //lets make these as csv or multiple entry then had to make combined key
-}
+    }

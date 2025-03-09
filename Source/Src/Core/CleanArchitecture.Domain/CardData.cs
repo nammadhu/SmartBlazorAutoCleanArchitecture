@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace CleanArchitecture.Domain;
 
 public class CardData : _SocialConnections, IEquatable<CardData>
-{
+    {
     [Key]
     public override int Id { get; set; }
 
@@ -37,14 +37,14 @@ public class CardData : _SocialConnections, IEquatable<CardData>
     public virtual Card? iCard { get; set; }
 
     public bool Equals(CardData? otherCardData)//compares including id
-    {//usage bool isEqual1 = person1.Equals(person2);
+        {//usage bool isEqual1 = person1.Equals(person2);
         if (otherCardData == null) return false; // Not the same type
 
         return Equals(this, otherCardData);
-    }
+        }
 
     public static bool Equals(CardData? source, CardData? other)//compares including id
-    {//usage bool isEqual1 = person1.Equals(person2);
+        {//usage bool isEqual1 = person1.Equals(person2);
         if (source == null && other == null) return true; // Not the same type
         if (source == null || other == null) return false;
 
@@ -60,20 +60,20 @@ public class CardData : _SocialConnections, IEquatable<CardData>
         StringExtensions.Equals(source.OtherReferenceUrl, other.OtherReferenceUrl) &&
         StringExtensions.Equals(source.ShortNote, other.ShortNote);
         // && StringExtensions.Equals(source.DetailedDescription, otherCardData.DetailedDescription);
-    }
+        }
 
     public static (bool updateRequired, bool addRequired) UpdateExistingDbEntity(CardData? existingEntity, CardData? newUiModifiedEntity)
-    {
+        {
         if ((existingEntity == null && newUiModifiedEntity == null) || newUiModifiedEntity == null ||
             (existingEntity != null && existingEntity.Equals(newUiModifiedEntity)))
             return (updateRequired: false, addRequired: false);
         if (existingEntity == null)
-        {
+            {
             existingEntity ??= newUiModifiedEntity;//existing null so overwrite
             return (updateRequired: false, addRequired: true);//required to Add
-        }
+            }
         else
-        {
+            {
             existingEntity.EndDateToShow = newUiModifiedEntity.EndDateToShow;
             existingEntity.ShortNote = newUiModifiedEntity.ShortNote;
             existingEntity.MobileNumber = newUiModifiedEntity.MobileNumber;
@@ -87,6 +87,6 @@ public class CardData : _SocialConnections, IEquatable<CardData>
             existingEntity.TwitterUrl = newUiModifiedEntity.TwitterUrl;
             existingEntity.OtherReferenceUrl = newUiModifiedEntity.OtherReferenceUrl;
             return (updateRequired: true, addRequired: false);
+            }
         }
     }
-}

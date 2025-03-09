@@ -32,7 +32,7 @@
 //    GreatWork =  2
 //}
 public enum RatingEnum
-{
+    {
     VeryBad = 1,// -2,
     Bad = 2,// -1,
     OkOk = 3,//0,
@@ -41,4 +41,4 @@ public enum RatingEnum
     GoodWork = 4,// 1,
 
     GreatWork = 5,// 2
-}
+    }

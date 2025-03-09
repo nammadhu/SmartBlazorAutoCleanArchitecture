@@ -1,7 +1,7 @@
 ﻿namespace PublicCommon.Common
-{
-    public class ImageInfoBase64Url : IEquatable<ImageInfoBase64Url>
     {
+    public class ImageInfoBase64Url : IEquatable<ImageInfoBase64Url>
+        {
         public ImageCategory? Category { get; set; }//may be not required
         public string? Url { get; set; }
         public string? Base64 { get; set; }
@@ -18,33 +18,33 @@
         //public string? Warning { get; set; }
 
         public ImageInfoBase64Url()
-        { } // Default constructor is must
+            { } // Default constructor is must
 
         public ImageInfoBase64Url(string? url)
-        {
-            if (url != null && !url.IsNullOrEmptyString())
             {
+            if (url != null && !url.IsNullOrEmptyString())
+                {
                 if (url.StartsWith(CONSTANTS.Base64ImagePrefix))
                     Base64 = url;
                 else Url = IsUrl(url) ? url : null;
+                }
             }
-        }
 
         public ImageInfoBase64Url(string? url, ImageCategory imageCategory) : this(url)
-        {
+            {
             Category = imageCategory;
-        }
+            }
 
         public ImageInfoBase64Url? BeforePostingCorrection()
-        {
-            if (!IsNotImageUrlNorBase64(this))
             {
+            if (!IsNotImageUrlNorBase64(this))
+                {
                 if (IsBase64(Base64)) Url = null;
                 if (!string.IsNullOrEmpty(Url) && !IsUrl(Url)) Url = null;
                 if (!IsNotImageUrlNorBase64(this)) return this;
-            }
+                }
             return null;
-        }
+            }
 
         public string GetFileNameToUpload(int id = 0) => this.FileName ?? ($"{id}.{CONSTANTS.DefaultImageExtension}");
 
@@ -66,18 +66,18 @@
 
         //IEquatable<CardProduct> implementation
         public bool Equals(ImageInfoBase64Url? image)//compares including id
-        {//usage bool isEqual1 = person1.Equals(person2);
+            {//usage bool isEqual1 = person1.Equals(person2);
             if (image == null) return false; // Not the same type
             return Url == image.Url && Base64 == image.Base64; // Compare properties
-        }
+            }
 
         public static bool Equals(ImageInfoBase64Url? source, ImageInfoBase64Url? other)//compares including id
-        {//usage bool isEqual1 = person1.Equals(person2);
+            {//usage bool isEqual1 = person1.Equals(person2);
             if (source == null && other == null) return true;
             if (source == null || other == null) return false;
 
             return source.Url == other.Url && source.Base64 == other.Base64; // Compare properties
-        }
+            }
 
         //tod add validation for is url and is base64
         public static string? GetUrl(ImageInfoBase64Url? image) => IsUrl(image) ? image!.Url : null;
@@ -85,41 +85,41 @@
         public static string? GetBase64(ImageInfoBase64Url? image) => IsBase64(image) ? image!.Base64 : null;
 
         public static void LoadUploadDelete(ImageInfoBase64Url? ImageN, string imageName, string? existingImageUrl, List<ImageInfo> listToUpload, List<ImageInfo> listToDelete)
-        {
+            {
             if (ImageInfoBase64Url.IsBase64(ImageN)) listToUpload.Add(new ImageInfo(ImageN!, imageName));
             if (!string.IsNullOrEmpty(existingImageUrl) && existingImageUrl != ImageN?.Url)
                 listToDelete.Add(new ImageInfo(existingImageUrl, imageName));
+            }
         }
-    }
 
     // Class to hold image data and name
     public class ImageInfo
-    {
-        public ImageInfo()
         {
-        }
+        public ImageInfo()
+            {
+            }
 
         public ImageInfo(ImageInfoBase64Url imageData, string imageName)
-        {
+            {
             ImageData = imageData;
             ImageName = imageName;
-        }
+            }
 
         public ImageInfo(string url, string imageName)
-        {
+            {
             Url = url;
             ImageName = imageName;
-        }
+            }
 
         public ImageInfoBase64Url? ImageData { get; set; }
         public string? ImageName { get; set; }
         public string? Url { get; set; }//uploaded result
         public bool? DeletedStatus { get; set; }
-    }
+        }
 
     public enum ImageCategory
-    {
+        {
         CardMainImage,
         CardDetailImage
+        }
     }
-}

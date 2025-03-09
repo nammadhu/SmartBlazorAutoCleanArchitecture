@@ -1,7 +1,10 @@
-﻿namespace CleanArchitecture.Domain;
+﻿using PublicCommon;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CleanArchitecture.Domain;
 
 public class CardApproval : AuditableBaseEntity, IEquatable<CardApproval>
-{
+    {
     [Key]
     public override int Id { get; set; }
 
@@ -23,18 +26,18 @@ public class CardApproval : AuditableBaseEntity, IEquatable<CardApproval>
     private int? _idCardOfApprover;
 
     public int? IdCardOfApprover
-    {
+        {
         get => _idCardOfApprover;
         set
-        {
+            {
             _idCardOfApprover = value == 0 ? null : value;
+            }
         }
-    }
 
     public int? IdTown { get; set; }
 
     [NotMapped]
-    public string? Title { get; set; } = "Town Admin"; //ConstantString.TownAdmin;//only for UI purpose
+    public string? Title { get; set; } = ConstantString.TownAdmin;//only for UI purpose
 
     [NotMapped]
     public bool IsSelected { get; set; }
@@ -58,19 +61,19 @@ public class CardApproval : AuditableBaseEntity, IEquatable<CardApproval>
     //    return (x.IdCard == y.IdCard && x.IdTown == y.IdTown && x.IdCardOfApprover == y.IdCardOfApprover);
     //    }
     public override bool Equals(object? obj)
-    {
+        {
         return Equals(obj as CardApproval);
-    }
+        }
 
     public bool Equals(CardApproval? target)
-    {
+        {
         if (ReferenceEquals(this, target)) return true;
         if (ReferenceEquals(target, null)) return false;
         return IdCard == target.IdCard && IdTown == target.IdTown && IdCardOfApprover == target.IdCardOfApprover && IsVerified == target.IsVerified && Message == target.Message;
-    }
+        }
 
     public static bool Equals(List<CardApproval>? source, List<CardApproval>? target)
-    {
+        {
         if (source == null || target == null)
             return source == target; // Both null or both not null
 
@@ -82,44 +85,44 @@ public class CardApproval : AuditableBaseEntity, IEquatable<CardApproval>
                 return false;
 
         return true;
-    }
+        }
 
     public override int GetHashCode()
-    {
-        unchecked
         {
+        unchecked
+            {
             var hashCode = IdCard.GetHashCode();
             hashCode = (hashCode * 397) ^ (IdTown != null ? IdTown.GetHashCode() : 0);
             hashCode = (hashCode * 397) ^ (IdCardOfApprover != null ? IdCardOfApprover.GetHashCode() : 0);
             return hashCode;
+            }
         }
-    }
 
     public void SetTitleAndNullifyNestedCards()
-    {
+        {
         Title = ApproverCard?.Title ?? "";
         iCard = null;
         ApproverCard = null;
+        }
     }
-}
 
 public class CardApprovalComparer : IEqualityComparer<CardApproval>
-{
-    public bool Equals(CardApproval? x, CardApproval? y)
     {
+    public bool Equals(CardApproval? x, CardApproval? y)
+        {
         return x?.Equals(y) ?? y is null;
-    }
+        }
 
     public int GetHashCode(CardApproval obj)
-    {
+        {
         return obj.GetHashCode();
+        }
     }
-}
 
 public static class CardApprovalExtensions
-{
-    public static bool AreListsEqual(List<CardApproval>? list1, List<CardApproval>? list2, IEqualityComparer<CardApproval> comparer)
     {
+    public static bool AreListsEqual(List<CardApproval>? list1, List<CardApproval>? list2, IEqualityComparer<CardApproval> comparer)
+        {
         if ((list1 == null || list1.Count == 0) && (list2 == null || list2.Count == 0)) return true;
 
         if (list1 != null && list2 != null && list1!.Count != list2!.Count)
@@ -129,5 +132,5 @@ public static class CardApprovalExtensions
         var set2 = new HashSet<CardApproval>(list2 ?? [], comparer);
 
         return set1.SetEquals(set2);
+        }
     }
-}

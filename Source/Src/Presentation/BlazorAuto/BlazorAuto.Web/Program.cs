@@ -1,38 +1,37 @@
-using BlazorAuto.Web.Components;
+using BlazorAuto.Shared;
 using BlazorAuto.Shared.Services;
-using BlazorAuto.Web.Services;
+using BlazorAuto.Web.Components;
 using BlazorAuto.Web.Components.Account;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using BlazorAuto.Web.Services;
 using CleanArchitecture.Application;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Infrastructure.FileManager;
+using CleanArchitecture.Infrastructure.FileManager.Contexts;
 using CleanArchitecture.Infrastructure.Identity;
+using CleanArchitecture.Infrastructure.Identity.Contexts;
+using CleanArchitecture.Infrastructure.Identity.Models;
+using CleanArchitecture.Infrastructure.Identity.Seeds;
 using CleanArchitecture.Infrastructure.Persistence;
+using CleanArchitecture.Infrastructure.Persistence.Contexts;
+using CleanArchitecture.Infrastructure.Persistence.Seeds;
 using CleanArchitecture.Infrastructure.Resources;
+using CleanArchitecture.WebApi;
 using CleanArchitecture.WebApi.Infrastructure.Extensions;
 using CleanArchitecture.WebApi.Infrastructure.Middlewares;
 using CleanArchitecture.WebApi.Infrastructure.Services;
 using FluentValidation.AspNetCore;
-using Serilog;
-using CleanArchitecture.Infrastructure.Identity.Contexts;
-using CleanArchitecture.Infrastructure.FileManager.Contexts;
-using CleanArchitecture.Infrastructure.Identity.Seeds;
-using CleanArchitecture.Infrastructure.Persistence.Seeds;
-using CleanArchitecture.Infrastructure.Identity.Models;
-using CleanArchitecture.Infrastructure.Persistence.Contexts;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
-
-using BlazorAuto.Shared;
-using CleanArchitecture.WebApi;
+using Serilog;
 
 namespace BlazorAuto.Web;
 
 public class Program
-{
-    public static async Task Main(string[] args)
     {
+    public static async Task Main(string[] args)
+        {
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
@@ -82,34 +81,34 @@ public class Program
         var app = builder.Build();
 
         using (var scope = app.Services.CreateScope())
-        {
+            {
             var services = scope.ServiceProvider;
 
             if (!useInMemoryDatabase)
-            {
+                {
                 await services.GetRequiredService<IdentityContext>().Database.MigrateAsync();
                 await services.GetRequiredService<ApplicationDbContext>().Database.MigrateAsync();
                 await services.GetRequiredService<FileManagerDbContext>().Database.MigrateAsync();
-            }
+                }
 
             // Seed Data
             await DefaultRoles.SeedAsync(services.GetRequiredService<RoleManager<ApplicationRole>>());
             await DefaultBasicUser.SeedAsync(services.GetRequiredService<UserManager<ApplicationUser>>());
             await DefaultData.SeedAsync(services.GetRequiredService<ApplicationDbContext>());
-        }
+            }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
-        {
+            {
             app.UseWebAssemblyDebugging();
             app.UseMigrationsEndPoint();
-        }
+            }
         else
-        {
+            {
             app.UseExceptionHandler("/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
-        }
+            }
 
         app.UseHttpsRedirection();
 
@@ -143,6 +142,6 @@ public class Program
         app.UseSerilogRequestLogging();
 
         app.Run();
+        }
     }
-}
 

@@ -2,11 +2,11 @@
 using System.Text.Json.Serialization;
 
 namespace PublicCommon
-{
+    {
     //cachekey refreshinterval set inside VoteCacheKey class refreshInterval
 
     public class ApplicationTypes
-    {
+        {
         public static readonly List<ApplicationType> Apps = [new ApplicationType( Katthe,"Katthe.in"),
             new(MyVote),
             new(MyTown,new List<string>(){"SmartTown.in" }),
@@ -17,47 +17,42 @@ namespace PublicCommon
         public const string MyVote = "MyVote";
         public const string MyTown = "SmartTown";
         public const string MyProducts = "MyProducts";
-    }
-
-    public class ApplicationType
-    {
-        public ApplicationType(string name)
-        {
-            Name = name;
         }
 
+    public class ApplicationType(string name)
+        {
         public ApplicationType(string name, string url) : this(name)
-        {
+            {
             Urls = [url];
-        }
+            }
 
         public ApplicationType(string name, List<string> urls) : this(name)
-        {
+            {
             Urls = urls;
-        }
+            }
 
         public byte Index { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = name;
         public List<string>? Urls { get; set; }
-    }
+        }
 
     public enum ApplicationTypeEnum
-    {
+        {
         Katthe = 0,
         MyVote = 1,
         MyTown = 2,
         MyProducts = 3
-    }
+        }
 
     public enum EnvironmentEnum
-    {
+        {
         Development,
         Test,
         Production
-    }
+        }
 
     public static class CONSTANTS
-    {
+        {
         //BELOW ARE CURRENTLY NEWLY USING
         public static readonly string WebAssembly = "WebAssembly";
         public static readonly string Web = "Web";
@@ -80,12 +75,12 @@ namespace PublicCommon
         public const string MadhuVideoUrl = "https://www.youtube.com/embed/J-5BV4pIDAE?si=roda5C9UcaqMmNAE&autoplay=1&mute=1";
 
         public static readonly JsonSerializerOptions DefaultSerializationJsonOptions = new JsonSerializerOptions()
-        {
+            {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,//| JsonIgnoreCondition.WhenWritingNull,
             ReferenceHandler = ReferenceHandler.IgnoreCycles
             //,WriteIndented = true, //this makes payload larger by making indentation
             //PropertyNamingPolicy = JsonNamingPolicy.CamelCase//if necessary
-        };
+            };
 
         public const string Base64ImagePrefix = "data:image/";//"data:image/png";
 
@@ -116,7 +111,7 @@ namespace PublicCommon
         public const string LocalConfigurationKey = "Configuration";
 
         public static class EnvironmentConsts
-        {
+            {
             public const string ASPNETCORE_ENVIRONMENT = "ASPNETCORE_ENVIRONMENT";
             public const string StorageAccountConnectionString = "StorageAccountConnectionString";// nameof(StorageAccountConnectionString);
             public static readonly string Name = Environment.GetEnvironmentVariable(ASPNETCORE_ENVIRONMENT) ?? "Development";
@@ -125,10 +120,10 @@ namespace PublicCommon
             public const string Test = nameof(EnvironmentEnum.Test);
             public static readonly bool IsDevelopment = (Name == Development);
             public static readonly bool IsProduction = (Name == Production);
-        }
+            }
 
         public static class ROLES
-        {
+            {
             public const string Role_Admin = "Admin";
             public const string Role_InternalAdmin = "InternalAdmin";
             public const string Role_InternalViewer = "InternalViewer";
@@ -176,21 +171,21 @@ namespace PublicCommon
             public static string TownReviewer(int townId) => $"{Role_TownReviewer}_{townId}";
 
             public static List<string> TownAdminWriters(int townId = 0)
-            {
+                {
                 if (townId > 0)
                     return AdminWriters.Concat([TownAdmin(townId)]).ToList();
                 else
                     return AdminWriters;
-            }
+                }
 
             public static List<string> TownAdminReviewers(int townId = 0)
-            {
+                {
                 if (townId > 0)
                     return AdminViewers.Concat([TownReviewer(townId)]).ToList();
                 else
                     return AdminViewers;
+                }
             }
-        }
 
         //public static class ExternalProviders
         //    {
@@ -201,5 +196,5 @@ namespace PublicCommon
         //    }
 
         //public const string UserIDPData = "UserIDPData";
+        }
     }
-}

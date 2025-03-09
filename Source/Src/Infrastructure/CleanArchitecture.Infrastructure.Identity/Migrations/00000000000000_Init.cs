@@ -4,13 +4,13 @@ using System;
 #nullable disable
 
 namespace CleanArchitecture.Infrastructure.Identity.Migrations
-{
+    {
     /// <inheritdoc />
     public partial class Init : Migration
-    {
+        {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
+            {
             migrationBuilder.EnsureSchema(
                 name: "Identity");
 
@@ -18,12 +18,12 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                 name: "Role",
                 schema: "Identity",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Role", x => x.Id);
@@ -33,7 +33,7 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                 name: "User",
                 schema: "Identity",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -51,7 +51,7 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
@@ -61,13 +61,13 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                 name: "RoleClaims",
                 schema: "Identity",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RoleClaims", x => x.Id);
@@ -84,13 +84,13 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                 name: "UserClaims",
                 schema: "Identity",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserClaims", x => x.Id);
@@ -107,12 +107,12 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                 name: "UserLogins",
                 schema: "Identity",
                 columns: table => new
-                {
+                    {
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserLogins", x => new { x.LoginProvider, x.ProviderKey });
@@ -129,10 +129,10 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                 name: "UserRoles",
                 schema: "Identity",
                 columns: table => new
-                {
+                    {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
@@ -156,12 +156,12 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                 name: "UserTokens",
                 schema: "Identity",
                 columns: table => new
-                {
+                    {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
@@ -219,11 +219,11 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
                 schema: "Identity",
                 table: "UserRoles",
                 column: "RoleId");
-        }
+            }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+            {
             migrationBuilder.DropTable(
                 name: "RoleClaims",
                 schema: "Identity");
@@ -251,6 +251,6 @@ namespace CleanArchitecture.Infrastructure.Identity.Migrations
             migrationBuilder.DropTable(
                 name: "User",
                 schema: "Identity");
+            }
         }
     }
-}

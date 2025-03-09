@@ -7,7 +7,7 @@ namespace CleanArchitecture.Domain;
 
 //this is combined of UserInfo + UserDto
 public class UserDetail : AuditableBaseEntity<Guid>
-{
+    {
     //ApplicationUser is with Aspnet Identity System
     //AzureAd_B2C uses UserInfo of sharedResponse
     [Key]
@@ -28,4 +28,4 @@ public class UserDetail : AuditableBaseEntity<Guid>
     public virtual List<Card>? iCards { get; set; }
     //public virtual List<Card_DraftChanges>? CardsVerified { get; set; }
     //public virtual List<CardApproval>? CardApprovals { get; set; }
-}
+    }

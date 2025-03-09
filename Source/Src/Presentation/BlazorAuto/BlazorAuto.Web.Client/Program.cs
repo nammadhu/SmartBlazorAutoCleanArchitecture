@@ -2,22 +2,22 @@ using Blazor.IndexedDB;
 using BlazorAuto.Shared;
 using BlazorAuto.Shared.Services;
 using BlazorAuto.Web.Client.Services;
-using CleanArchitecture.Domain.Products.DTOs;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
-using SharedResponse;
+using Shared;
+using Shared.DTOs;
 
 namespace BlazorAuto.Web.Client;
 
 class Program
-{
-    static async Task Main(string[] args)
     {
+    static async Task Main(string[] args)
+        {
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
         // Add device-specific services used by the BlazorAuto.Shared project
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
-        
+
         builder.Services.AddDependencyInjectionCommon();//server & client common
         builder.Services.AddDependencyInjectionClientRender();//only client(wasm+MAUI apps)
         builder.Services.AddFluentUIComponents();
@@ -44,8 +44,8 @@ class Program
         });
 
 
-        builder.Services.AddSingleton<SignalRService>(sp => new SignalRService(builder.HostEnvironment.BaseAddress+ "chathub"));
+        builder.Services.AddSingleton<SignalRService>(sp => new SignalRService(builder.HostEnvironment.BaseAddress + "chathub"));
 
         await builder.Build().RunAsync();
+        }
     }
-}

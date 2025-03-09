@@ -1,4 +1,4 @@
-using CleanArchitecture.Domain.Products.Entities;
+using CleanArchitecture.Domain;
 using Shouldly;
 
 namespace CleanArchitecture.UnitTests.DomainTests.Products.Entities;

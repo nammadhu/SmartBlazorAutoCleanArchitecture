@@ -1,8 +1,8 @@
 ﻿namespace CleanArchitecture.Domain.MyTown.Entities
-{
+    {
     //later not yet included in db schema
     public class Wallet : AuditableBaseEntity
-    {
+        {
         [Key]
         public new Guid Id { get; set; } // Foreign key to ApplicationUser
 
@@ -12,5 +12,5 @@
         public float Balance { get; set; }//decimal is constly
 
         // Other properties as needed
+        }
     }
-}

@@ -3,7 +3,7 @@
 namespace CleanArchitecture.Domain;
 
 public class CardDisplayDate : AuditableBaseEntity
-{
+    {
     // public virtual int Id { get; set; }//dont use the default id, to avoid confusion
     [Key]
     public override int Id { get; set; }
@@ -15,4 +15,4 @@ public class CardDisplayDate : AuditableBaseEntity
     // Navigation property to the Card_Verified
     [ForeignKey(nameof(Id))]
     public virtual Card_DraftChanges? VerifiedCard { get; set; }
-}
+    }

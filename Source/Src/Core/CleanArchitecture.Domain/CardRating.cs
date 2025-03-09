@@ -3,7 +3,7 @@
 namespace CleanArchitecture.Domain;
 
 public class CardRating : AuditableBaseEntity
-{
+    {
     //[Key]//also ref of userid but its different db
     [Display(Name = "ByUserId")]
     public Guid UserId { get; set; }
@@ -21,4 +21,4 @@ public class CardRating : AuditableBaseEntity
     public int Rating { get; set; }
 
     public string? Message { get; set; }
-}
+    }

@@ -1,20 +1,21 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
 namespace CleanArchitecture.Domain
-{
-    public class Card_AdditionalTown : AuditableBaseEntity
     {
+    public class Card_AdditionalTown : AuditableBaseEntity
+        {
         [NotMapped]
         private new int Id { get; set; }
 
         public Card_AdditionalTown()
-        {
-        }
+            {
+            }
 
         public Card_AdditionalTown(int idTown, int idCard)
-        {
+            {
             IdTown = idTown;
             IdCARD = idCard;
-        }
+            }
 
         public int IdTown { get; set; }
         public int IdCARD { get; set; }
@@ -24,5 +25,5 @@ namespace CleanArchitecture.Domain
 
         //[ForeignKey(nameof(IdTown))]
         public virtual Town? Town { get; set; }
+        }
     }
-}
