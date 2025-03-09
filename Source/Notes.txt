@@ -1,3 +1,6 @@
+takeout all domain from controller also
+
+
 even for graphdb ,we should keep separate table or ?
 
 iidentityrepo using graphdb, instead change it to use with default identity itself.

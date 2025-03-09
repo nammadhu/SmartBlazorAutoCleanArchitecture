@@ -1,15 +1,6 @@
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Shared.DTOs;
 using Shared.Features.Products.Commands;
 using Shared.Features.Products.Queries;
-using Shared.Wrappers;
-using SharedResponse;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace CleanArchitecture.WebApi.Controllers.v1;
 
