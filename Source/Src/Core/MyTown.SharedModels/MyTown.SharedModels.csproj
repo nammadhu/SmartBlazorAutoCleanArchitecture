@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTOs\CardBrandDto.cs" />
+    <Compile Remove="Features\Cards\Commands\CreateCardCommand.cs" />
+    <Compile Remove="Features\Cards\Commands\UpdateCardCommand.cs" />
+    <Compile Remove="Features\Towns\Commands\CreateTownCommand.cs" />
+    <Compile Remove="Features\Towns\Commands\CreateTownCommandValidator.cs" />
+    <Compile Remove="Features\Towns\Commands\UpdateTownCommand.cs" />
+    <Compile Remove="Features\Towns\Commands\UpdateTownCommandValidator.cs" />
+    <Compile Remove="Interfaces\ITownSelectedController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Presentation\SharedResponse\SharedResponse.csproj" />
+    <ProjectReference Include="..\MyTown.Domain\MyTown.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

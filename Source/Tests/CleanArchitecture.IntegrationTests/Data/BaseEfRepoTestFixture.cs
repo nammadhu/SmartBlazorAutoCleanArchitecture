@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Application.Interfaces;
-using CleanArchitecture.Domain.Common;
+using CleanArchitecture.Domain;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;

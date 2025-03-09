@@ -4,6 +4,7 @@ using CleanArchitecture.Domain.Products.DTOs;
 using CleanArchitecture.Domain.Products.Entities;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using SharedResponse.Wrappers;
 using System;
 using System.Linq;
 using System.Threading;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
-public class ProductRepository(ApplicationDbContext dbContext) : GenericRepository<Product>(dbContext), IProductRepository
+public class ProductRepository(DbContextProvider dbContextProvider) : GenericRepository<Product>(dbContextProvider), IProductRepository
 {
     public async Task<PaginationResponseDto<ProductDto>> GetPagedListAsync(int pageNumber, int pageSize, string name, bool getTotalCount, DateTime? minDateTimeToFetch = null, CancellationToken cancellationToken = default)
     {
-        var query = dbContext.Products.OrderBy(p => p.Created).AsQueryable();
+        var query = dbContextProvider.DbContext.Set<Product>().OrderBy(p => p.Created).AsQueryable();
 
         if (!string.IsNullOrEmpty(name))
         {
@@ -35,4 +36,9 @@ public class ProductRepository(ApplicationDbContext dbContext) : GenericReposito
                 getTotalCount, cancellationToken);
 
     }
-}
+
+    public Task<PaginationResponseDto<ProductDto>> GetPagedListAsync(int pageNumber, int pageSize, string name, CancellationToken cancellationToken)
+        {
+        throw new NotImplementedException();
+        }
+    }

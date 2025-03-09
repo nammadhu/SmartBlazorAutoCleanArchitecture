@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MyTown.Domain;
 using Serilog;
 using System;
 using System.IO;
@@ -254,9 +255,9 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
     public ApplicationDbContext CreateDbContext(string[] args)
         {
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())//requires Microsoft.Extensions.Options.ConfigurationExtensions nuget 
-            .AddJsonFile("appsettings.Development.json")//requires Microsoft.extensions.Options
+        var configuration = new ConfigurationBuilder()//Microsoft.Extensions.Options.ConfigurationExtensions
+            .SetBasePath(Directory.GetCurrentDirectory()) //Microsoft.Extensions.Configuration.FileExtensions
+            .AddJsonFile("appsettings.Development.json")//Microsoft.Extensions.Configuration.Json
             .Build();
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");

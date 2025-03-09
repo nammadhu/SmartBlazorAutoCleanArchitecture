@@ -1,6 +1,8 @@
 using CleanArchitecture.Application.DTOs;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Infrastructure.Resources.ProjectResources;
+using SharedResponse;
+using SharedResponse.DTOs;
 using System.Globalization;
 using System.Resources;
 

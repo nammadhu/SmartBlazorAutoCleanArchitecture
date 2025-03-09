@@ -1,4 +1,4 @@
-using CleanArchitecture.Application.DTOs;
+using SharedResponse.DTOs;
 
 namespace CleanArchitecture.Application.Helpers;
 

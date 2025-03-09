@@ -1,0 +1,22 @@
+using CleanArchitecture.Application.Interfaces;
+using CleanArchitecture.Application.Interfaces.Repositories;
+using CleanArchitecture.Domain.Products.Entities;
+using MediatR;
+using MyTown.SharedModels.Features.Products.Commands;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace CleanArchitecture.Application.Features.Products.Commands;
+
+public class CreateProductCommandHandler(IProductRepository productRepository, IUnitOfWork unitOfWork) : IRequestHandler<CreateProductCommand, BaseResult<long>>
+{
+    public async Task<BaseResult<long>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    {
+        var product = new Product(request.Name, request.Price, request.BarCode);
+
+        await productRepository.AddAsync(product, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return product.Id;
+    }
+}

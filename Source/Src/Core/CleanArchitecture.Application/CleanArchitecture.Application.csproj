@@ -1,17 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
-    <PackageReference Include="MediatR" Version="12.4.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.2" />
-    <PackageReference Include="Serilog" Version="4.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
-  </ItemGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="DTOs\PaginationResponseDto.cs" />
+	  <Compile Remove="DTOs\TranslatorMessageDto.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+		<PackageReference Include="MediatR" Version="12.4.1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Presentation\SharedResponse\SharedResponse.csproj" />
+	  <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
+	  <ProjectReference Include="..\MyTown.SharedModels\MyTown.SharedModels.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="DTOs\Account\Responses\" />
+	</ItemGroup>
+
 </Project>
