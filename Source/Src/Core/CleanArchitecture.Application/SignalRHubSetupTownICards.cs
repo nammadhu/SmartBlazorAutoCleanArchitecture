@@ -5,7 +5,7 @@ namespace MyTown.Application;
 
 public partial class SignalRHubTownICards(IHttpContextAccessor httpContextAccessor,
 ITownCardController cardController, ILogger<SignalRHubTownICards> logger)
-    //IMediator mediator, IIdentityRepository identityRepository,IAuthenticatedUserService authenticatedUserService,
+//IMediator mediator, IIdentityRepository identityRepository,IAuthenticatedUserService authenticatedUserService,
     {
     //private readonly IMediator _mediator;
     //private readonly IIdentityRepository _identityRepository;

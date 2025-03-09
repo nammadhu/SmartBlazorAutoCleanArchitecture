@@ -21,6 +21,8 @@ public class AuthenticatedUserService(IHttpContextAccessor httpContextAccessor) 
     public string Name { get; } = httpContextAccessor.HttpContext?.User.FindFirstValue("name");
     public string Email { get; } = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Email);
 
+    public List<string> Roles => httpContextAccessor.HttpContext?.User?.Roles();
+
     public bool IsInRole(string role) => httpContextAccessor.HttpContext?.User?.IsInRole(role) ?? false;
 
     public bool IsInAnyOfRoles(string[] roles) => roles?.Length > 0 ? httpContextAccessor.HttpContext?.User?.IsInAnyOfRoles(roles) ?? false : false;
