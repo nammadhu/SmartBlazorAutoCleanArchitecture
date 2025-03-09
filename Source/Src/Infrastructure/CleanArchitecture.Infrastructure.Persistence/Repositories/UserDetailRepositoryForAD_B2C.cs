@@ -5,7 +5,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 //Mostly used in case of AD_B2C using as db doesnt contain more info of user roles ,cards entry and all.
 //Whichever user makes operations only those will exist here
 //Still on aspnet core also we can attach or extend.but this should be key entry for any users changes checks
-public class UserDetailRepositoryForAD_B2C(DbContextProvider dbContextProvider,  IMapper mapper,IIdentityRepositoryAdB2C identityRepository) : GenericRepository<UserDetail>(dbContextProvider), IUserDetailRepositoryAdB2c
+public class UserDetailRepositoryForAD_B2C(DbContextProvider dbContextProvider,  IMapper mapper,IIdentityRepositoryAdB2C identityRepository) //: GenericRepository<UserDetail>(dbContextProvider), IUserDetailRepositoryAdB2c
 //IIdentityRepository identityRepository,
 //, IGenericRepository<UserInfo>
 //, ITownRepository ,

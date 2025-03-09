@@ -8,11 +8,11 @@ public class GetCardsOfUserQuery : IRequest<BaseResult<UserDetailDto>>
     public Guid UserId { get; set; }
     //Fetch from IAuthenticationService for logged in user & assign in controller levels. if null then donot call itself
 
-    //public bool IsCardCreator { get; set; }
-    //public bool IsCardOwner { get; set; }
-    //public bool IsCardVerifiedOwner { get; set; }
+    public bool IsCardCreator { get; set; }
+    public bool IsCardOwner { get; set; }
+    public bool IsCardVerifiedOwner { get; set; }
 
-    //public bool IsCardVerifiedReviewer { get; set; }//mostly not required
+    public bool IsCardVerifiedReviewer { get; set; }//mostly not required
 
     // Guid userId, bool isCreator, bool isOwner, bool isVerifiedCardOwner, bool isVerifiedReviewer, int townId = 0
     }

@@ -38,8 +38,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     //  public DbSet<UserTrash> UserTrashes { get; set; }//moved to IdentityDb
     public DbSet<Card> Cards { get; set; }//every new card enters here
+    //either first draft or verified card presented here
 
-    public DbSet<Card_DraftChanges> Card_DraftChanges { get; set; }//after enough approval draft goes here
+    public DbSet<Card_DraftChanges> Card_DraftChanges { get; set; }//later draft of verified here
 
     public DbSet<Card_AdditionalTown> Card_AdditionalTowns { get; set; }
 

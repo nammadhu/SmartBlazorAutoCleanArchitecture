@@ -33,18 +33,19 @@ IAzImageStorage azImageStorage, IAccountServices accountServices) : GenericRepos
     public async Task<List<iCardDto>> GetUserCards(Guid userId, CancellationToken cancellationToken)
         {
         //this should not be executed for admin,as they will be having lot of cards makes large set
-
-        var cards = await dbCard.Where(x => x.IdOwner == userId || x.CreatedBy == userId)
+        UserDetailDto dto = new();
+        var userCards = await dbCard.Where(x => x.IdOwner == userId || x.CreatedBy == userId)
             .Include(x => x.CardData)//mostly by default included
             .Include(x => x.CardDetail)//mostly by default included
             .Include(x => x.VerifiedCardDisplayDates)//mostly by default included
             .Include(x => x.CardRatings)//mostly by default included
             .Include(x => x.AdditionalTownsOfVerifiedCard)//mostly by default included
-            .Include(x => x.DraftChanges).ToListAsync(cancellationToken);
-        return [.. cards.Select(x => mapper.Map<iCardDto>(x))];
+            .Include(x => x.DraftChanges)
+            .ToListAsync(cancellationToken);
+        return [.. userCards.Select(x => mapper.Map<iCardDto>(x))];
         }
 
-    /* todo
+ /*
     public async Task<UserDetailDto> GetUserCardsMoreDetails(GetCardsOfUserQuery query, CancellationToken cancellationToken)
         {
         dbCard.Where(x => x.CreatedBy == query.UserId)
