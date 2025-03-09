@@ -14,6 +14,7 @@ using CleanArchitecture.WebApi;
 using CleanArchitecture.WebApi.Infrastructure.Extensions;
 using CleanArchitecture.WebApi.Infrastructure.Middlewares;
 using CleanArchitecture.WebApi.Infrastructure.Services;
+using CleanArchitecture.Infrastructure.Azure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -21,9 +22,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Microsoft.Extensions.Hosting;
+using PublicCommon;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+var environmentName = builder.Environment.EnvironmentName;
+var applicationName = builder.Environment.ApplicationName;
+var isDevelopment = builder.Environment.IsDevelopment();// Microsoft.Extensions.Hosting.Environments.Development
+var isProduction = builder.Environment.IsProduction();//checks Microsoft.Extensions.Hosting.Environments.Production
+var isStaging = builder.Environment.IsStaging();
+
+//logger.Warning($"environmentName:{environmentName}");
+//logger.Warning($"applicationName:{applicationName}");
+//logger.Warning($"isDevelopment:{isDevelopment}");
+//logger.Warning($"isProduction:{isProduction}");
+//logger.Warning($"isStaging:{isStaging}");
+
 
 bool useInMemoryDatabase = builder.Configuration.GetValue<bool>("UseInMemoryDatabase");
 
@@ -31,6 +47,13 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddPersistenceInfrastructure(builder.Configuration, useInMemoryDatabase);
 builder.Services.AddFileManagerInfrastructure(builder.Configuration, useInMemoryDatabase);
 builder.Services.AddIdentityInfrastructure(builder.Configuration, useInMemoryDatabase);
+
+builder.Services.AddSingleton<AppConfigurations>();
+AppConfigurations config = new();
+config.Initialize(builder.Configuration, environmentName: environmentName, isDevelopment);
+builder.Services.AddSingleton(config);
+builder.Services.AddAzureInfrastructure(builder.Configuration, useInMemoryDatabase);
+
 builder.Services.AddResourcesInfrastructure();
 builder.Services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
 builder.Services.AddControllers();

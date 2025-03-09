@@ -42,6 +42,7 @@
 
     public interface ICardRepository : IGenericRepository<Card>
         {
+        Task<List<iCardDto>> GetUserCards(Guid userId, CancellationToken cancellationToken);
         Task<(bool approvedResult, int townIdRefreshRequired)> ApproveCardAsync(ApproveCardCommand request, CancellationToken cancellationToken);
 
         Task<bool?> ApproveCardByAdmin(ApproveCardCommand request, Card card, CancellationToken cancellationToken);

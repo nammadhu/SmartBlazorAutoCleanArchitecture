@@ -1,6 +1,6 @@
 namespace CleanArchitecture.Application.Interfaces.Repositories;
 
-public interface IIdentityRepository
+public interface IIdentityRepositoryAdB2C
     {
     List<RoleDto> Roles { get; }
 

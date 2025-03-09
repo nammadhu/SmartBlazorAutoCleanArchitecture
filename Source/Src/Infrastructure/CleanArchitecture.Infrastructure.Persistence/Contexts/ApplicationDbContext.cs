@@ -39,7 +39,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     //  public DbSet<UserTrash> UserTrashes { get; set; }//moved to IdentityDb
     public DbSet<Card> Cards { get; set; }//every new card enters here
 
-    public DbSet<Card_DraftChanges> Card_DraftChanges { get; set; }//after enough approval makes entry to Card_VerifiedEntries
+    public DbSet<Card_DraftChanges> Card_DraftChanges { get; set; }//after enough approval draft goes here
 
     public DbSet<Card_AdditionalTown> Card_AdditionalTowns { get; set; }
 
@@ -52,7 +52,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<UserCardLimits> UserCardLimits { get; set; }
 
-    public DbSet<UserDetail> UserDetails { get; set; }
+   // public DbSet<UserDetail> UserDetails { get; set; }
 
     //this must be excluded otherwise table gets created even if you use exclude or ignore it wont work
     //public DbSet<Product> Products { get; set; }
@@ -79,12 +79,14 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         builder.Entity<UserInfo>().Property(e => e.CardIds).HasConversion(v => JsonExtensions.Serialize(v), v => JsonExtensions.DeSerialize<List<int>>(v));
         Instead of above below is the clean code*/
 
+        /* For Azure Ad_b2C
         builder.Entity<UserDetail>(entity =>
         {
             entity.Property(e => e.Id).ValueGeneratedNever();
             //entity.Property(e => e.Roles).HasConversion(v => JsonExtensions.Serialize(v), v => JsonExtensions.DeSerialize<List<string>>(v));
             //entity.Property(e => e.CardIds).HasConversion(v => JsonExtensions.Serialize(v), v => JsonExtensions.DeSerialize<List<int>>(v));
         });
+        */
 
         builder.Entity<CardType>().Property(et => et.Id).ValueGeneratedNever();
         builder.Entity<Town>(entity =>

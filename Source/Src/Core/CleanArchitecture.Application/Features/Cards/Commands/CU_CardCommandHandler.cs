@@ -1,4 +1,5 @@
 ﻿using CleanArchitecture.Application;
+using CleanArchitecture.Application.Interfaces.UserInterfaces;
 
 namespace MyTown.Application.Features.Cards.Commands;
 
@@ -7,10 +8,11 @@ public partial class CU_CardCommandHandler(ICardRepository cardRepository,
     //IAdditionalTownsOfVerifiedCardRepository additionalTownsOfVerifiedCardRepository,
     //ICardDataRepository cardDataRepository, ICardDetailRepository cardDetailsRepository,
     IUnitOfWork unitOfWork, ITranslator translator, IMapper mapper,
-    IAuthenticatedUserService authenticatedUser, IAzImageStorage azImageStorage,
+    IAuthenticatedUserService authenticatedUserService, IAccountServices accountServices,
+    IAzImageStorage azImageStorage,
     ICardApprovalRepository townCardApprovalRepository, ServerCachingTownCards cachingServiceTown
-    , ILogger<CU_CardCommandHandler> logger,
-    IUserDetailRepository userDetailRepository, IIdentityRepository identityRepository)
+    , ILogger<CU_CardCommandHandler> logger)
+    //IUserDetailRepository userDetailRepository,    IIdentityRepository identityRepository)
     : IRequestHandler<CU_CardCommand, BaseResult<iCardDto>>
     {
     public async Task<BaseResult<iCardDto>> Handle(CU_CardCommand requestCommand, CancellationToken cancellationToken)
@@ -30,16 +32,19 @@ public partial class CU_CardCommandHandler(ICardRepository cardRepository,
             //todo adding user is an optional process
             //below is in case of cosmos db ensuring
 
-            UserDetailBase userOnGraphDb = await identityRepository.GetUserAsync(authenticatedUser.UserId, cancellationToken);
+            //todo add cancreate card utilization
+
+            /* for ad b2c
+            UserDetailBase userOnGraphDb = await identityRepository.GetUserAsync(authenticatedUserService.UserId, cancellationToken);
             if (userOnGraphDb == null || userOnGraphDb == default)
                 return new BaseResult<iCardDto>() { Success = false, Errors = [new Error(ErrorCode.TamperedData, description: "User Not Found on Authentication System", "User Full")] };
 
-            if (userOnGraphDb.Email != authenticatedUser.Email)
+            if (userOnGraphDb.Email != authenticatedUserService.Email)
                 return new BaseResult<iCardDto>() { Success = false, Errors = [new Error(ErrorCode.TamperedData, description: "Email id doesnt match", "Email")] };
-
+            */
             BaseResult<iCardDto> result;
             if (requestCommand.Id == 0)//for create
-                result = await CreateCardWithData(requestCommand, userOnGraphDb, cancellationToken);
+                result = await CreateCardWithData(requestCommand, cancellationToken);
             else // UpdateCard not sure of checking userOnGraphDb
                 result = await UpdateCardOnly(requestCommand, cancellationToken);//no data update here
 

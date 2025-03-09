@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using CleanArchitecture.Application.Interfaces.UserInterfaces;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Repositories
     {
     public class CleanUpRepository(DbContextProvider dbContextProvider, IMapper mapper, ILogger<CleanUpRepository> logger,
-        IIdentityRepository accountServices, IBackgroundJobsRepository backgroundJobsRepository) : ICleanUpRepository
+        IAccountServices accountServices,
+        // IIdentityRepository accountServices,
+        IBackgroundJobsRepository backgroundJobsRepository) : ICleanUpRepository
         {
         private ApplicationDbContext dbContext = dbContextProvider.DbContext;
 
@@ -47,7 +50,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Repositories
                     cardDeletionChangesCount += await DeleteCardAndDependentDataCompletely(card, operatorUserId, cancellationToken, isAdmin);
                 }
 
-            IdentityResult userDeletionResult = await accountServices.DeleteUserCompletely(targetUserId, operatorUserId, cancellationToken);
+            IdentityResult userDeletionResult = await accountServices.DeleteUserCompletely(targetUserId);//, operatorUserId, cancellationToken);
 
             return (cardsToDelete: cardsToDelete, cardDeletionCount: cardDeletionChangesCount, userDeletionResult);
             }

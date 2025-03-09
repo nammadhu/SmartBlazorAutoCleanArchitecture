@@ -1,4 +1,6 @@
-﻿namespace MyTown.Application.Features.Cards.Commands;
+﻿using CleanArchitecture.Application.Interfaces.UserInterfaces;
+
+namespace MyTown.Application.Features.Cards.Commands;
 
 public partial class CU_CardCommandHandler
     {
@@ -23,7 +25,8 @@ SaveChanges() call
 S8.add to cache of town
      */
 
-    private async Task<BaseResult<iCardDto>> CreateCardWithData(CU_CardCommand createCommand, UserDetailBase operatorOnGraphDb, CancellationToken cancellationToken)
+    private async Task<BaseResult<iCardDto>> CreateCardWithData(CU_CardCommand createCommand,// UserDetailBase operatorOnGraphDb,
+                                                                                             CancellationToken cancellationToken)
         {
         bool cardSavedResult = false;
         Card? newCard = null;
@@ -31,6 +34,7 @@ S8.add to cache of town
         if (createCommand != null)
             {
             //S1
+            /* ad b2c
             if (operatorOnGraphDb?.Roles?.Count > 0 && operatorOnGraphDb.Roles.Any(x => CONSTANTS.ROLES.TownAdminWriters(createCommand.IdTown).Contains(x)))
                 {
                 //for admin dont do any user check,just proceed
@@ -41,11 +45,36 @@ S8.add to cache of town
                       roles: operatorOnGraphDb.Roles,
                       operatorOnGraphDb.Id, existingUserInGraph: operatorOnGraphDb, cancellationToken);
                 }
+            */
+
+
+
+            if (authenticatedUserService?.Roles?.Count > 0 && authenticatedUserService.Roles.Any(x => CONSTANTS.ROLES.TownAdminWriters(createCommand.IdTown).Contains(x)))
+
+            //if (operatorOnGraphDb?.Roles?.Count > 0 && operatorOnGraphDb.Roles.Any(x => CONSTANTS.ROLES.TownAdminWriters(createCommand.IdTown).Contains(x)))
+                {
+                //for admin dont do any user check,just proceed
+                //but make sure user entry in system with graphdb roles
+
+                //just directly adding admin to UserDetail table
+                await accountServices.AddRoleToUserAsync(authenticatedUserService.UserGuId,
+                      roleNames: authenticatedUserService.Roles,
+                      authenticatedUserService.UserGuId);
+                //await userDetailRepository.AddUserRoles(operatorOnGraphDb.Id,
+                //      roles: operatorOnGraphDb.Roles,
+                //      operatorOnGraphDb.Id, existingUserInGraph: operatorOnGraphDb, cancellationToken);
+                }
             else
                 {
                 createCommand.IsForVerifiedCard = false;
                 isAdminOperator = false;
 
+
+                if (authenticatedUserService.Roles.Count == 0 || authenticatedUserService.Roles.Contains(CONSTANTS.ROLES.Role_CardCreator) != true)
+                    { //if already as creator then skip
+                    await accountServices.AddRoleToUserAsync(authenticatedUserService.UserGuId, [CONSTANTS.ROLES.Role_CardCreator], authenticatedUserService.UserGuId);
+                    }
+                /* for adb2c
                 UserDetailDto userOnSystemDto = await userDetailRepository.GetByIdIncludeCardsAsync(authenticatedUser.UserGuId, cancellationToken);
                 UserDetail userOnSystem = mapper.Map<UserDetail>(userOnSystemDto);
                 if (userOnSystem == null || userOnSystem == default)
@@ -74,6 +103,8 @@ S8.add to cache of town
                     userDetailRepository.Update(userOnSystem);
                     //saveChangesPending() will be with card insertion together itself
                     }
+
+                */
                 }
             //add more check as if admin allow.
             //if townadmin then allow for current town only

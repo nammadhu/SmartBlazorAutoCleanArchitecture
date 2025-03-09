@@ -15,7 +15,7 @@ public interface IAuthenticatedUserService
     string Name { get; }
     string Email { get; }
 
-
+    public List<string> Roles { get; }
     bool IsInRole(string role);
 
     bool IsInAnyOfRoles(string[] roles);

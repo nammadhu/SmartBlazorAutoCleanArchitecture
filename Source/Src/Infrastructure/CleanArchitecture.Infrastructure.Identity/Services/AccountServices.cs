@@ -3,6 +3,7 @@ using CleanArchitecture.Application.Interfaces.UserInterfaces;
 using CleanArchitecture.Infrastructure.Identity.Models;
 using CleanArchitecture.Infrastructure.Identity.Settings;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Shared;
 using Shared.DTOs;
@@ -10,6 +11,7 @@ using Shared.DTOs.Account.Requests;
 using Shared.DTOs.Account.Responses;
 using Shared.Wrappers;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
@@ -17,8 +19,166 @@ using System.Threading.Tasks;
 
 namespace CleanArchitecture.Infrastructure.Identity.Services;
 
-public class AccountServices(UserManager<ApplicationUser> userManager, IAuthenticatedUserService authenticatedUser, SignInManager<ApplicationUser> signInManager, JwtSettings jwtSettings, ITranslator translator) : IAccountServices
+public class AccountServices(UserManager<ApplicationUser> userManager, IAuthenticatedUserService authenticatedUser, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, JwtSettings jwtSettings, ITranslator translator) : IAccountServices
     {
+
+    public async Task<ApplicationUser> GetUserAsync(Guid userId)
+        => await userManager.FindByIdAsync(userId.ToString());
+
+    public async Task<IList<string>> GetUserRolesAsync(Guid userId)
+        {
+        try
+            {
+            var user = await userManager.FindByIdAsync(userId.ToString());
+
+            if (user == null)
+                {
+                return new List<string>();
+                }
+
+            var roles = await userManager.GetRolesAsync(user);
+            return roles;
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Error getting user roles: {ex.Message}");
+            return new List<string>();
+            }
+        }
+
+    public async Task<bool> IsUserInRoleAsync(Guid userId, string roleName)
+        {
+        try
+            {
+            var user = await userManager.FindByIdAsync(userId.ToString());
+
+            if (user == null)
+                {
+                return false;
+                }
+
+            return await userManager.IsInRoleAsync(user, roleName);
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Error checking user role: {ex.Message}");
+            return false;
+            }
+        }
+
+    public async Task<IList<ApplicationUser>> GetUsersInRoleAsync(string roleName)
+        {
+        try
+            {
+            var role = await roleManager.FindByNameAsync(roleName);
+            if (role == null)
+                {
+                return new List<ApplicationUser>();
+                }
+
+            var users = await userManager.GetUsersInRoleAsync(roleName);
+            return (IList<ApplicationUser>)users;
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Error getting users in role: {ex.Message}");
+            return new List<ApplicationUser>();
+            }
+        }
+
+    public async Task<IdentityResult> AddRoleToUserAsync(Guid userId, List<string> roleNames, Guid operatorId)
+        {
+        //todo need to make operatorid to auditing
+        try
+            {
+            var user = await userManager.FindByIdAsync(userId.ToString());
+
+            if (user == null)
+                {
+                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+                }
+
+            var existingRoles = await userManager.GetRolesAsync(user);
+
+            var rolesToAdd = roleNames.Where(roleName => !existingRoles.Contains(roleName)).ToList();
+
+            if (rolesToAdd.Count == 0)
+                {
+                return IdentityResult.Success; // All roles were already assigned.
+                }
+
+            var rolesExist = true;
+            foreach (var roleName in rolesToAdd)
+                {
+                if (!await roleManager.RoleExistsAsync(roleName))
+                    {
+                    rolesExist = false;
+                    break;
+                    }
+                }
+            if (!rolesExist)
+                {
+                return IdentityResult.Failed(new IdentityError { Description = "One or more roles do not exist." });
+                }
+
+            var result = await userManager.AddToRolesAsync(user, rolesToAdd);
+            return result;
+            }
+        catch (Exception ex)
+            {
+            // Log the exception
+            Console.WriteLine($"Error adding role to user: {ex.Message}");
+            return IdentityResult.Failed(new IdentityError { Description = "An error occurred while adding the role." });
+            }
+        }
+
+    public async Task<IdentityResult> DeleteUserCompletely(Guid userId)
+        {
+        //todo need to add loggings
+        try
+            {
+            var user = await userManager.FindByIdAsync(userId.ToString());
+
+            if (user == null)
+                {
+                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+                }
+
+            // Remove user roles
+            var userRoles = await userManager.GetRolesAsync(user);
+            await userManager.RemoveFromRolesAsync(user, userRoles);
+
+            // Remove user logins
+            var userLogins = await userManager.GetLoginsAsync(user);
+            foreach (var login in userLogins)
+                {
+                await userManager.RemoveLoginAsync(user, login.LoginProvider, login.ProviderKey);
+                }
+
+            // Remove user claims
+            var userClaims = await userManager.GetClaimsAsync(user);
+            foreach (var claim in userClaims)
+                {
+                await userManager.RemoveClaimAsync(user, claim);
+                }
+
+            //Remove User Tokens
+            //var userTokens = await dbContext.UserTokens.Where(t => t.UserId == user.Id).ToListAsync();
+            //dbContext.UserTokens.RemoveRange(userTokens);
+            //await dbContext.SaveChangesAsync();
+
+            // Remove the user
+            var result = await userManager.DeleteAsync(user);
+
+            return result;
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Error removing user: {ex.Message}");
+            return IdentityResult.Failed(new IdentityError { Description = "An error occurred while removing the user." });
+            }
+        }
+
     public async Task<BaseResult> ChangePassword(ChangePasswordRequest model)
         {
         var user = await userManager.FindByIdAsync(authenticatedUser.UserId);
