@@ -19,8 +19,5 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\PublicCommon\PublicCommon.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="AspNet\" />
-	</ItemGroup>
 </Project>
   

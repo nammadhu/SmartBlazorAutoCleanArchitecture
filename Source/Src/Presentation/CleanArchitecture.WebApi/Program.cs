@@ -89,6 +89,7 @@ using (var scope = app.Services.CreateScope())
     await DefaultRoles.SeedAsync(services.GetRequiredService<RoleManager<ApplicationRole>>());
     await DefaultBasicUser.SeedAsync(services.GetRequiredService<UserManager<ApplicationUser>>());
     await DefaultData.SeedAsync(services.GetRequiredService<ApplicationDbContext>());
+    await Seed.Seeding(app);
     }
 
 app.UseCustomLocalization();

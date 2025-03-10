@@ -169,7 +169,7 @@ IAzImageStorage azImageStorage, IAccountServices accountServices) : GenericRepos
         //todo should have townid additional
         var query = dbCardDraft.AsNoTracking().OrderBy(p => p.Created).AsQueryable();
         if (!string.IsNullOrEmpty(name))
-            query = query.Where(p => p.Title.Contains(name));
+            query = query.Where(p => p.Name.Contains(name));
 
         return await query
              .OrderByDescending(x => x.Id)

@@ -1,4 +1,6 @@
-﻿namespace PublicCommon.Common
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PublicCommon.Common
     {
     public interface IAuditableBaseEntity
         {
@@ -16,7 +18,17 @@
 
     public abstract class AuditableBaseEntity<TKey> : BaseEntity<TKey>, IAuditableBaseEntity
         {
-        public string Name { get; set; }
+        protected AuditableBaseEntity(string name)
+            {
+            Name = name;
+            }
+
+        protected AuditableBaseEntity()
+            {
+            }
+        //[Required]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "{0} Must be {2} & {1} characters")]
+        public virtual string Name { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime Created { get; set; }
         public Guid? LastModifiedBy { get; set; }

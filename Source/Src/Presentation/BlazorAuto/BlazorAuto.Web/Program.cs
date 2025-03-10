@@ -118,6 +118,7 @@ public class Program
             await DefaultRoles.SeedAsync(services.GetRequiredService<RoleManager<ApplicationRole>>());
             await DefaultBasicUser.SeedAsync(services.GetRequiredService<UserManager<ApplicationUser>>());
             await DefaultData.SeedAsync(services.GetRequiredService<ApplicationDbContext>());
+            await Seed.Seeding(app);
             }
 
         // Configure the HTTP request pipeline.

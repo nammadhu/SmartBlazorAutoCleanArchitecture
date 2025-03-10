@@ -15,13 +15,13 @@ public class Card : _CardBase
     public Card(int typeId, string title) : this()
         {
         IdCardType = typeId;
-        Title = title;
+        Name = title;
         }
 
     public Card(CardType type, string title) : this()
         {
         Type = type;
-        Title = title;
+        Name = title;
         }
 
     public Card(CardType type, string title, string subtitle) : this(type, title)

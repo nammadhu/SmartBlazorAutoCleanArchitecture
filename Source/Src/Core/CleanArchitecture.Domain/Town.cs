@@ -15,10 +15,9 @@ public class Town : _SocialConnections, IEquatable<Town>
 
     public Town(string title)
         {
-        Title = title;
+        Name = title;
         }
 
-    public string Title { get; set; }// = default;
     public string? SubTitle { get; set; }
     public string? Description { get; set; }
 
@@ -71,7 +70,7 @@ public class Town : _SocialConnections, IEquatable<Town>
         if (source == null || other == null) return false;
         //id card compare on derived
         return
-            StringExtensions.Equals(source.Title, other.Title) &&
+            StringExtensions.Equals(source.Name, other.Name) &&
             StringExtensions.Equals(source.SubTitle, other.SubTitle) &&
             StringExtensions.Equals(source.Description, other.Description) &&
             source.IsDisabled == other.IsDisabled &&

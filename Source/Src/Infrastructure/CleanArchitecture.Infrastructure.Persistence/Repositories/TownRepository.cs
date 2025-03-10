@@ -12,7 +12,7 @@ public class TownRepository(DbContextProvider dbContextProvider, IMapper mapper)
         {
         var query = db.OrderBy(p => p.Created).AsQueryable();
         if (!string.IsNullOrEmpty(name))
-            query = query.Where(p => p.Title.Contains(name));
+            query = query.Where(p => p.Name.Contains(name));
 
         return await query
              .OrderByDescending(x => x.Id)
@@ -22,7 +22,7 @@ public class TownRepository(DbContextProvider dbContextProvider, IMapper mapper)
 
     public async Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken)
         {
-        return await db.AnyAsync(x => x.Title == name, cancellationToken);
+        return await db.AnyAsync(x => x.Name == name, cancellationToken);
         }
     }
 

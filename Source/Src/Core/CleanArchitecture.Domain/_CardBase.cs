@@ -28,19 +28,19 @@ namespace CleanArchitecture.Domain
         {
         public bool IsCardMainDataChanged(_CardBase old)
             {
-            return !(IdCardType == old.IdCardType && IdTown == old.IdTown && Title == old.Title && SubTitle == old.SubTitle
+            return !(IdCardType == old.IdCardType && IdTown == old.IdTown && Name == old.Name && SubTitle == old.SubTitle
                 && Image1 == old.Image1 && Image2 == old.Image2);
             }
 
         public _CardBase()
             {
-            Title = string.Empty;//only to avoid warnings
+            Name = string.Empty;//only to avoid warnings
                                  //this should never be called,1ly for the sake of EF cores
             }
 
         public _CardBase(string title)
             {
-            Title = title;
+            Name = title;
             }
 
         public _CardBase(string title, string subtitle) : this(title)
@@ -83,7 +83,7 @@ namespace CleanArchitecture.Domain
 
         [Required]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "{0} Must be {2} & {1} characters")]
-        public string Title { get; set; }
+        public override string Name { get; set; }
 
         [MaxLength(60, ErrorMessage = "SubTitle must be less than 60 characters.")]
         public string? SubTitle { get; set; }//qualification,type of business,home/hotel/veg/nonveg
@@ -142,7 +142,7 @@ namespace CleanArchitecture.Domain
             return source.IdCardType == otherDetails.IdCardType &&
                 (source.IdOwner == Guid.Empty || source.IdOwner == otherDetails.IdOwner) && source.IdTown == otherDetails.IdTown &&
                 source.Active == otherDetails.Active && //later
-                StringExtensions.Equals(source.Title, otherDetails.Title) &&
+                StringExtensions.Equals(source.Name, otherDetails.Name) &&
                 StringExtensions.Equals(source.SubTitle, otherDetails.SubTitle) &&
                 StringExtensions.Equals(source.Address, otherDetails.Address) &&
               EqualImages(source, otherDetails); // Compare properties

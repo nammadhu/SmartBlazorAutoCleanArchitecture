@@ -11,7 +11,7 @@ public class TownDto : Town
 
     public TownDto(string title) : base(title)
         {
-        Title = title;
+        Name = title;
         }
 
     //public DateTime? ServerSideFromDbLoadedTime { get; set; }

@@ -17,7 +17,7 @@ public class Card_DraftChanges : _CardBase, IEquatable<Card_DraftChanges>
     public Card_DraftChanges(int typeId, string title) : this()
         {
         IdCardType = typeId;
-        Title = title;
+        Name = title;
         }
 
     [Key]

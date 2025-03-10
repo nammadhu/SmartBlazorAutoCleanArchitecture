@@ -146,7 +146,7 @@ public class CU_CardCommand : Card, IRequest<BaseResult<iCardDto>>, IEquatable<C
             {
             existingEntityForUpdate.IdCardType = newUiModifiedEntity.IdCardType;
             existingEntityForUpdate.IdTown = newUiModifiedEntity.IdTown;
-            existingEntityForUpdate.Title = newUiModifiedEntity.Title;
+            existingEntityForUpdate.Name = newUiModifiedEntity.Name;
             existingEntityForUpdate.SubTitle = newUiModifiedEntity.SubTitle;
             existingEntityForUpdate.Address = newUiModifiedEntity.Address;
             existingEntityForUpdate.IsVerified = newUiModifiedEntity.IsForVerifiedCard == true;
@@ -165,7 +165,7 @@ public class CU_CardCommand : Card, IRequest<BaseResult<iCardDto>>, IEquatable<C
         {
         public CreateUpdateCardCommandValidator()//(ITranslator translator)
             {
-            RuleFor(p => p.Title)
+            RuleFor(p => p.Name)
                 .NotNull().WithMessage("Required").NotEmpty().WithMessage("Required")
                 .MinimumLength(3).WithMessage("Atleast 3 Characters Required");
             RuleFor(p => p.IdCardType)

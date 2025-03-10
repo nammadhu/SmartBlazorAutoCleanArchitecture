@@ -98,11 +98,11 @@ public class CU_TownCommandHandler(ITownRepository repository, IUnitOfWork unitO
             {
             return new Error(ErrorCode.ModelIsNull, "Existing town should have matching record", nameof(request.Id));
             }
-        if ((existingData == null || !request.Title.Equals(existingData.Title, StringComparison.CurrentCultureIgnoreCase))
-        && await repository.IsNameExistsAsync(request.Title, cancellationToken))
+        if ((existingData == null || !request.Name.Equals(existingData.Name, StringComparison.CurrentCultureIgnoreCase))
+        && await repository.IsNameExistsAsync(request.Name, cancellationToken))
         //if different name trying then make sure other data of same name not exists
             {
-            return new Error(ErrorCode.NotFound, translator.GetString($"Name({request.Title}) Already exists"), nameof(request.Title));//this should be duplicated data error
+            return new Error(ErrorCode.NotFound, translator.GetString($"Name({request.Name}) Already exists"), nameof(request.Name));//this should be duplicated data error
             }
         return null;
         }

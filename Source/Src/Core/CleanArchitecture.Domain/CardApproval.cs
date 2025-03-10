@@ -100,7 +100,7 @@ public class CardApproval : AuditableBaseEntity, IEquatable<CardApproval>
 
     public void SetTitleAndNullifyNestedCards()
         {
-        Title = ApproverCard?.Title ?? "";
+        Title = ApproverCard?.Name ?? "";
         iCard = null;
         ApproverCard = null;
         }

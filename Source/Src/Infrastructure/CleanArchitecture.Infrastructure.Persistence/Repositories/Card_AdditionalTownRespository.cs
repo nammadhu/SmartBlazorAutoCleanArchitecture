@@ -18,7 +18,7 @@ public class Card_AdditionalTownRespository(DbContextProvider dbContextProvider,
              .Include(x => x.iCard).ThenInclude(x => x.AdditionalTownsOfVerifiedCard)
              //.Include(x => x.Card_Drafts.CardDataEntries)
              //.Include(x => x.Card_Drafts.Details)         //later loading optionally
-             .Where(x => string.IsNullOrEmpty(name) ? true : x.iCard.Title.Contains(name))
+             .Where(x => string.IsNullOrEmpty(name) ? true : x.iCard.Name.Contains(name))
              //&& x.Card_VerifiedEntries.IdCardType != ConstantsTown.TownTypeId)//towncard not required here
              .Take(ResultLimit)
              .AsQueryable();

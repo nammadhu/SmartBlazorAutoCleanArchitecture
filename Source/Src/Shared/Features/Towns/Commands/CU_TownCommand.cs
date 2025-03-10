@@ -135,7 +135,7 @@ public class CreateUpdateTownCommandValidator : AbstractValidator<CU_TownCommand
     {
     public CreateUpdateTownCommandValidator()//(ITranslator translator)
         {
-        RuleFor(p => p.Title)
+        RuleFor(p => p.Name)
             .NotNull();
         //.WithName(p => translator[nameof(p.Name)]);
         //RuleFor(p => p.ShortName)
