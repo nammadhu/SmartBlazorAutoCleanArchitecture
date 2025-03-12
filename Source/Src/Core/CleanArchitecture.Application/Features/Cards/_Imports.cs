@@ -1,2 +1,2 @@
-﻿global using Shared.Features.Cards.Commands;
-global using Shared.Features.Cards.Queries;
+﻿global using SHARED.Features.Cards.Commands;
+global using SHARED.Features.Cards.Queries;

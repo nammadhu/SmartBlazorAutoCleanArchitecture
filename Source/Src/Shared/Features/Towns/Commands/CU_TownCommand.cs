@@ -1,9 +1,9 @@
-﻿using FluentValidation;
-using PublicCommon.Common;
-using Shared.DTOs;
-using Shared.Features.Cards.Commands;
+﻿using BASE.Common;
+using FluentValidation;
+using SHARED.DTOs;
+using SHARED.Features.Cards.Commands;
 
-namespace Shared.Features.Towns.Commands;
+namespace SHARED.Features.Towns.Commands;
 
 public class CU_TownCommand : Town, IRequest<BaseResult<TownDto>>
     {

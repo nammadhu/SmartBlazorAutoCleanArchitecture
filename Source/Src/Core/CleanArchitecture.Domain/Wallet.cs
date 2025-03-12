@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Domain.MyTown.Entities
+﻿using BASE.Common;
+
+namespace CleanArchitecture.Domain
     {
     //later not yet included in db schema
     public class Wallet : AuditableBaseEntity

@@ -1,4 +1,4 @@
-﻿namespace PublicCommon.Common;
+﻿namespace BASE.Common;
 
 public abstract class BaseEntity<TKey>
     {

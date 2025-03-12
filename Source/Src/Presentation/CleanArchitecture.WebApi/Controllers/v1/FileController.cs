@@ -1,7 +1,7 @@
 using CleanArchitecture.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Wrappers;
+using SHARED.Wrappers;
 using System.IO;
 using System.Net.Mime;
 using System.Threading.Tasks;

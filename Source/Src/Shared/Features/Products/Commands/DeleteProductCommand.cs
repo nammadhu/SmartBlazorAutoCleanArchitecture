@@ -1,4 +1,4 @@
-namespace Shared.Features.Products.Commands;
+namespace SHARED.Features.Products.Commands;
 
 public class DeleteProductCommand : IRequest<BaseResult>
     {

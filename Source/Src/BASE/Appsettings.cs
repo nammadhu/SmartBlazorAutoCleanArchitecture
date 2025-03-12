@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
-using static PublicCommon.CONSTANTS;
+using static BASE.CONSTANTS;
 
-namespace PublicCommon
+namespace BASE
     {
 #pragma warning disable
     public class AppConfigurations
@@ -71,7 +71,7 @@ namespace PublicCommon
                 if (!string.IsNullOrEmpty(configuration["BUILDNUMBER"]))
                     AppSettingsForClient.BuildNumber = configuration["BUILDNUMBER"]!;//this is fetched from az pipleine
                 else
-                    AppSettingsForClient.BuildNumber = "NoBuildNo:" + PublicCommon.DateTimeExtension.CurrentTimeInString;
+                    AppSettingsForClient.BuildNumber = "NoBuildNo:" + DateTimeExtension.CurrentTimeInString;
 
                 if (AppSettings.Authentications != null && AppSettings.Authentications.Any())
                     foreach (var item in AppSettings.Authentications)
@@ -85,8 +85,8 @@ namespace PublicCommon
 
     public class AppSettingsForClient : AppSettingsBase
         {
-        public string BuildNumber { get; set; } = PublicCommon.DateTimeExtension.CurrentTimeInString;
-        public DateTime LoadedDate { get; set; } = PublicCommon.DateTimeExtension.CurrentTime;
+        public string BuildNumber { get; set; } = DateTimeExtension.CurrentTimeInString;
+        public DateTime LoadedDate { get; set; } = DateTimeExtension.CurrentTime;
         }
     public class AppSettingsToClientSettingsProfile : Profile
         {
@@ -97,7 +97,7 @@ namespace PublicCommon
         }
     public class AppSettings : AppSettingsBase
         {
-        // public string BuildNumber { get; set; } = PublicCommon.DateTimeExtension.CurrentTimeInString;
+        // public string BuildNumber { get; set; } = BASE.DateTimeExtension.CurrentTimeInString;
         //here environment specific settings will be added
         public required ConnectionStrings ConnectionStrings { get; set; }//db & storageaccountconnection string both here only
 

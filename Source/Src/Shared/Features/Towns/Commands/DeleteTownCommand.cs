@@ -1,4 +1,4 @@
-﻿namespace Shared.Features.Towns.Commands;
+﻿namespace SHARED.Features.Towns.Commands;
 
 public class DeleteTownCommand : IRequest<BaseResult>
     {

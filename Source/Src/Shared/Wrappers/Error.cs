@@ -1,4 +1,4 @@
-namespace Shared.Wrappers;
+namespace SHARED.Wrappers;
 
 public class Error(ErrorCode errorCode, string? description = null, string? fieldName = null)
     {

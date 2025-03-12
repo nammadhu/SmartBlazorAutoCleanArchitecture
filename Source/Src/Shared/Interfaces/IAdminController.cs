@@ -1,4 +1,4 @@
-﻿namespace Shared.Interfaces;
+﻿namespace SHARED.Interfaces;
 
 public interface IAdminController
     {

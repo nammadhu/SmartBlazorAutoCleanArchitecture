@@ -1,15 +1,16 @@
-﻿using Shared.DTOs;
-using Shared.Features.Products.Commands;
-using Shared.Features.Products.Queries;
-using Shared.Wrappers;
-using SharedResponse;
+﻿using BASE;
+using SHARED.DTOs;
+using SHARED.Features.Products.Commands;
+using SHARED.Features.Products.Queries;
+using SHARED.Wrappers;
+using SHARED.Interfaces;
 using System.Net.Http.Json;
 
 namespace BlazorAuto.Shared.Services;
 
 public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProduct
     {
-    private readonly HttpClient _httpClient = httpClientFactory.CreateClient(PublicCommon.CONSTANTS.ClientAnonymous);
+    private readonly HttpClient _httpClient = httpClientFactory.CreateClient(CONSTANTS.ClientAnonymous);
     const string apiKey = "api/v1/product/";
 
 

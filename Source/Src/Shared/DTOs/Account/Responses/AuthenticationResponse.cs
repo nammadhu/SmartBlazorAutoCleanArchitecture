@@ -1,4 +1,4 @@
-namespace Shared.DTOs.Account.Responses;
+namespace SHARED.DTOs.Account.Responses;
 
 public class AuthenticationResponse
     {

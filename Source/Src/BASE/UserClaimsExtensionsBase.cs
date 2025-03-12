@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace PublicCommon;
+namespace BASE;
 
 //keep this place for common settings only
 //town or app specific inside MyTown.SharedModels
@@ -13,7 +13,7 @@ public static class UserClaimsExtensionsBase
             => user != null ? user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value : default;
 
     public static Guid? GuId(this ClaimsPrincipal user)
-        => Guid.TryParse(Id(user), out Guid result) ? (result != Guid.Empty ? result : null) : null;
+        => Guid.TryParse(user.Id(), out Guid result) ? result != Guid.Empty ? result : null : null;
 
     //ideally above should throw exception,as valid userId never go null //todo should
 
@@ -27,7 +27,7 @@ public static class UserClaimsExtensionsBase
     //        => user != null && user.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == role);
 
     public static bool IsInAnyOfRoles(this ClaimsPrincipal user, params string[] inputRoles)
-       => Roles(user).Any(x => inputRoles.Contains(x));
+       => user.Roles().Any(x => inputRoles.Contains(x));
 
     public static bool IsInAnyOfRoles(this ClaimsPrincipal user, List<string> inputRoles)
         => user.IsInAnyOfRoles(inputRoles.ToArray());

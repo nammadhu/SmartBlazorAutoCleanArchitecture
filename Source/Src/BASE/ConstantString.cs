@@ -1,4 +1,4 @@
-﻿namespace PublicCommon;
+﻿namespace BASE;
 
 public static class ConstantString
     {

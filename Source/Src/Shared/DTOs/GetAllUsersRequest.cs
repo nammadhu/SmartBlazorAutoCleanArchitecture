@@ -1,6 +1,6 @@
-using Shared.Parameters;
+using SHARED.Parameters;
 
-namespace Shared.DTOs;
+namespace SHARED.DTOs;
 
 public class GetAllUsersRequest : PaginationRequestParameter
     {

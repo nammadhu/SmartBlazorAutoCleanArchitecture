@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Domain
+﻿using BASE.Common;
+
+namespace CleanArchitecture.Domain
     {
     public class UserCardLimits : AuditableBaseEntity
         {

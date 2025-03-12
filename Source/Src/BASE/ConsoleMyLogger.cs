@@ -1,4 +1,4 @@
-﻿namespace PublicCommon
+﻿namespace BASE
     {
     /// <summary>
     /// MyLogger.Log("Message to log file", LogLevel.Info, true);
@@ -35,7 +35,7 @@ MyLogger.Log("Debug message", LogLevel.Verbose); // Will print
 
         public static void Log(string message, LogLevel level = LogLevel.Info, bool writeToLogFile = false)
             {
-            if ((IsDevelopment && level <= LogLevel.Info) || (IsVerbose && level <= LogLevel.Verbose))
+            if (IsDevelopment && level <= LogLevel.Info || IsVerbose && level <= LogLevel.Verbose)
                 {
                 Console.WriteLine($"{level}: {message}");
                 }

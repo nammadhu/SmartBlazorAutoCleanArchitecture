@@ -1,4 +1,4 @@
-namespace Shared.Parameters;
+namespace SHARED.Parameters;
 
 public class PaginationRequestParameter
     {

@@ -1,6 +1,6 @@
 using CleanArchitecture.Domain.AspNetIdentity;
-using Shared.DTOs.Account.Requests;
-using Shared.DTOs.Account.Responses;
+using SHARED.DTOs.Account.Requests;
+using SHARED.DTOs.Account.Responses;
 
 namespace CleanArchitecture.Application.Interfaces.UserInterfaces;
 

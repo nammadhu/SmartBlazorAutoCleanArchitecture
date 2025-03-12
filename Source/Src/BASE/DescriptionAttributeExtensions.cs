@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace PublicCommon;
+namespace BASE;
 
 public static class DescriptionAttributeExtensions
     {

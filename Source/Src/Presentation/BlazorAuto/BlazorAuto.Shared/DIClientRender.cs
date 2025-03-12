@@ -1,6 +1,6 @@
 ﻿using BlazorAuto.Shared.Services;
 using Microsoft.Extensions.DependencyInjection;
-using SharedResponse;
+using SHARED.Interfaces;
 
 namespace BlazorAuto.Shared;
 //This will be shared between client and APP, not server

@@ -1,4 +1,4 @@
-using Shared;
+using SHARED;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Seeds;
 

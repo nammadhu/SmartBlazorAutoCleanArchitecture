@@ -1,6 +1,6 @@
-﻿using Shared.DTOs;
+﻿using SHARED.DTOs;
 
-namespace Shared.Features.Cards.Queries
+namespace SHARED.Features.Cards.Queries
     {
     public class GetCardByIdQuery : IRequest<BaseResult<CardDto>>
         {

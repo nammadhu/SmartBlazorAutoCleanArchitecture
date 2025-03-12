@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using BASE;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CleanArchitecture.Application;
 

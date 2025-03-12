@@ -1,4 +1,4 @@
-﻿namespace PublicCommon.Common
+﻿namespace BASE.Common
     {
     public class ImageInfoBase64Url : IEquatable<ImageInfoBase64Url>
         {
@@ -46,7 +46,7 @@
             return null;
             }
 
-        public string GetFileNameToUpload(int id = 0) => this.FileName ?? ($"{id}.{CONSTANTS.DefaultImageExtension}");
+        public string GetFileNameToUpload(int id = 0) => FileName ?? $"{id}.{CONSTANTS.DefaultImageExtension}";
 
         public static bool IsBase64(string? str) => !string.IsNullOrEmpty(str) && str.StartsWith(CONSTANTS.Base64ImagePrefix);
 
@@ -56,13 +56,13 @@
 
         public static bool IsUrl(string? str) => !string.IsNullOrEmpty(str) && !str.StartsWith(CONSTANTS.Base64ImagePrefix)
             && Uri.IsWellFormedUriString(str, UriKind.Absolute)
-            //&& str != "PublicCommon.Common.ImageInfoBase64Url"
-            && str != nameof(PublicCommon.Common.ImageInfoBase64Url);
+            //&& str != "BASE.Common.ImageInfoBase64Url"
+            && str != nameof(ImageInfoBase64Url);
 
         public static bool IsUrl(ImageInfoBase64Url? image) => IsUrl(image?.Url);
 
-        public static bool IsNotImageUrlNorBase64(ImageInfoBase64Url? image) => (image == null ||
-        !(IsUrl(image) || IsBase64(image)));
+        public static bool IsNotImageUrlNorBase64(ImageInfoBase64Url? image) => image == null ||
+        !(IsUrl(image) || IsBase64(image));
 
         //IEquatable<CardProduct> implementation
         public bool Equals(ImageInfoBase64Url? image)//compares including id
@@ -86,7 +86,7 @@
 
         public static void LoadUploadDelete(ImageInfoBase64Url? ImageN, string imageName, string? existingImageUrl, List<ImageInfo> listToUpload, List<ImageInfo> listToDelete)
             {
-            if (ImageInfoBase64Url.IsBase64(ImageN)) listToUpload.Add(new ImageInfo(ImageN!, imageName));
+            if (IsBase64(ImageN)) listToUpload.Add(new ImageInfo(ImageN!, imageName));
             if (!string.IsNullOrEmpty(existingImageUrl) && existingImageUrl != ImageN?.Url)
                 listToDelete.Add(new ImageInfo(existingImageUrl, imageName));
             }

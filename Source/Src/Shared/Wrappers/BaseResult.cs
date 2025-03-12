@@ -1,5 +1,6 @@
-using PublicCommon;
-namespace Shared.Wrappers;
+using BASE;
+
+namespace SHARED.Wrappers;
 public class BaseResult
     {
     public bool Success { get; set; }

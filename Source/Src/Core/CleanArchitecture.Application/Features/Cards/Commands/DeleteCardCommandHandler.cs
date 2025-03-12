@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Application.Features.Cards.Commands;
+﻿using BASE;
+
+namespace CleanArchitecture.Application.Features.Cards.Commands;
 
 public class DeleteCardCommandHandler(ICleanUpRepository cleanUpRepository, IAzImageStorage azImageStorage, ITranslator translator, ILogger<DeleteCardCommandHandler> logger) : IRequestHandler<DeleteCardCommand, BaseResult<bool>>
     {

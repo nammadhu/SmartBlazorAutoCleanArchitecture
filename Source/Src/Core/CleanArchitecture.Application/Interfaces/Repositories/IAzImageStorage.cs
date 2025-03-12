@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Application.Interfaces.Repositories;
+﻿using BASE.Common;
+
+namespace CleanArchitecture.Application.Interfaces.Repositories;
 
 public interface IAzImageStorage
     {

@@ -1,6 +1,6 @@
-﻿using Shared.DTOs;
+﻿using SHARED.DTOs;
 
-namespace Shared.Interfaces;
+namespace SHARED.Interfaces;
 
 public interface IIdentityController
     {

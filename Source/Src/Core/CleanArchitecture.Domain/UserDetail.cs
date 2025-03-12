@@ -1,3 +1,5 @@
+using BASE.Common;
+
 namespace CleanArchitecture.Domain;
 
 //moved from BlazorWebAppAuto.Client

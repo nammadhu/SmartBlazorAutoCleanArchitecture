@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BASE;
+using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Domain.AspNetIdentity;
 
@@ -12,7 +13,7 @@ public class ApplicationUser : IdentityUser<Guid>
     }
 
     public string? Name { get; set; }
-    public DateTime Created { get; set; } = PublicCommon.DateTimeExtension.CurrentTime;
+    public DateTime Created { get; set; } = DateTimeExtension.CurrentTime;
     //public DateTime LastModified { get; set; }
 
     //public virtual ICollection<UserClaim> Claims { get; set; } = new List<UserClaim>();

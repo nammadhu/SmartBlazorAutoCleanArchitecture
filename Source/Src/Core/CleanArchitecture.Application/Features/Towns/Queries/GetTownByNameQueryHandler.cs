@@ -1,4 +1,6 @@
 ﻿//using Microsoft.Extensions.Logging;
+using BASE;
+
 namespace CleanArchitecture.Application.Features.Towns.Queries;
 
 public class GetTownsByNameQueryHandler(ITownRepository TownRepository//, IMapper mapper

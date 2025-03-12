@@ -1,8 +1,8 @@
-﻿using Shared.DTOs;
-using Shared.Features.Products.Commands;
-using Shared.Features.Products.Queries;
+﻿using SHARED.DTOs;
+using SHARED.Features.Products.Commands;
+using SHARED.Features.Products.Queries;
 
-namespace SharedResponse;
+namespace SHARED.Interfaces;
 
 public interface IProduct
     {

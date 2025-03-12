@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BASE;
 using CleanArchitecture.Application.Interfaces.UserInterfaces;
 using Microsoft.Extensions.Logging;
 

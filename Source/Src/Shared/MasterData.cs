@@ -1,7 +1,7 @@
-﻿using PublicCommon;
-using Shared.DTOs;
+﻿using BASE;
+using SHARED.DTOs;
 
-namespace Shared;
+namespace SHARED;
 
 public class MasterData
     {

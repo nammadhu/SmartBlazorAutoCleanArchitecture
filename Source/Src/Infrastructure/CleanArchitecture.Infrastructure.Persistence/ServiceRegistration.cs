@@ -1,3 +1,4 @@
+using BASE;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Infrastructure;

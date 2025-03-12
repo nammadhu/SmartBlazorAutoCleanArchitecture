@@ -1,6 +1,6 @@
-using Shared.DTOs;
+using SHARED.DTOs;
 
-namespace Shared.Features.Products.Queries;
+namespace SHARED.Features.Products.Queries;
 
 public class GetProductByIdQuery : IRequest<BaseResult<ProductDto>>
     {

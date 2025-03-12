@@ -1,9 +1,9 @@
-﻿using FluentValidation;
-using PublicCommon;
-using PublicCommon.Common;
-using Shared.DTOs;
+﻿using BASE;
+using BASE.Common;
+using FluentValidation;
+using SHARED.DTOs;
 
-namespace Shared.Features.Cards.Commands;
+namespace SHARED.Features.Cards.Commands;
 
 public class CU_CardCommand : Card, IRequest<BaseResult<CardDto>>, IEquatable<CU_CardCommand>
     {

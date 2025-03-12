@@ -1,16 +1,16 @@
-﻿namespace PublicCommon
+﻿namespace BASE
     {
     public static class TimeSpanExtension
         {
-        public static string TimeSpanConvertTo12Hr(this TimeSpan? timeSpan) => TimeSpanConvertTo12Hr(timeSpan?.ToString());
+        public static string TimeSpanConvertTo12Hr(this TimeSpan? timeSpan) => (timeSpan?.ToString()).TimeSpanConvertTo12Hr();
 
         public static string TimeSpanConvertTo12Hr(this string? timeSpanInString)
             {//ex: "15:35:20"=>3:35:20 PM ,  "00:35:20"=>12:35:20 AM
             if (string.IsNullOrEmpty(timeSpanInString)) return string.Empty;
             string result = string.Empty;
             // Get Hours
-            int h1 = (int)timeSpanInString[0] - '0';
-            int h2 = (int)timeSpanInString[1] - '0';
+            int h1 = timeSpanInString[0] - '0';
+            int h2 = timeSpanInString[1] - '0';
 
             int hh = h1 * 10 + h2;
 

@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Domain
+﻿using BASE.Common;
+
+namespace CleanArchitecture.Domain
     {
     //[NotMapped]//this is not excluding so using builder.Ignore<Product>();
     public class Product : AuditableBaseEntity

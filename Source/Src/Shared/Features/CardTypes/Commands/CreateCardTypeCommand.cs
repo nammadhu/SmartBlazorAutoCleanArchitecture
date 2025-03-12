@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Shared.Features.CardTypes.Commands;
+namespace SHARED.Features.CardTypes.Commands;
 
 //not using this,instead using CreateUpdate
 public class CreateCardTypeCommand : CardType,//later should remove this domain type

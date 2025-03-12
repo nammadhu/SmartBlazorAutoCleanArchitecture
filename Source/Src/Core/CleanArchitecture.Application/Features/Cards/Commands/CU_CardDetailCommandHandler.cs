@@ -1,4 +1,7 @@
-﻿namespace CleanArchitecture.Application.Features.Cards.Commands;
+﻿using BASE;
+using BASE.Common;
+
+namespace CleanArchitecture.Application.Features.Cards.Commands;
 
 public class CU_CardDetailCommandHandler(
     ICardDetailRepository cardDetailsRepository, IAzImageStorage azImageStorage,

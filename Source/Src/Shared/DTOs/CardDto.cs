@@ -1,6 +1,6 @@
-﻿using PublicCommon.Common;
+﻿using BASE.Common;
 
-namespace Shared.DTOs;
+namespace SHARED.DTOs;
 
 /// <summary>
 /// combination of TownCard & TownVerifiedCard

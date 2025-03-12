@@ -1,8 +1,8 @@
-﻿using Shared.DTOs;
-using Shared.Features.Cards.Commands;
-using Shared.Features.Cards.Queries;
+﻿using SHARED.DTOs;
+using SHARED.Features.Cards.Commands;
+using SHARED.Features.Cards.Queries;
 
-namespace Shared.Interfaces;
+namespace SHARED.Interfaces;
 
 public interface ITownCardController
     {

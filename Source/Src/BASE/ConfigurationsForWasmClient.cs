@@ -1,4 +1,4 @@
-﻿namespace PublicCommon;
+﻿namespace BASE;
 
 #pragma warning disable
 public class ConfigurationsForWasmClient
@@ -6,7 +6,7 @@ public class ConfigurationsForWasmClient
     //common for all apps
     public string PublicDomainAbsoluteUrl { get; set; }//Next-Mp.in
     public string PublicDomainAbsoluteUrlSecond { get; set; }//MP24.in
-    public DateTime LoadedOn { get; set; } = PublicCommon.DateTimeExtension.CurrentTime;
+    public DateTime LoadedOn { get; set; } = DateTimeExtension.CurrentTime;
     public string? IpAddressClientUser { get; set; }
     public string ContactEmail { get; set; }
     public string SasToken { get; set; }

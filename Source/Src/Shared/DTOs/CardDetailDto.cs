@@ -1,7 +1,7 @@
-﻿using PublicCommon;
-using PublicCommon.Common;
+﻿using BASE;
+using BASE.Common;
 
-namespace Shared.DTOs;
+namespace SHARED.DTOs;
 
 #pragma warning disable 
 public class CardDetailDto : CardDetail, IEquatable<CardDetailDto>  //: TownCardProduct

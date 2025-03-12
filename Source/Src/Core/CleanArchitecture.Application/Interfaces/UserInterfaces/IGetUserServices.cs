@@ -1,4 +1,4 @@
-using Shared.DTOs.Account.Responses;
+using SHARED.DTOs.Account.Responses;
 
 namespace CleanArchitecture.Application.Interfaces.UserInterfaces;
 

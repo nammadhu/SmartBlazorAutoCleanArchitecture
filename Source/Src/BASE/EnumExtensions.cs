@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace PublicCommon;
+namespace BASE;
 
 public static class EnumExtensions
     {

@@ -1,1 +1,1 @@
-﻿global using Shared.Features.Products.Queries;
+﻿global using SHARED.Features.Products.Queries;

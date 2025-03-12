@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Shared.Features.Towns.Commands;
+namespace SHARED.Features.Towns.Commands;
 //not using this,instead using CreateUpdate
 public class UpdateTownCommand : Town,//later should remove this domain type
     IRequest<BaseResult>

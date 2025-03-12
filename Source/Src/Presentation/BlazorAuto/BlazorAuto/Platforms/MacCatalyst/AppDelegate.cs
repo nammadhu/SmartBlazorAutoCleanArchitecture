@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace BlazorAuto;
+namespace BlazorAuto.Platforms.MacCatalyst;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

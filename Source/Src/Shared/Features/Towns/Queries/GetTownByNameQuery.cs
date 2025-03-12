@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shared.DTOs;
+using SHARED.DTOs;
 
-namespace Shared.Features.Towns.Queries;
+namespace SHARED.Features.Towns.Queries;
 
 //GetTownCardsForTodayQuery
 public class GetTownsByNameQuery : IRequest<BaseResult<List<TownDto>>>

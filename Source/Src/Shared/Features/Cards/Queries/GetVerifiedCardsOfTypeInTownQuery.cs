@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shared.DTOs;
+using SHARED.DTOs;
 
-namespace Shared.Features.Cards.Queries;
+namespace SHARED.Features.Cards.Queries;
 
 public class GetVerifiedCardsOfTypeInTownQuery : IRequest<BaseResult<List<CardDto>>>
     {

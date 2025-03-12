@@ -1,5 +1,5 @@
-﻿using Shared;
-using Shared.DTOs;
+﻿using SHARED;
+using SHARED.DTOs;
 
 namespace BlazorAuto.Web.Services;
 

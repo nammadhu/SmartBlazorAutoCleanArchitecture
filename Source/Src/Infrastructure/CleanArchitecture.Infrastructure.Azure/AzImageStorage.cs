@@ -1,9 +1,9 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using BASE;
+using BASE.Common;
 using CleanArchitecture.Application.Interfaces.Repositories;
 using Microsoft.Extensions.Logging;
-using PublicCommon;
-using PublicCommon.Common;
 
 namespace CleanArchitecture.Infrastructure.Azure;
 

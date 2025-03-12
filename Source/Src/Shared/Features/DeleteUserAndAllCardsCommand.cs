@@ -1,4 +1,4 @@
-﻿namespace Shared.Features;
+﻿namespace SHARED.Features;
 
 public class DeleteUserAndAllCardsCommand : IRequest<BaseResult<bool>>
     {

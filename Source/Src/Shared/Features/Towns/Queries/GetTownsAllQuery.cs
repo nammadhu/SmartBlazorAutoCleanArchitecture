@@ -1,6 +1,6 @@
-﻿using Shared.DTOs;
+﻿using SHARED.DTOs;
 
-namespace Shared.Features.Towns.Queries;
+namespace SHARED.Features.Towns.Queries;
 
 public class GetTownsAllQuery : IRequest<BaseResult<List<TownDto>>>
     {

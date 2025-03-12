@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using BASE;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Interfaces.UserInterfaces;
 using Microsoft.EntityFrameworkCore;
-using Shared.Features.Cards.Queries;
+using SHARED.Features.Cards.Queries;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 

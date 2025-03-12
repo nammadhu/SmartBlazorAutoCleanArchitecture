@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Shared.Features.Cards.Commands;
+namespace SHARED.Features.Cards.Commands;
 
 public class CardDetailOpenCloseUpdateCommand : IRequest<BaseResult<bool?>>
     {

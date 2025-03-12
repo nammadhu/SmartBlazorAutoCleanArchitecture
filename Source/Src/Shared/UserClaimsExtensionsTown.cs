@@ -1,10 +1,10 @@
-﻿using PublicCommon;
+﻿using BASE;
 using System.Security.Claims;
 
-namespace Shared;
+namespace SHARED;
 
 //keep this place for town specific settings only
-//common inside publicCommon
+//common inside BASE
 public static class UserClaimsExtensionsTown
     {
     public static bool IsAdminWriters(this ClaimsPrincipal user)

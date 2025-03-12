@@ -1,5 +1,6 @@
-﻿using Shared.Features.Cards.Commands;
-using Shared.Features.Cards.Queries;
+﻿using BASE;
+using SHARED.Features.Cards.Commands;
+using SHARED.Features.Cards.Queries;
 
 namespace CleanArchitecture.WebApi.Controllers.v1;
 

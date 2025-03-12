@@ -1,6 +1,6 @@
 using CleanArchitecture.Infrastructure.Resources.ProjectResources;
-using Shared;
-using Shared.DTOs;
+using SHARED;
+using SHARED.DTOs;
 using System.Globalization;
 using System.Resources;
 

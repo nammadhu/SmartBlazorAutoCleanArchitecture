@@ -1,9 +1,5 @@
 ﻿@page "/sync"
-@using SharedResponse
-@using global::Shared
-@using global::Shared.DTOs
 @inject ICacheService<ProductDto> SyncService
-
 
 @if (FormFactor.IsClientRender)
 {

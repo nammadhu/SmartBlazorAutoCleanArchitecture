@@ -1,4 +1,4 @@
-﻿namespace Shared.Features.Towns.Commands;
+﻿namespace SHARED.Features.Towns.Commands;
 
 //not using this,instead using CreateUpdate
 public class CreateTownCommand : Town,//later should remove this domain type

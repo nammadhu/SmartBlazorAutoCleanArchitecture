@@ -1,4 +1,4 @@
-﻿namespace PublicCommon;
+﻿namespace BASE;
 //https://sansad.in/
 
 //stop using enum & instead of this use class V_KPI

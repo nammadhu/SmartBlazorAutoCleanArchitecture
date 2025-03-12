@@ -1,7 +1,7 @@
-﻿using Shared.DTOs;
-using Shared.Features.Cards.Queries;
+﻿using SHARED.DTOs;
+using SHARED.Features.Cards.Queries;
 
-namespace Shared.Interfaces;
+namespace SHARED.Interfaces;
 
 public interface IMyCardsController
     {

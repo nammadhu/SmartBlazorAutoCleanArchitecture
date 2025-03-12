@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using PublicCommon.Common;
-using Shared.DTOs;
-using Shared.Features.Cards.Commands;
-using Shared.Features.CardTypes.Commands;
-using Shared.Features.Towns.Commands;
+using BASE.Common;
+using SHARED.DTOs;
+using SHARED.Features.Cards.Commands;
+using SHARED.Features.CardTypes.Commands;
+using SHARED.Features.Towns.Commands;
 
-namespace Shared;
+namespace SHARED;
 
 public class Mapping : Profile
     {

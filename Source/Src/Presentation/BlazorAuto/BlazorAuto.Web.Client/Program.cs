@@ -1,11 +1,12 @@
+using BASE;
 using Blazor.IndexedDB;
 using BlazorAuto.Shared;
 using BlazorAuto.Shared.Services;
 using BlazorAuto.Web.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Shared;
-using Shared.DTOs;
+using SHARED;
+using SHARED.DTOs;
 
 namespace BlazorAuto.Web.Client;
 
@@ -34,11 +35,11 @@ class Program
         //    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
         //}); //this way also can be used
 
-        builder.Services.AddHttpClient(PublicCommon.CONSTANTS.ClientAnonymous, client =>
+        builder.Services.AddHttpClient(CONSTANTS.ClientAnonymous, client =>
         {
             client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
         });
-        builder.Services.AddHttpClient(PublicCommon.CONSTANTS.ClientAuthorized, client =>
+        builder.Services.AddHttpClient(CONSTANTS.ClientAuthorized, client =>
         {
             client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
         });

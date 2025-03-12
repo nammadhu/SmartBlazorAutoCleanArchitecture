@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace BlazorAuto;
+namespace BlazorAuto.Platforms.iOS;
 
 public class Program
 {

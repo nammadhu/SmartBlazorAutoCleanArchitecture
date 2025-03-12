@@ -1,6 +1,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Shared.Wrappers;
+using SHARED.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Net;

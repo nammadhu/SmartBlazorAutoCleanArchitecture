@@ -1,7 +1,7 @@
-﻿using Shared.DTOs;
-using Shared.Parameters;
+﻿using SHARED.DTOs;
+using SHARED.Parameters;
 
-namespace Shared.Features.Cards.Queries;
+namespace SHARED.Features.Cards.Queries;
 
 public class GetCardsAsAdminPagedQuery : PaginationRequestParameter, IRequest<PagedResponse<CardDto>>
     {//for admin only

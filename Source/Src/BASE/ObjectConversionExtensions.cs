@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace PublicCommon
+namespace BASE
     {
     public static class ObjectConversionExtensions
         {

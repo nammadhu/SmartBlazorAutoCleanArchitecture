@@ -1,6 +1,6 @@
-using Shared.DTOs;
+using SHARED.DTOs;
 
-namespace Shared;
+namespace SHARED;
 
 public interface ITranslator
     {

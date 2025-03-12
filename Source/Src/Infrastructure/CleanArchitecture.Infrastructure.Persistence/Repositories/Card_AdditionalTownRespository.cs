@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Shared.Features.Cards.Queries;
+using SHARED.Features.Cards.Queries;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 

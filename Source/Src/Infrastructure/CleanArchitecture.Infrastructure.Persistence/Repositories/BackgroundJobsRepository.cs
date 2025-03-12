@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
+﻿using BASE;
+
+namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
 public class BackgroundJobsRepository(DbContextProvider dbContextProvider) : IBackgroundJobsRepository
 //, IMapper mapper)
@@ -11,7 +13,7 @@ public class BackgroundJobsRepository(DbContextProvider dbContextProvider) : IBa
         try
             {
             return await db.Where(x => x.Id == townId)
-                .ExecuteUpdateAsync(x => x.SetProperty(z => z.LastCardUpdateTime, PublicCommon.DateTimeExtension.CurrentTime), cancellationToken);
+                .ExecuteUpdateAsync(x => x.SetProperty(z => z.LastCardUpdateTime, DateTimeExtension.CurrentTime), cancellationToken);
             }
         catch (Exception e)
             {

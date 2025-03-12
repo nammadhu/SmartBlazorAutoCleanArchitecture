@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
+﻿using BASE;
+
+namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
 public class CardDetailRepository(DbContextProvider dbContextProvider)
 : GenericRepository<CardDetail>(dbContextProvider: dbContextProvider), ICardDetailRepository
@@ -11,7 +13,7 @@ public class CardDetailRepository(DbContextProvider dbContextProvider)
           .ExecuteUpdateAsync(x =>
           x.SetProperty(z => z.IsOpenNow, openClose)
           .SetProperty(z => z.LastModifiedBy, updatedBy)
-          .SetProperty(z => z.LastModified, PublicCommon.DateTimeExtension.CurrentTime)
+          .SetProperty(z => z.LastModified, DateTimeExtension.CurrentTime)
           , cancellationToken);
         }
 
@@ -20,6 +22,6 @@ public class CardDetailRepository(DbContextProvider dbContextProvider)
         return await db.Where(x => x.Id == cardId)
           .ExecuteUpdateAsync(x => x.SetProperty(z => z.TimingsToday, timings)
           .SetProperty(z => z.LastModifiedBy, updatedBy)
-          .SetProperty(z => z.LastModified, PublicCommon.DateTimeExtension.CurrentTime), cancellationToken);
+          .SetProperty(z => z.LastModified, DateTimeExtension.CurrentTime), cancellationToken);
         }
     }

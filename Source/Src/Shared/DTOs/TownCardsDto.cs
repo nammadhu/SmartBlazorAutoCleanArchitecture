@@ -1,6 +1,6 @@
-﻿using PublicCommon;
+﻿using BASE;
 
-namespace Shared.DTOs;
+namespace SHARED.DTOs;
 
 public class TownCardsDto
     {

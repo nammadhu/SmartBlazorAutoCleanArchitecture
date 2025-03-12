@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PublicCommon;
+namespace BASE;
 
 public static class JsonExtensions
     {
@@ -28,7 +28,7 @@ public static class JsonExtensions
 
     public static T? DeSerialize<T>(this string? jsonString)
         {
-        return TryDeserialize(jsonString, out T? result) ? result : default(T);
+        return TryDeserialize(jsonString, out T? result) ? result : default;
         }
 
     public static bool TryDeserialize<T>(string? json, out T? result, JsonSerializerOptions? options = null)

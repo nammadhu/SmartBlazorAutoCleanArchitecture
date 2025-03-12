@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BASE.Common;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 

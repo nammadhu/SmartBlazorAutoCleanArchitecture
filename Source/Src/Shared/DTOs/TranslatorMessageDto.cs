@@ -1,4 +1,4 @@
-namespace Shared.DTOs;
+namespace SHARED.DTOs;
 
 //moved from Application/dtos
 public struct TranslatorMessageDto(string text, string[] args)

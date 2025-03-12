@@ -1,7 +1,7 @@
-using CleanArchitecture.Application.Helpers;
+using BASE;
 using FluentValidation;
 
-namespace Shared.DTOs.Account.Requests;
+namespace SHARED.DTOs.Account.Requests;
 
 public class AuthenticationRequest
     {

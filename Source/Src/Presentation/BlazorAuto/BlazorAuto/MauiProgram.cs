@@ -43,11 +43,11 @@ public static class MauiProgram
         //    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
         //}); //this way also can be used
 
-        //builder.Services.AddHttpClient(PublicCommon.CONSTANTS.ClientAnonymous, client =>
+        //builder.Services.AddHttpClient(BASE.CONSTANTS.ClientAnonymous, client =>
         //{
         //    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
         //});
-        //builder.Services.AddHttpClient(PublicCommon.CONSTANTS.ClientAuthorized, client =>
+        //builder.Services.AddHttpClient(BASE.CONSTANTS.ClientAuthorized, client =>
         //{
         //    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
         //});

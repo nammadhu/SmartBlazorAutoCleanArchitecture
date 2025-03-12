@@ -1,4 +1,4 @@
-namespace CleanArchitecture.Application.Helpers;
+namespace BASE;
 
 public static class Regexs
     {

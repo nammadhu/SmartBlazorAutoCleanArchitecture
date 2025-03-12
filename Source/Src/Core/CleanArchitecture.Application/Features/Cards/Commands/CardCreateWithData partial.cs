@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Interfaces.UserInterfaces;
+﻿using BASE;
+using CleanArchitecture.Application.Interfaces.UserInterfaces;
 
 namespace MyTown.Application.Features.Cards.Commands;
 
@@ -208,6 +209,6 @@ S8.add to cache of town
                 return BaseResult<CardDto>.OkNoClientCaching(cacheCardToUpdate);
                 }
             }
-        return new Shared.Wrappers.Error(ErrorCode.NotHaveAnyChangeInData, "CreateCardWithData Failed as Null Request");
+        return new SHARED.Wrappers.Error(ErrorCode.NotHaveAnyChangeInData, "CreateCardWithData Failed as Null Request");
         }
     }

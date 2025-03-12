@@ -1,4 +1,4 @@
-﻿namespace Shared.Features.Cards.Commands;
+﻿namespace SHARED.Features.Cards.Commands;
 
 public class ApprovalCardSetRequestCommand : IRequest<BaseResult<bool>>
     {

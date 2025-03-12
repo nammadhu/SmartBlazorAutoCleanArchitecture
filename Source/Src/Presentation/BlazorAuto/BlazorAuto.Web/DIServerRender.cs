@@ -1,8 +1,8 @@
 ﻿using BlazorAuto.Web.Services;
 using CleanArchitecture.WebApi.Controllers.v1;
-using Shared;
-using Shared.DTOs;
-using SharedResponse;
+using SHARED;
+using SHARED.DTOs;
+using SHARED.Interfaces;
 
 namespace BlazorAuto.Web;
 //This is only for server,no client or maui

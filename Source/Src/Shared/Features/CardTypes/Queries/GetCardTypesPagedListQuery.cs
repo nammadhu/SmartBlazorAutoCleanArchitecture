@@ -1,7 +1,7 @@
-﻿using Shared.DTOs;
-using Shared.Parameters;
+﻿using SHARED.DTOs;
+using SHARED.Parameters;
 
-namespace Shared.Features.CardTypes.Queries;
+namespace SHARED.Features.CardTypes.Queries;
 
 public class GetCardTypesPagedListQuery : PaginationRequestParameter, IRequest<PagedResponse<CardTypeDto>>
     {

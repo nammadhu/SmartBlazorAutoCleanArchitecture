@@ -1,4 +1,4 @@
-﻿namespace PublicCommon.Extensions
+﻿namespace BASE
     {
     public static class LongExtensions
         {

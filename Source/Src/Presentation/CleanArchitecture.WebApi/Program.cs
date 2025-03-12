@@ -22,8 +22,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Microsoft.Extensions.Hosting;
-using PublicCommon;
 using CleanArchitecture.Domain.AspNetIdentity;
+using BASE;
 
 
 var builder = WebApplication.CreateBuilder(args);

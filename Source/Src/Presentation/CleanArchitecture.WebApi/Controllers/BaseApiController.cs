@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Wrappers;
+using SHARED.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

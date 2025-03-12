@@ -1,4 +1,4 @@
-﻿using PublicCommon;
+﻿using BASE;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 

@@ -1,8 +1,8 @@
 ﻿using Blazor.IndexedDB;
-using Shared;
-using Shared.DTOs;
-using Shared.Features.Products.Queries;
-using SharedResponse;
+using SHARED;
+using SHARED.DTOs;
+using SHARED.Features.Products.Queries;
+using SHARED.Interfaces;
 
 namespace BlazorAuto.Web.Client.Services;
 //https://github.com/brianly1003/Blazor.IndexedDB

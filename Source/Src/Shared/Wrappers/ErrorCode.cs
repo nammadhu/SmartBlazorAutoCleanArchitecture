@@ -1,4 +1,4 @@
-namespace Shared.Wrappers;
+namespace SHARED.Wrappers;
 
 public enum ErrorCode : short
     {

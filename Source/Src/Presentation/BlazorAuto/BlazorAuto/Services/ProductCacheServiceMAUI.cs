@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.Application.Features.Products.Queries.GetPagedListProduct;
 using CleanArchitecture.Domain.Products.DTOs;
 using Microsoft.EntityFrameworkCore;
-using SharedResponse;
+using SHARED.Interfaces;
 
 namespace BlazorAuto.Services;
 

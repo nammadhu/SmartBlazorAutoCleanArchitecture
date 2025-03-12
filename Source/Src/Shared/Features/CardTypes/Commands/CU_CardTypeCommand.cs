@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Shared.DTOs;
+using SHARED.DTOs;
 
-namespace Shared.Features.CardTypes.Commands;
+namespace SHARED.Features.CardTypes.Commands;
 
 public class CU_CardTypeCommand : CardType, IRequest<BaseResult<CardTypeDto>>
     {

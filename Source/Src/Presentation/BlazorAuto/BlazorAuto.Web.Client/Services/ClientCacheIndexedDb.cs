@@ -1,6 +1,6 @@
 ﻿using Blazor.IndexedDB;
 using Microsoft.JSInterop;
-using Shared.DTOs;
+using SHARED.DTOs;
 
 namespace BlazorAuto.Web.Client.Services;
 //https://github.com/brianly1003/Blazor.IndexedDB

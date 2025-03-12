@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PublicCommon.Common;
+namespace BASE.Common;
 
 //moved from BlazorWebAppAuto.Client
 //add values at PersistingRevalidatingAuthenticationStateProvider & access at clientside by AuthenticationStateProviders

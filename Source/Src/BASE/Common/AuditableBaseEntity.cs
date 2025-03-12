@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PublicCommon.Common
+namespace BASE.Common
     {
     public interface IAuditableBaseEntity
         {

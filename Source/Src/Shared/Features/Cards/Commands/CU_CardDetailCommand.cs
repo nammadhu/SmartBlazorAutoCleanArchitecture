@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using Shared.DTOs;
+using SHARED.DTOs;
 
-namespace Shared.Features.Cards.Commands;
+namespace SHARED.Features.Cards.Commands;
 
 public class CU_CardDetailCommand : CardDetailDto, IRequest<BaseResult<CardDetailDto>>, IEquatable<CU_CardDetailCommand>
     {

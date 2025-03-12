@@ -1,10 +1,10 @@
-﻿namespace PublicCommon;
+﻿namespace BASE;
 
 public static class ListExtensions
     {
     public static bool AreListsEqualIgnoringOrder<T>(List<T>? list1, List<T>? list2, IEqualityComparer<T>? comparer = null)
         {
-        if ((list1 == null && list2 == null) || (list1?.Count == 0 && list2?.Count == 0)) return true;
+        if (list1 == null && list2 == null || list1?.Count == 0 && list2?.Count == 0) return true;
         if (list1 == null || list2 == null) return false; // Handle null cases
 
         if (list1.Count != list2.Count) return false; // Different lengths, cannot be equal

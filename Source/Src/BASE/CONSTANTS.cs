@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace PublicCommon
+namespace BASE
     {
     //cachekey refreshinterval set inside VoteCacheKey class refreshInterval
 
@@ -118,8 +118,8 @@ namespace PublicCommon
             public const string Development = nameof(EnvironmentEnum.Development);
             public const string Production = nameof(EnvironmentEnum.Production);
             public const string Test = nameof(EnvironmentEnum.Test);
-            public static readonly bool IsDevelopment = (Name == Development);
-            public static readonly bool IsProduction = (Name == Production);
+            public static readonly bool IsDevelopment = Name == Development;
+            public static readonly bool IsProduction = Name == Production;
             }
 
         public static class ROLES

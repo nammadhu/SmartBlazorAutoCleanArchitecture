@@ -1,6 +1,6 @@
 using CleanArchitecture.Infrastructure.Resources.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Shared;
+using SHARED;
 
 namespace CleanArchitecture.Infrastructure.Resources;
 

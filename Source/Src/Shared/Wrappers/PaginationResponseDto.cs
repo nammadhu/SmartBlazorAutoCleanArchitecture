@@ -1,4 +1,4 @@
-namespace Shared.Wrappers;
+namespace SHARED.Wrappers;
 
 //moved from CleanArchitecture.Application.DTOs;
 public class PaginationResponseDto<T>(List<T> data, int count, int pageNumber, int pageSize)

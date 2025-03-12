@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Application.Features.Cards.Queries;
+﻿using BASE;
+
+namespace CleanArchitecture.Application.Features.Cards.Queries;
 
 public class GetCardsOfUserQueryHandler(IAuthenticatedUserService authenticatedUserService, ICardRepository cardRepository) : IRequestHandler<GetCardsOfUserQuery, BaseResult<UserDetailDto>>
     {//IUserDetailRepository userDetailRepository,IUserDetailRepositoryAdB2c userDetailRepository

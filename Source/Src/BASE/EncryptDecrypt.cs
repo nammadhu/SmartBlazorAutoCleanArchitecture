@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace PublicCommon
+namespace BASE
     {
     public class Encryption
         {

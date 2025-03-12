@@ -1,6 +1,6 @@
-﻿using PublicCommon.Common;
+﻿using BASE.Common;
 
-namespace Shared.DTOs;
+namespace SHARED.DTOs;
 
 //todo change all these later
 public class TownDto : Town

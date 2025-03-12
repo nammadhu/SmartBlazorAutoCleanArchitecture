@@ -1,4 +1,4 @@
-﻿namespace Shared;
+﻿namespace SHARED;
 
 public class ConstantFilePaths
     {

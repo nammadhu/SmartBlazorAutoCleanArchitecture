@@ -1,7 +1,7 @@
-using Shared.DTOs;
-using Shared.Parameters;
+using SHARED.DTOs;
+using SHARED.Parameters;
 
-namespace Shared.Features.Products.Queries;
+namespace SHARED.Features.Products.Queries;
 
 public class GetPagedListProductQuery : PaginationRequestParameter, IRequest<PagedResponse<ProductDto>>
     {

@@ -24,7 +24,7 @@
 		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="9.0.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Shared\Shared.csproj" />
+	  <ProjectReference Include="..\..\SHARED\SHARED.csproj" />
 	  <ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>

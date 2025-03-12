@@ -1,7 +1,7 @@
-﻿using Shared.DTOs;
-using Shared.Parameters;
+﻿using SHARED.DTOs;
+using SHARED.Parameters;
 
-namespace Shared.Features.Towns.Queries
+namespace SHARED.Features.Towns.Queries
     {
     public class GetTownsPagedListQuery : PaginationRequestParameter, IRequest<PagedResponse<TownDto>>
         {

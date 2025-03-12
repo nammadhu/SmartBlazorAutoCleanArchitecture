@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Application.Interfaces;
+﻿using BASE.Common;
+using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -6,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PublicCommon;
-using PublicCommon.Common;
 using System.Security.Claims;
 
 namespace CleanArchitecture.IntegrationTests.Data;

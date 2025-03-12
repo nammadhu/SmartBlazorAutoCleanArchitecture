@@ -1,4 +1,6 @@
-﻿namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
+﻿using BASE;
+
+namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
 public class CardApprovalRepository
 : GenericRepository<CleanArchitecture.Domain.CardApproval>, ICardApprovalRepository

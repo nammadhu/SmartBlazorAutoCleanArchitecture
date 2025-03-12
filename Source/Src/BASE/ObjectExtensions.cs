@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
 using System.Text.Json;
 
-namespace PublicCommon;
+namespace BASE;
 
 public static class ObjectExtensions
     {
     public static bool UpdateProperty<T>(ref T existingValue, T newValue)
         {
-        if (!Object.Equals(existingValue, newValue))
+        if (!Equals(existingValue, newValue))
             {
             existingValue = newValue;
             return true;

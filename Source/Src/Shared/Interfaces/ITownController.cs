@@ -1,7 +1,7 @@
-﻿using Shared.DTOs;
-using Shared.Features.Towns.Commands;
+﻿using SHARED.DTOs;
+using SHARED.Features.Towns.Commands;
 
-namespace Shared.Interfaces;
+namespace SHARED.Interfaces;
 
 public interface ITownController
     {

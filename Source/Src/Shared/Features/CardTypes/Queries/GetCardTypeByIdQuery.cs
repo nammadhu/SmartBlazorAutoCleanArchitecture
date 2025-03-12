@@ -1,6 +1,6 @@
-﻿using Shared.DTOs;
+﻿using SHARED.DTOs;
 
-namespace Shared.Features.CardTypes.Queries;
+namespace SHARED.Features.CardTypes.Queries;
 
 public class GetCardTypeByIdQuery : IRequest<BaseResult<CardTypeDto>>
     {

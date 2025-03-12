@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Shared.Features.Cards.Commands;
+namespace SHARED.Features.Cards.Commands;
 
 public class CU_CardDataCommand : CardData, IRequest<BaseResult<CardData>>, IEquatable<CU_CardDataCommand>
     {
