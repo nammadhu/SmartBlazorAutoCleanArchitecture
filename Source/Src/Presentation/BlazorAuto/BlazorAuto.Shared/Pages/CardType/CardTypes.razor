@@ -1,0 +1,89 @@
+﻿@page "/cardtypes"
+@inject AuthenticationStateProvider AuthProvider
+
+<FluentDataGrid Items="@cardTypeQuery" TGridItem="@CardTypeDto" SelectionMode="Single" Style="height: auto; max-width: 100%;">
+    <PropertyColumn Property="@(c => c.Id)" Title="ID" Sortable="true" />
+    <PropertyColumn Property="@(c => c.Name)" Title="Name" Sortable="true" />
+    <PropertyColumn Property="@(c => c.IconColor)" Title="Icon Color" Sortable="true" />
+    <PropertyColumn Property="@(c => c.Price)" Title="Price" Sortable="true" />
+    <TemplateColumn Title="Actions" >
+        <div>
+            <FluentButton Title="Edit" OnClick="() => EditCardType(context)" Disabled="@(!CanEdit)" />
+            <FluentButton Title="Delete" OnClick="() => DeleteCardType(context)" Disabled="@(!CanDelete)" />
+        </div>
+    </TemplateColumn>
+</FluentDataGrid>
+
+@if (CanCreate)
+{
+    <FluentButton Title="Create New" OnClick="@CreateNew" Style="margin-top: 10px;" />
+}
+<style>
+    @@media (max-width: 600px) {
+        fluent-data-grid
+
+    {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    fluent-button {
+        font-size: 12px;
+        margin: 5px 0;
+    }
+
+    }
+</style>
+
+
+@code {
+    // Define the IQueryable source
+    private IQueryable<CardTypeDto> cardTypeQuery => cardTypes.AsQueryable();
+
+
+    private List<CardTypeDto> cardTypes = new()
+    {
+        new CardTypeDto { Id = 1, Name = "Standard", IconColor = "#FF0000", Price = 100 },
+        new CardTypeDto { Id = 2, Name = "Premium", IconColor = "#00FF00", Price = 200 },
+    };
+
+    private bool CanEdit => RolePermissions.CanEdit(GetUserRole());
+    private bool CanCreate => RolePermissions.CanCreate(GetUserRole());
+    private bool CanDelete => RolePermissions.CanDelete(GetUserRole());
+
+    private void EditCardType(CardTypeDto cardType)
+        {
+        // Navigate to edit page or show a dialog for editing
+        }
+
+    private void DeleteCardType(CardTypeDto cardType)
+        {
+        cardTypes.Remove(cardType);
+        }
+
+    private void CreateNew()
+        {
+        cardTypes.Add(new CardTypeDto
+                {
+                Id = cardTypes.Count + 1,
+                Name = "New Card",
+                IconColor = "#0000FF",
+                Price = 300
+                });
+        }
+
+    private string GetUserRole()
+        {
+        var authState = AuthProvider.GetAuthenticationStateAsync().Result;
+        var user = authState.User;
+        return user.IsInRole("Admin") ? "Admin" : "User"; // Example role fetching
+        }
+
+    public static class RolePermissions
+        {
+        public static bool CanEdit(string role) => role == "Admin" || role == "Editor";
+        public static bool CanCreate(string role) => role == "Admin";
+        public static bool CanDelete(string role) => role == "Admin";
+        }
+
+}

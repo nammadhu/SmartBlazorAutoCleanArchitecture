@@ -24,7 +24,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Pages\Card\" />
-	  <Folder Include="Pages\CardType\" />
 	  <Folder Include="Pages\Town\" />
 	</ItemGroup>
 
