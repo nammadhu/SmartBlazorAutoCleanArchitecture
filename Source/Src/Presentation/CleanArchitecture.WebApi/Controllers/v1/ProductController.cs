@@ -1,6 +1,5 @@
 using SHARED.Features.Products.Commands;
 using SHARED.Features.Products.Queries;
-using SHARED.Interfaces;
 
 
 namespace CleanArchitecture.WebApi.Controllers.v1;

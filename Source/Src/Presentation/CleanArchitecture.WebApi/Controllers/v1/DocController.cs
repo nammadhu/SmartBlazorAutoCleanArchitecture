@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using SHARED.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace CleanArchitecture.WebApi.Controllers.v1;
 
 [ApiVersion("1")]

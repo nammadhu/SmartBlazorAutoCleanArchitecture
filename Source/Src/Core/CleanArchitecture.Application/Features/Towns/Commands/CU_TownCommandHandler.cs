@@ -1,7 +1,4 @@
-﻿using BASE;
-using BASE.Common;
-
-namespace CleanArchitecture.Application.Features.Towns.Commands;
+﻿namespace CleanArchitecture.Application.Features.Towns.Commands;
 
 public class CU_TownCommandHandler(ITownRepository repository, IUnitOfWork unitOfWork,
     ITranslator translator, IMapper mapper, IAzImageStorage azImageStorage, ServerCachingServiceTowns _cachingServiceTown, ILogger<CU_TownCommandHandler> logger) : IRequestHandler<CU_TownCommand, BaseResult<TownDto>>

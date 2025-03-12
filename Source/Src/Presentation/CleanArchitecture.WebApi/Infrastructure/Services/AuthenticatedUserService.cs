@@ -1,8 +1,4 @@
-using BASE;
-using CleanArchitecture.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace CleanArchitecture.WebApi.Infrastructure.Services;

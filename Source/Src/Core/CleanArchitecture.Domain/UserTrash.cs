@@ -1,6 +1,4 @@
-﻿using BASE.Common;
-
-namespace CleanArchitecture.Domain;
+﻿namespace CleanArchitecture.Domain;
 
 public class UserTrash : AuditableBaseEntity
     {

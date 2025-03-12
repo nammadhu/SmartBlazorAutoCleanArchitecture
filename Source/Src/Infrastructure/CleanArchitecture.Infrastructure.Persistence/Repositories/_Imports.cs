@@ -1,10 +1,10 @@
-﻿global using CleanArchitecture.Application.Interfaces.Repositories;
+﻿global using BASE;
+global using BASE.Common;
+global using CleanArchitecture.Application.Interfaces.Repositories;
 global using CleanArchitecture.Domain;
 global using CleanArchitecture.Infrastructure.Persistence.Contexts;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.EntityFrameworkCore;
-global using BASE;
-global using BASE.Common;
 global using SHARED.DTOs;
 global using SHARED.Features.Cards.Commands;
 global using SHARED.Wrappers;

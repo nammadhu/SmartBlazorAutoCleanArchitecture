@@ -1,5 +1,3 @@
-using BASE.Common;
-
 namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
 public class GenericRepository<T>(DbContextProvider dbContextProvider) : IGenericRepository<T> where T : class, IAuditableBaseEntity

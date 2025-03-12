@@ -1,15 +1,7 @@
 using CleanArchitecture.WebApi.Infrastructure.Filters;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-using SHARED.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebApi.Controllers;
 

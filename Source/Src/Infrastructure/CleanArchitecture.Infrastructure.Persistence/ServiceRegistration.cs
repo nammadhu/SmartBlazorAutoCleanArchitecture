@@ -1,4 +1,3 @@
-using BASE;
 using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -72,7 +71,7 @@ public static class ServiceRegistration
         services.AddScoped<IBackgroundJobsRepository, BackgroundJobsRepository>();
         //BackgroundJobsRepository must be scoped otherwise connection closure happens, and not static also which leads to race conditions
         services.AddTransient<ITownRepository, TownRepository>();
-       // services.AddTransient<IUserDetailRepository, UserDetailRepository>(); //for azureAdB2c
+        // services.AddTransient<IUserDetailRepository, UserDetailRepository>(); //for azureAdB2c
         services.AddTransient<ICardTypeRepository, CardTypeRepository>();
         services.AddTransient<ICardRepository, Card_Repository>();
         services.AddTransient<ICard_DraftChangesRepository, Card_DraftChangesRepository>();

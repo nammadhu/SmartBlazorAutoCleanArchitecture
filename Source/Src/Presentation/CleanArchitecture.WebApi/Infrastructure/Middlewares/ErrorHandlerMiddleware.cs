@@ -1,11 +1,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using SHARED.Wrappers;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.WebApi.Infrastructure.Middlewares;
 

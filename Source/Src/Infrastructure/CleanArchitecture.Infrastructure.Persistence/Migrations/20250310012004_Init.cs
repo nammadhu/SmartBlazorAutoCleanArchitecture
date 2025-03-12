@@ -1,20 +1,19 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace CleanArchitecture.Infrastructure.Persistence.Migrations
-{
+    {
     /// <inheritdoc />
     public partial class Init : Migration
-    {
+        {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
+            {
             migrationBuilder.CreateTable(
                 name: "CardTrashes",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false),
                     CardDataAsJsonString = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
@@ -22,7 +21,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CardTrashes", x => x.Id);
@@ -31,7 +30,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "CardTypes",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -46,7 +45,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CardTypes", x => x.Id);
@@ -55,7 +54,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -65,7 +64,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
@@ -74,7 +73,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "Towns",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SubTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -115,7 +114,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     OtherReferenceUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<double>(type: "float", nullable: true),
                     Longitude = table.Column<double>(type: "float", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Towns", x => x.Id);
@@ -124,7 +123,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "UserCardLimits",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TotalCardCount = table.Column<int>(type: "int", nullable: false),
                     TotalCreatedCardCount = table.Column<int>(type: "int", nullable: false),
@@ -137,7 +136,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserCardLimits", x => x.Id);
@@ -146,7 +145,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "UserDetail",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -157,7 +156,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserDetail", x => x.Id);
@@ -166,7 +165,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "Cards",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsVerified = table.Column<bool>(type: "bit", nullable: true),
@@ -192,7 +191,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     Image1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image2 = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cards", x => x.Id);
@@ -219,7 +218,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "Card_AdditionalTowns",
                 columns: table => new
-                {
+                    {
                     IdTown = table.Column<int>(type: "int", nullable: false),
                     IdCARD = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
@@ -227,7 +226,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Card_AdditionalTowns", x => new { x.IdCARD, x.IdTown });
@@ -248,7 +247,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "Card_DraftChanges",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -264,7 +263,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     Image1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image2 = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Card_DraftChanges", x => x.Id);
@@ -296,7 +295,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "CardDataEntries",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false),
                     EndDateToShow = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ShortNote = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
@@ -319,7 +318,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     OtherReferenceUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<double>(type: "float", nullable: true),
                     Longitude = table.Column<double>(type: "float", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CardDataEntries", x => x.Id);
@@ -334,7 +333,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "CardDetails",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false),
                     IsOpenNow = table.Column<bool>(type: "bit", nullable: true),
                     TimingsToday = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -355,7 +354,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CardDetails", x => x.Id);
@@ -370,7 +369,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "CardRatings",
                 columns: table => new
-                {
+                    {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdCARD = table.Column<int>(type: "int", nullable: false),
                     Liked = table.Column<bool>(type: "bit", nullable: false),
@@ -382,7 +381,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CardRatings", x => new { x.IdCARD, x.UserId });
@@ -397,7 +396,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "CardApprovals",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdCard = table.Column<int>(type: "int", nullable: false),
@@ -411,7 +410,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CardApprovals", x => x.Id);
@@ -432,7 +431,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
             migrationBuilder.CreateTable(
                 name: "CardDisplayDates",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     CardId = table.Column<int>(type: "int", nullable: true),
@@ -441,7 +440,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CardDisplayDates", x => x.Id);
@@ -507,11 +506,11 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
                 name: "IX_Cards_IdTown",
                 table: "Cards",
                 column: "IdTown");
-        }
+            }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+            {
             migrationBuilder.DropTable(
                 name: "Card_AdditionalTowns");
 
@@ -553,6 +552,6 @@ namespace CleanArchitecture.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserDetail");
+            }
         }
     }
-}

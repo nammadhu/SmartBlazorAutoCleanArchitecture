@@ -2,8 +2,8 @@
 using SHARED.DTOs;
 using SHARED.Features.Products.Commands;
 using SHARED.Features.Products.Queries;
-using SHARED.Wrappers;
 using SHARED.Interfaces;
+using SHARED.Wrappers;
 using System.Net.Http.Json;
 
 namespace BlazorAuto.Shared.Services;

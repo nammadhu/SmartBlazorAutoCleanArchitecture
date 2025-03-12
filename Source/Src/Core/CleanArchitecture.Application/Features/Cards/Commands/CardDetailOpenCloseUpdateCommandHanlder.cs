@@ -1,6 +1,4 @@
-﻿using BASE;
-
-namespace CleanArchitecture.Application.Features.Cards.Commands;
+﻿namespace CleanArchitecture.Application.Features.Cards.Commands;
 
 public class CardDetailOpenCloseUpdateCommandHanlder(
     ICardDetailRepository cardDetailsRepository, ITranslator translator,

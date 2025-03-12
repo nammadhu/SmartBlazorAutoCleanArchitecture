@@ -1,5 +1,4 @@
-﻿using BASE;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Concurrent;
 
 namespace CleanArchitecture.Application;

@@ -1,6 +1,4 @@
-﻿using BASE;
-
-namespace CleanArchitecture.Application.Features
+﻿namespace CleanArchitecture.Application.Features
     {
     public class DeleteUserAndAllCardsCommandHandler(ICleanUpRepository cleanUpRepository, IAzImageStorage azImageStorage, ILogger<DeleteUserAndAllCardsCommandHandler> logger) : IRequestHandler<DeleteUserAndAllCardsCommand, BaseResult<bool>>
         {

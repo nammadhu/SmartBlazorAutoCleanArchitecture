@@ -53,7 +53,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<UserCardLimits> UserCardLimits { get; set; }
 
-   // public DbSet<UserDetail> UserDetails { get; set; }
+    // public DbSet<UserDetail> UserDetails { get; set; }
 
     //this must be excluded otherwise table gets created even if you use exclude or ignore it wont work
     //public DbSet<Product> Products { get; set; }

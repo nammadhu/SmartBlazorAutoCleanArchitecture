@@ -1,5 +1,4 @@
 ﻿using BASE;
-using BASE.Common;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CleanArchitecture.Domain
@@ -36,7 +35,7 @@ namespace CleanArchitecture.Domain
         public _CardBase()
             {
             Name = string.Empty;//only to avoid warnings
-                                 //this should never be called,1ly for the sake of EF cores
+                                //this should never be called,1ly for the sake of EF cores
             }
 
         public _CardBase(string title)

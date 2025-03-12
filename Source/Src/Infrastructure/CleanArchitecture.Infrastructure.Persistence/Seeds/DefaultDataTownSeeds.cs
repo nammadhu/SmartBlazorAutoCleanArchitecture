@@ -2,9 +2,9 @@ namespace CleanArchitecture.Infrastructure.Persistence.Seeds;
 
 //currently not inserting this,instead using sql file or script to manually load by turning off identity and then on
 public static class DefaultDataTownSeeds
-{
-    public static void Seed(ApplicationDbContext applicationDbContext)
     {
+    public static void Seed(ApplicationDbContext applicationDbContext)
+        {
         //instead of this use scriptAllIndiaTownsSeedSqlScripttoInsert.sql script and manually execute
 
         //currently not inserting this,instead using sql file or script to manually load by turning off identity and then on
@@ -38,29 +38,29 @@ public static class DefaultDataTownSeeds
         int changesCount = 0;
         int addedTowns = 0;
         if (existingTowns != null && existingTowns.Count > 0)
-        {
+            {
             Console.WriteLine($"Adding difference towns ");
             townsMasterData.ForEach(town =>
             {
                 //instead do comparison on name & district both together
                 if (!existingTowns.Exists(e => e.Name == town.Name && e.State == town.State))
-                {
+                    {
                     town.Id = 0;
                     var townAddedEntity = applicationDbContext.Towns.Add(town);
                     changesCount += applicationDbContext.SaveChangesAsync().Result;
                     addedTowns++;
-                }
+                    }
             });
-        }
+            }
         else
-        {
+            {
             //make all townid as 0 and insert
             Console.WriteLine($"Adding {townsMasterData.Count} Towns");
             townsMasterData.ForEach(x => x.Id = 0);
             var townAddedEntity = applicationDbContext.Towns.AddRangeAsync(townsMasterData);
             changesCount += applicationDbContext.SaveChangesAsync().Result;
             Console.WriteLine($"Added {townsMasterData.Count} Towns Success ");
-        }
+            }
         Console.WriteLine($"{addedTowns} Towns added with {changesCount} changes");
+        }
     }
-}

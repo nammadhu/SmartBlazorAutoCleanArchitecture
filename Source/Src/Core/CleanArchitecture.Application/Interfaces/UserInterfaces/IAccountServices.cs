@@ -10,7 +10,7 @@ public interface IAccountServices
     Task<IList<string>> GetUserRolesAsync(Guid userId);
     Task<bool> IsUserInRoleAsync(Guid userId, string roleName);
     // Task<IList<ApplicationUser>> GetUsersInRoleAsync(string roleName);
-    Task<IdentityResult> AddRoleToUserAsync(Guid userId, List<string> roleNames,Guid operatorId);
+    Task<IdentityResult> AddRoleToUserAsync(Guid userId, List<string> roleNames, Guid operatorId);
     Task<IdentityResult> DeleteUserCompletely(Guid userId);
     Task<IdentityResult> RemoveUserRoles(Guid userId, List<string> roleNames, Guid operatorId);
     Task<List<ApplicationUser>> SearchUsersByNameOrEmail(string searchTerm);

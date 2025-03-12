@@ -1,7 +1,4 @@
-﻿using BASE;
-using CleanArchitecture.Application.Interfaces.UserInterfaces;
-
-namespace MyTown.Application.Features.Cards.Commands;
+﻿namespace MyTown.Application.Features.Cards.Commands;
 
 public partial class CU_CardCommandHandler
     {

@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 namespace CleanArchitecture.Infrastructure.Identity.Services;
 
 public class AccountServices(UserManager<ApplicationUser> userManager, IAuthenticatedUserService authenticatedUser, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, JwtSettings jwtSettings, ITranslator translator
-    ,IdentityContext dbContext) : IAccountServices
+    , IdentityContext dbContext) : IAccountServices
     {
 
     public async Task<ApplicationUser> GetUserAsync(Guid userId)
@@ -184,9 +184,9 @@ public class AccountServices(UserManager<ApplicationUser> userManager, IAuthenti
         {
         try
             {
-          return await userManager.Users
-                .Where(u => u.UserName.Contains(searchTerm,StringComparison.OrdinalIgnoreCase) || u.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
-                .ToListAsync();
+            return await userManager.Users
+                  .Where(u => u.UserName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || u.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                  .ToListAsync();
             }
         catch (Exception ex)
             {

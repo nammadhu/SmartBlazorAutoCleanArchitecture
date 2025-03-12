@@ -3,17 +3,16 @@ using CleanArchitecture.Infrastructure.Persistence.Seeds;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.IO;
 
 namespace CleanArchitecture.WebApi;
 
 public class Seed
-{
-    public static async Task Seeding(WebApplication app)
     {
-        using (var scope = app.Services.CreateScope())
+    public static async Task Seeding(WebApplication app)
         {
+        using (var scope = app.Services.CreateScope())
+            {
             var services = scope.ServiceProvider;
 #if AspNetIdentity
             //this is for identity database & tables creation
@@ -26,7 +25,7 @@ public class Seed
             //below is for data loading to table
             bool loadDataToTable = true;
             if (loadDataToTable)
-            {
+                {
 #if AspNetIdentity
                 await SeedIdentity.SeedRolesAsync(services.GetRequiredService<RoleManager<ApplicationRole>>());
                 await SeedIdentity.SeedDefaultUsersAsync(services.GetRequiredService<UserManager<ApplicationUser>>());
@@ -42,21 +41,21 @@ public class Seed
                 var context = dbContextProvider.DbContext;
 
                 if (!await context.Towns.AnyAsync())
-                {
+                    {
                     var sqlFilePath = Path.Combine(Directory.GetCurrentDirectory(), @"bin\Debug\net9.0\Seeds\scriptAllIndiaTownsSeedSqlScripttoInsert.sql");
 
                     if (File.Exists(sqlFilePath))
-                    {
+                        {
                         var sql = await File.ReadAllTextAsync(sqlFilePath);
                         await context.Database.ExecuteSqlRawAsync(sql);
-                    }
+                        }
                     else
-                    {
+                        {
                         Console.WriteLine($"File not found: {sqlFilePath}");
+                        }
                     }
-                }
                 dbContextProvider.Dispose();
+                }
             }
         }
     }
-}

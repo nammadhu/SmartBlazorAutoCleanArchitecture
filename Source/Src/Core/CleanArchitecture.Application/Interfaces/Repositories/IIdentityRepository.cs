@@ -1,5 +1,3 @@
-using BASE.Common;
-
 namespace CleanArchitecture.Application.Interfaces.Repositories;
 
 public interface IIdentityRepositoryAdB2C

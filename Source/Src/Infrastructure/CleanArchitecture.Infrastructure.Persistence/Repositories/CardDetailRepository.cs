@@ -1,6 +1,4 @@
-﻿using BASE;
-
-namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
+﻿namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
 public class CardDetailRepository(DbContextProvider dbContextProvider)
 : GenericRepository<CardDetail>(dbContextProvider: dbContextProvider), ICardDetailRepository

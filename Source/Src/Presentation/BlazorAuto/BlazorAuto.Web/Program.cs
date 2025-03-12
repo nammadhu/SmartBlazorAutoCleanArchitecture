@@ -1,3 +1,4 @@
+using BASE;
 using BlazorAuto.Shared;
 using BlazorAuto.Shared.Services;
 using BlazorAuto.Web.Components;
@@ -5,11 +6,12 @@ using BlazorAuto.Web.Components.Account;
 using BlazorAuto.Web.Services;
 using CleanArchitecture.Application;
 using CleanArchitecture.Application.Interfaces;
+using CleanArchitecture.Domain.AspNetIdentity;
+using CleanArchitecture.Infrastructure.Azure;
 using CleanArchitecture.Infrastructure.FileManager;
 using CleanArchitecture.Infrastructure.FileManager.Contexts;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Identity.Contexts;
-using CleanArchitecture.Domain.AspNetIdentity;
 using CleanArchitecture.Infrastructure.Identity.Seeds;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Persistence.Contexts;
@@ -19,14 +21,12 @@ using CleanArchitecture.WebApi;
 using CleanArchitecture.WebApi.Infrastructure.Extensions;
 using CleanArchitecture.WebApi.Infrastructure.Middlewares;
 using CleanArchitecture.WebApi.Infrastructure.Services;
-using CleanArchitecture.Infrastructure.Azure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Serilog;
-using BASE;
 
 namespace BlazorAuto.Web;
 

@@ -1,5 +1,4 @@
 ﻿using BASE;
-using BASE.Common;
 using System.ComponentModel;
 
 namespace CleanArchitecture.Domain;

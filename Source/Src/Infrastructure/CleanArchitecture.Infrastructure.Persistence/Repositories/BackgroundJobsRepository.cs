@@ -1,6 +1,4 @@
-﻿using BASE;
-
-namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
+﻿namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
 public class BackgroundJobsRepository(DbContextProvider dbContextProvider) : IBackgroundJobsRepository
 //, IMapper mapper)

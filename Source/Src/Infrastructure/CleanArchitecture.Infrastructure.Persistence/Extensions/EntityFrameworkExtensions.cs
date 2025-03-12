@@ -1,5 +1,4 @@
-﻿using BASE.Common;
-using CleanArchitecture.Application.Interfaces;
+﻿using CleanArchitecture.Application.Interfaces;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CleanArchitecture.Infrastructure.Persistence.Extensions;

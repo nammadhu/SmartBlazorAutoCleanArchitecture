@@ -1,5 +1,5 @@
-using CleanArchitecture.Application;
-using CleanArchitecture.Application.Interfaces;
+using CleanArchitecture.Domain.AspNetIdentity;
+using CleanArchitecture.Infrastructure.Azure;
 using CleanArchitecture.Infrastructure.FileManager;
 using CleanArchitecture.Infrastructure.FileManager.Contexts;
 using CleanArchitecture.Infrastructure.Identity;
@@ -13,17 +13,14 @@ using CleanArchitecture.WebApi;
 using CleanArchitecture.WebApi.Infrastructure.Extensions;
 using CleanArchitecture.WebApi.Infrastructure.Middlewares;
 using CleanArchitecture.WebApi.Infrastructure.Services;
-using CleanArchitecture.Infrastructure.Azure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
 using Microsoft.Extensions.Hosting;
-using CleanArchitecture.Domain.AspNetIdentity;
-using BASE;
+using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
