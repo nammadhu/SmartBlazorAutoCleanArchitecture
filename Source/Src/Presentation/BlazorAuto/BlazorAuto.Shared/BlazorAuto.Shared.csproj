@@ -22,4 +22,10 @@
 		<ProjectReference Include="..\..\..\Shared\Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Pages\Card\" />
+	  <Folder Include="Pages\CardType\" />
+	  <Folder Include="Pages\Town\" />
+	</ItemGroup>
+
 </Project>
