@@ -5,7 +5,7 @@ namespace Shared.DTOs;
 public class UserDetailDto : UserDetail
     {
     public List<RoleDto>? RoleDtos { get; set; }
-    public new List<iCardDto>? iCards { get; set; }
+    public new List<CardDto>? iCards { get; set; }
     public List<CardApproval>? CardApprovals { get; set; }
 
     public bool CanCreateNewCard(int idTown = 0)

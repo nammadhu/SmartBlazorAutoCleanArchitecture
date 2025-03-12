@@ -2,7 +2,7 @@
 
 namespace Shared.Features.Cards.Queries;
 
-public class GetCardsAsAdminQuery : IRequest<BaseResult<List<iCardDto>>>
+public class GetCardsAsAdminQuery : IRequest<BaseResult<List<CardDto>>>
     {//for admin only
     public bool All { get; set; }
     public string? Name { get; set; }

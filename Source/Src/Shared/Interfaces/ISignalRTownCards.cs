@@ -4,11 +4,11 @@ using Shared.Features.Cards.Queries;
 
 namespace Shared.Interfaces;
 
-public interface ISignalRTownICards
+public interface ISignalRTownCards
     {
     const string ReceiveBusinessCard = "ReceiveBusinessCard";
 
-    event Action<iCardDto> OnCardReceived;
+    event Action<CardDto> OnCardReceived;
 
     Task<bool> InitializeAsync(int idTown);//, CancellationToken cancellationToken = default);
 
@@ -18,9 +18,9 @@ public interface ISignalRTownICards
 
     Task LeaveGroup(int townId);//, CancellationToken cancellationToken = default);
 
-    Task<BaseResult<iCardDto>?> Create(CU_CardCommand model);//, CancellationToken cancellationToken = default);
+    Task<BaseResult<CardDto>?> Create(CU_CardCommand model);//, CancellationToken cancellationToken = default);
 
-    Task<BaseResult<iCardDto>?> UpdateCard(CU_CardCommand model);//, CancellationToken cancellationToken = default);
+    Task<BaseResult<CardDto>?> UpdateCard(CU_CardCommand model);//, CancellationToken cancellationToken = default);
 
     Task<BaseResult<CardData>?> UpdateCardData(CU_CardDataCommand model);
 

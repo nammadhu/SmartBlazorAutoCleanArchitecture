@@ -18,7 +18,7 @@ public class CardDetailOpenCloseUpdateCommandHanlder(
             //s4.if not exists just leave it. mostly always it wont be the case
 
             //s1 check in cache as changes required or not
-            iCardDto? existingFullCard = null;
+            CardDto? existingFullCard = null;
             (TownCardsDto? townCache, DateTime? cacheSetTime) = cachingServiceTown.Get<TownCardsDto>(ConstantsCachingServer.CacheCardsOfTownIdKey(request.IdTown));
             if (townCache?.VerifiedCards != null && townCache.VerifiedCards.Exists(x => x.Id == request.Id))
                 existingFullCard = townCache.VerifiedCards.FirstOrDefault(x => x.Id == request.Id);

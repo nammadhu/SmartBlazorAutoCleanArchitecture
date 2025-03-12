@@ -2,9 +2,9 @@
     {
     public class GetCardByIdQueryHandler(ICardRepository TownCardRepository,
         ICard_DraftChangesRepository draftChangesRepository,
-        ITranslator translator, IMapper mapper) : IRequestHandler<GetCardByIdQuery, BaseResult<iCardDto>>
+        ITranslator translator, IMapper mapper) : IRequestHandler<GetCardByIdQuery, BaseResult<CardDto>>
         {
-        public async Task<BaseResult<iCardDto>> Handle(GetCardByIdQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResult<CardDto>> Handle(GetCardByIdQuery request, CancellationToken cancellationToken)
             {
             _CardBase? card;
 
@@ -18,10 +18,10 @@
                 return new Error(ErrorCode.NotFound, translator.GetString("iCard does not exists for provided Id"), nameof(request.IdCard));
                 }
 
-            var result = mapper.Map<iCardDto>(card); //product.To<TownCard, TownCardDto>();
+            var result = mapper.Map<CardDto>(card); //product.To<TownCard, TownCardDto>();
 
             //return result;
-            return BaseResult<iCardDto>.Ok(result, ConstantsCachingServer.Card_MinCacheTimeSpan);
+            return BaseResult<CardDto>.Ok(result, ConstantsCachingServer.Card_MinCacheTimeSpan);
             }
         }
     }

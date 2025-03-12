@@ -13,9 +13,9 @@ public partial class CU_CardCommandHandler(ICardRepository cardRepository,
     ICardApprovalRepository townCardApprovalRepository, ServerCachingTownCards cachingServiceTown
     , ILogger<CU_CardCommandHandler> logger)
     //IUserDetailRepository userDetailRepository,    IIdentityRepository identityRepository)
-    : IRequestHandler<CU_CardCommand, BaseResult<iCardDto>>
+    : IRequestHandler<CU_CardCommand, BaseResult<CardDto>>
     {
-    public async Task<BaseResult<iCardDto>> Handle(CU_CardCommand requestCommand, CancellationToken cancellationToken)
+    public async Task<BaseResult<CardDto>> Handle(CU_CardCommand requestCommand, CancellationToken cancellationToken)
         {
         try
             {
@@ -42,7 +42,7 @@ public partial class CU_CardCommandHandler(ICardRepository cardRepository,
             if (userOnGraphDb.Email != authenticatedUserService.Email)
                 return new BaseResult<iCardDto>() { Success = false, Errors = [new Error(ErrorCode.TamperedData, description: "Email id doesnt match", "Email")] };
             */
-            BaseResult<iCardDto> result;
+            BaseResult<CardDto> result;
             if (requestCommand.Id == 0)//for create
                 result = await CreateCardWithData(requestCommand, cancellationToken);
             else // UpdateCard not sure of checking userOnGraphDb

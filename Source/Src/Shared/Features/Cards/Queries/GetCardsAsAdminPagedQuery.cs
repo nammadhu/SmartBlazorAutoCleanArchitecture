@@ -3,7 +3,7 @@ using Shared.Parameters;
 
 namespace Shared.Features.Cards.Queries;
 
-public class GetCardsAsAdminPagedQuery : PaginationRequestParameter, IRequest<PagedResponse<iCardDto>>
+public class GetCardsAsAdminPagedQuery : PaginationRequestParameter, IRequest<PagedResponse<CardDto>>
     {//for admin only
     public bool All { get; set; }
     public string? Name { get; set; }

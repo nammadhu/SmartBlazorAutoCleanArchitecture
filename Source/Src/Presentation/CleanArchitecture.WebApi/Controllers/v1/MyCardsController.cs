@@ -27,7 +27,7 @@ public class MyCardsController(IMediator mediator, IAuthenticatedUserService aut
     }
 
     [HttpGet, Authorize]
-    public async Task<BaseResult<UserDetailDto>?> AddOrUpdateMyCards(iCardDto iCardDto, CancellationToken cancellationToken = default)
+    public async Task<BaseResult<UserDetailDto>?> AddOrUpdateMyCards(CardDto iCardDto, CancellationToken cancellationToken = default)
         => await Get(cancellationToken: cancellationToken);
 
     [HttpGet, Authorize]

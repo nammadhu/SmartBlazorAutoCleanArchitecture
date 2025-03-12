@@ -11,7 +11,7 @@ public class CU_CardDetailCommandHandler(
         {
         try
             {
-            iCardDto? existingFullCard = null;
+            CardDto? existingFullCard = null;
             (TownCardsDto? townCache, DateTime? cacheSetTime) = cachingServiceTown.Get<TownCardsDto>(ConstantsCachingServer.CacheCardsOfTownIdKey(request.IdTown));
             if (townCache?.VerifiedCards != null && townCache.VerifiedCards.Exists(x => x.Id == request.Id))
                 existingFullCard = townCache.VerifiedCards.FirstOrDefault(x => x.Id == request.Id);
@@ -34,7 +34,7 @@ public class CU_CardDetailCommandHandler(
                     {
                     if (ListExtensions.HasData(listToUpload1) || ListExtensions.HasData(listToDelete1))
                         {
-                        var existingCardToUpdate = mapper.Map<iCardDto, Card>(existingFullCard);
+                        var existingCardToUpdate = mapper.Map<CardDto, Card>(existingFullCard);
                         existingCardToUpdate.CardDetail = existingCardDetailDomain;
                         await ImageUploadOrDelete(existingCardToUpdate, ConstantsTown.CardMainImagesPrefix, ConstantsTown.CardDetailImagesPrefix, listToUpload1, listToDelete1, cancellationToken);
                         existingCardDetailDomain = existingCardToUpdate.CardDetail;

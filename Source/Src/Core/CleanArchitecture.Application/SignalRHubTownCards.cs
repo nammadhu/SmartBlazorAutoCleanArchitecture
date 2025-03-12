@@ -7,7 +7,7 @@ using System.Timers;
 namespace MyTown.Application;
 
 //https://github.com/nammadhu/BlazorWebAppSignalRLiveUpdates
-public partial class SignalRHubTownICards : Hub, ISignalRTownICards
+public partial class SignalRHubTownCards : Hub, ISignalRTownCards
     {
     //internal static ConcurrentDictionary<string, List<BusinessCardDto>> _TownCardsDictionary = new ConcurrentDictionary<string, List<BusinessCardDto>>();
     //internal static ConcurrentDictionary<int, (List<iCardDto> VerifiedCardList, List<iCardDto> DraftCardList)> _TownCardsDictionary = new ConcurrentDictionary<int, (List<iCardDto>, List<iCardDto>)>();
@@ -16,9 +16,9 @@ public partial class SignalRHubTownICards : Hub, ISignalRTownICards
 
     private static readonly System.Timers.Timer cleanupTimer;
 
-    public event Action<iCardDto>? OnCardReceived;//no use here ,just for interface purpose //todo need to modify
+    public event Action<CardDto>? OnCardReceived;//no use here ,just for interface purpose //todo need to modify
 
-    static SignalRHubTownICards()//static ctor for default initiation
+    static SignalRHubTownCards()//static ctor for default initiation
         {
         cleanupTimer = new System.Timers.Timer(60000); // Check every minute
         cleanupTimer.Elapsed += CleanupExpiredEntries;
@@ -69,7 +69,7 @@ public partial class SignalRHubTownICards : Hub, ISignalRTownICards
         }
 
     [Authorize]
-    public async Task<BaseResult<iCardDto>?> Create(CU_CardCommand model)//, CancellationToken cancellationToken = default)
+    public async Task<BaseResult<CardDto>?> Create(CU_CardCommand model)//, CancellationToken cancellationToken = default)
         {
         UserValidation(model.Operator, model.IsForVerifiedCard);
         var resultCreated = await _cardController.Create(model);//, cancellationToken);
@@ -129,7 +129,7 @@ public partial class SignalRHubTownICards : Hub, ISignalRTownICards
             }
         }
 
-    private async Task BroadcastUpdatedCardToGroup(iCardDto iCardDto)
+    private async Task BroadcastUpdatedCardToGroup(CardDto iCardDto)
         {
         try
             {
@@ -137,7 +137,7 @@ public partial class SignalRHubTownICards : Hub, ISignalRTownICards
             if (iCardDto != null)
                 // Broadcast the new business card to all clients in the group
                 await Clients.Group(iCardDto.IdTown.ToString())
-                    .SendAsync(ISignalRTownICards.ReceiveBusinessCard, iCardDto);//, resultCreated.Data.IsVerifiedEntryExists == true);
+                    .SendAsync(ISignalRTownCards.ReceiveBusinessCard, iCardDto);//, resultCreated.Data.IsVerifiedEntryExists == true);
             }
         catch (Exception ex)
             {
@@ -157,7 +157,7 @@ public partial class SignalRHubTownICards : Hub, ISignalRTownICards
      */
 
     [Authorize]
-    public async Task<BaseResult<iCardDto>?> UpdateCard(CU_CardCommand model)//, CancellationToken cancellationToken = default)
+    public async Task<BaseResult<CardDto>?> UpdateCard(CU_CardCommand model)//, CancellationToken cancellationToken = default)
         {//here only main key info update,no data or detail
         UserValidation(model.Operator, model.IsForVerifiedCard);
 

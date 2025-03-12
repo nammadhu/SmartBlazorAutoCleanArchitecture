@@ -5,11 +5,11 @@ namespace Shared.DTOs;
 /// <summary>
 /// combination of TownCard & TownVerifiedCard
 /// </summary>
-public class iCardDto : Card//, IEquatable<iCardDto>
+public class CardDto : Card//, IEquatable<iCardDto>
     {
     public new TownDto? Town { get; set; }
 
-    public iCardDto()
+    public CardDto()
         {
         //if (ImagesAsCsv.HasText())
         //    {

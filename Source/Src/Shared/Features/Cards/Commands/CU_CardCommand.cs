@@ -5,7 +5,7 @@ using Shared.DTOs;
 
 namespace Shared.Features.Cards.Commands;
 
-public class CU_CardCommand : Card, IRequest<BaseResult<iCardDto>>, IEquatable<CU_CardCommand>
+public class CU_CardCommand : Card, IRequest<BaseResult<CardDto>>, IEquatable<CU_CardCommand>
     {
     //on create card+data
     //on update only card

@@ -8,7 +8,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Repositories;
 
 public class Card_DraftChangesRepository(DbContextProvider dbContextProvider) : GenericRepository<Card_DraftChanges>(dbContextProvider), ICard_DraftChangesRepository
     {
-    public Task<List<iCardDto>> GetVerifiedCardsOfTypeInTown(GetVerifiedCardsOfTypeInTownQuery query, CancellationToken cancellationToken)
+    public Task<List<CardDto>> GetVerifiedCardsOfTypeInTown(GetVerifiedCardsOfTypeInTownQuery query, CancellationToken cancellationToken)
         {
         throw new NotImplementedException();
         }
@@ -30,7 +30,7 @@ IAzImageStorage azImageStorage, IAccountServices accountServices) : GenericRepos
      *
      */
 
-    public async Task<List<iCardDto>> GetUserCards(Guid userId, CancellationToken cancellationToken)
+    public async Task<List<CardDto>> GetUserCards(Guid userId, CancellationToken cancellationToken)
         {
         //this should not be executed for admin,as they will be having lot of cards makes large set
         UserDetailDto dto = new();
@@ -42,7 +42,7 @@ IAzImageStorage azImageStorage, IAccountServices accountServices) : GenericRepos
             .Include(x => x.AdditionalTownsOfVerifiedCard)//mostly by default included
             .Include(x => x.DraftChanges)
             .ToListAsync(cancellationToken);
-        return [.. userCards.Select(x => mapper.Map<iCardDto>(x))];
+        return [.. userCards.Select(x => mapper.Map<CardDto>(x))];
         }
 
  /*
@@ -127,7 +127,7 @@ IAzImageStorage azImageStorage, IAccountServices accountServices) : GenericRepos
             .Include(x => x.CardDetail)
             .Include(x => x.VerifiedCardDisplayDates)
             .Include(d => d.DraftChanges)//this is holding data & detail again takeout this to avoid repeatation
-            .Select(x => mapper.Map<iCardDto>(x))
+            .Select(x => mapper.Map<CardDto>(x))
             .ToListAsync(cancellationToken);
         //then fetch drafts
         //for admin this check has to be bypassed
@@ -164,7 +164,7 @@ IAzImageStorage azImageStorage, IAccountServices accountServices) : GenericRepos
         return card;
         }
 
-    public async Task<IList<iCardDto>> GetByNameAsync(string name, CancellationToken cancellationToken)
+    public async Task<IList<CardDto>> GetByNameAsync(string name, CancellationToken cancellationToken)
         {
         //todo should have townid additional
         var query = dbCardDraft.AsNoTracking().OrderBy(p => p.Created).AsQueryable();
@@ -173,7 +173,7 @@ IAzImageStorage azImageStorage, IAccountServices accountServices) : GenericRepos
 
         return await query
              .OrderByDescending(x => x.Id)
-            .Take(ResultLimit).Select(p => mapper.Map<iCardDto>(p))
+            .Take(ResultLimit).Select(p => mapper.Map<CardDto>(p))
             .ToListAsync(cancellationToken);
         }
 

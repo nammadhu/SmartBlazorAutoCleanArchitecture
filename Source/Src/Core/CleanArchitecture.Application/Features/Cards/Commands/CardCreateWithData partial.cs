@@ -25,7 +25,7 @@ SaveChanges() call
 S8.add to cache of town
      */
 
-    private async Task<BaseResult<iCardDto>> CreateCardWithData(CU_CardCommand createCommand,// UserDetailBase operatorOnGraphDb,
+    private async Task<BaseResult<CardDto>> CreateCardWithData(CU_CardCommand createCommand,// UserDetailBase operatorOnGraphDb,
                                                                                              CancellationToken cancellationToken)
         {
         bool cardSavedResult = false;
@@ -196,16 +196,16 @@ S8.add to cache of town
                 //newDraftCard.CardData = dataAddedEntity;
                 //newDraftCard.CardDetail = detailsAddedEntity;//currently not required as of default null always on create
                 bool isForVerifiedCacheUpdate = false;
-                iCardDto cacheCardToUpdate;
+                CardDto cacheCardToUpdate;
                 DateTime townCardsModifiedTime = newCard.Created;
 
                 newCard.NullifyNavigatingObjectsTownCardType();
-                cacheCardToUpdate = mapper.Map<iCardDto>(newCard);
+                cacheCardToUpdate = mapper.Map<CardDto>(newCard);
                 //townModifiedTime = newDraftCard!.Created;//already set,so again not required
 
                 cachingServiceTown.AddOrUpdateCardInTown(cacheCardToUpdate.IdTown, cacheCardToUpdate,
                     isVerified: isForVerifiedCacheUpdate, townCardsModifiedTime: townCardsModifiedTime);
-                return BaseResult<iCardDto>.OkNoClientCaching(cacheCardToUpdate);
+                return BaseResult<CardDto>.OkNoClientCaching(cacheCardToUpdate);
                 }
             }
         return new Shared.Wrappers.Error(ErrorCode.NotHaveAnyChangeInData, "CreateCardWithData Failed as Null Request");

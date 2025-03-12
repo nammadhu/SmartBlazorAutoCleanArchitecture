@@ -16,7 +16,7 @@ public class ApproveCardCommandHandler(ICardRepository townCardRepo, ServerCachi
                     {
                     //fetch card,data,detail and then updateCard of town
                     var card = await townCardRepo.GetByIdIntAsync(request.IdCard, cancellationToken);
-                    var cardDto = mapper.Map<iCardDto>(card);
+                    var cardDto = mapper.Map<CardDto>(card);
                     _cachingService.AddOrUpdateCardInTown(townIdRefreshRequired, cardDto);
                     }
                 }

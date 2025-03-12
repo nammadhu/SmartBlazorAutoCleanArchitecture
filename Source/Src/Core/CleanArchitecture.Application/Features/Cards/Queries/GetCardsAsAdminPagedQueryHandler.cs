@@ -1,10 +1,10 @@
 ﻿namespace CleanArchitecture.Application.Features.Cards.Queries
     {
-    public class GetCardsAsAdminPagedQueryHandler(ICardRepository cardRepo, ICard_DraftChangesRepository draftRepo) : IRequestHandler<GetCardsAsAdminPagedQuery, PagedResponse<iCardDto>>
+    public class GetCardsAsAdminPagedQueryHandler(ICardRepository cardRepo, ICard_DraftChangesRepository draftRepo) : IRequestHandler<GetCardsAsAdminPagedQuery, PagedResponse<CardDto>>
         {
-        public async Task<PagedResponse<iCardDto>> Handle(GetCardsAsAdminPagedQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResponse<CardDto>> Handle(GetCardsAsAdminPagedQuery request, CancellationToken cancellationToken)
             {
-            PagedResponse<iCardDto> result = new PagedResponse<iCardDto>();
+            PagedResponse<CardDto> result = new PagedResponse<CardDto>();
             if (request.All)
                 {
                 request.PageNumber = 1;

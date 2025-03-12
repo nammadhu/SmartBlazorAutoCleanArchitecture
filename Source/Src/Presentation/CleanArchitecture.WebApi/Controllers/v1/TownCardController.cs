@@ -51,7 +51,7 @@ public class TownCardController(IMediator mediator, IAuthenticatedUserService au
    => await GetCardsOfTown(new GetCardsOfTownQuery() { IdTown = IdTown }, cancellationToken);
 
     [HttpGet]
-    public async Task<BaseResult<iCardDto>> GetById([FromQuery] GetCardByIdQuery model, CancellationToken cancellationToken = default)
+    public async Task<BaseResult<CardDto>> GetById([FromQuery] GetCardByIdQuery model, CancellationToken cancellationToken = default)
     {//both draft & approved here only,difference is inside Parameter isDraft
         var result = await Mediator.Send(model, cancellationToken);
         if (result.Data != null)
@@ -60,7 +60,7 @@ public class TownCardController(IMediator mediator, IAuthenticatedUserService au
     }
 
     [HttpPost, Authorize]//lets allow everyone to create,later will block Blocked users
-    public async Task<BaseResult<iCardDto>> Create(CU_CardCommand createCommand, CancellationToken cancellationToken = default)
+    public async Task<BaseResult<CardDto>> Create(CU_CardCommand createCommand, CancellationToken cancellationToken = default)
     {
         if (authenticatedUserService.IsAuthenticated && Guid.TryParse(authenticatedUserService.UserId, out Guid userGuId) && userGuId != Guid.Empty)
         {
@@ -84,7 +84,7 @@ public class TownCardController(IMediator mediator, IAuthenticatedUserService au
     }
 
     [HttpPut, Authorize(Roles = CONSTANTS.ROLES.Role_CardVerifiedOwner + "," + CONSTANTS.ROLES.Role_CardOwner + "," + CONSTANTS.ROLES.Role_CardCreator + "," + CONSTANTS.ROLES.Role_Admin + "," + CONSTANTS.ROLES.Role_InternalAdmin)]
-    public async Task<BaseResult<iCardDto>> UpdateCard(CU_CardCommand updateCommand, CancellationToken cancellationToken = default)
+    public async Task<BaseResult<CardDto>> UpdateCard(CU_CardCommand updateCommand, CancellationToken cancellationToken = default)
     {
         //in case of cards transfer ,here might be required to add Creator or Owner role
         if (authenticatedUserService.IsAuthenticated && Guid.TryParse(authenticatedUserService.UserId, out Guid userId) && userId != Guid.Empty)

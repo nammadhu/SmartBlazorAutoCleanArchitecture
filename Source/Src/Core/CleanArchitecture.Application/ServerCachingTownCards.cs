@@ -16,7 +16,7 @@ public class ServerCachingTownCards : ServerCachingBase
 
     /// <summary>
     /// for removal card will be null,idCardToRemove some value
-    public void AddOrUpdateCardInTown(int townId, iCardDto? card = null, CardData? cardData = null, CardDetailDto? cardDetail = null, int idCardToRemove = 0, bool isVerified = true, DateTime townCardsModifiedTime = default)
+    public void AddOrUpdateCardInTown(int townId, CardDto? card = null, CardData? cardData = null, CardDetailDto? cardDetail = null, int idCardToRemove = 0, bool isVerified = true, DateTime townCardsModifiedTime = default)
         {
         var (town, cacheSetTime) = Get<TownCardsDto>(ConstantsCachingServer.CacheCardsOfTownIdKey(townId));
 
@@ -79,7 +79,7 @@ public class ServerCachingTownCards : ServerCachingBase
         else if (card != null)
             {
             EnsureNoDuplicatesBetweenCards(town, card.Id, isVerified);
-            targetList = new List<iCardDto> { card };
+            targetList = new List<CardDto> { card };
             isUpdated = true;
             }
 

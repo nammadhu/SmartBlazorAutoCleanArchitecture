@@ -16,9 +16,9 @@ public class TownDto : Town
 
     //public DateTime? ServerSideFromDbLoadedTime { get; set; }
     //public DateTime? CacheLoadedTime { get; set; }
-    public new List<iCardDto>? VerifiedCards { get; set; }
+    public new List<CardDto>? VerifiedCards { get; set; }
 
-    public new List<iCardDto>? DraftCards { get; set; }
+    public new List<CardDto>? DraftCards { get; set; }
 
     public new ImageInfoBase64Url? Image1 { get; set; } //= new();
     public new ImageInfoBase64Url? Image2 { get; set; } //= new();

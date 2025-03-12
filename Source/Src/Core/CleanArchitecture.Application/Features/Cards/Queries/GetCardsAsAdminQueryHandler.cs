@@ -1,10 +1,10 @@
 ﻿namespace CleanArchitecture.Application.Features.Cards.Queries
     {
-    public class GetCardsAsAdminQueryHandler(ICardRepository cardRepo, ICard_DraftChangesRepository draftRepo) : IRequestHandler<GetCardsAsAdminQuery, BaseResult<List<iCardDto>>>
+    public class GetCardsAsAdminQueryHandler(ICardRepository cardRepo, ICard_DraftChangesRepository draftRepo) : IRequestHandler<GetCardsAsAdminQuery, BaseResult<List<CardDto>>>
         {
-        public async Task<BaseResult<List<iCardDto>>> Handle(GetCardsAsAdminQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResult<List<CardDto>>> Handle(GetCardsAsAdminQuery request, CancellationToken cancellationToken)
             {
-            List<iCardDto> result = [];
+            List<CardDto> result = [];
             throw new NotImplementedException();
             //todo mostly not requried
             /*
@@ -15,7 +15,7 @@
             */
             //return result;
             //return BaseResult<List<iCardDto>>.Ok(result, ConstantsCaching.UserCardsForAdmin_MinCacheTimeSpan);
-            return new BaseResult<List<iCardDto>>() { Success = true, Data = result, MinCacheTimeSpan = ConstantsCachingServer.UserCardsForAdmin_MinCacheTimeSpan, MaxCacheTimeSpan = ConstantsCachingServer.UserCardsForAdmin_MaxCacheTimeSpan };
+            return new BaseResult<List<CardDto>>() { Success = true, Data = result, MinCacheTimeSpan = ConstantsCachingServer.UserCardsForAdmin_MinCacheTimeSpan, MaxCacheTimeSpan = ConstantsCachingServer.UserCardsForAdmin_MaxCacheTimeSpan };
             }
         }
     }

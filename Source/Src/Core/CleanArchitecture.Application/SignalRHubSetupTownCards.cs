@@ -3,14 +3,14 @@ using System.Security.Claims;
 
 namespace MyTown.Application;
 
-public partial class SignalRHubTownICards(IHttpContextAccessor httpContextAccessor,
-ITownCardController cardController, ILogger<SignalRHubTownICards> logger)
+public partial class SignalRHubTownCards(IHttpContextAccessor httpContextAccessor,
+ITownCardController cardController, ILogger<SignalRHubTownCards> logger)
 //IMediator mediator, IIdentityRepository identityRepository,IAuthenticatedUserService authenticatedUserService,
     {
     //private readonly IMediator _mediator;
     //private readonly IIdentityRepository _identityRepository;
     //private readonly IAuthenticatedUserService _authenticatedUserService;
-    private readonly ILogger<SignalRHubTownICards> _logger = logger;
+    private readonly ILogger<SignalRHubTownCards> _logger = logger;
 
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
     private ITownCardController _cardController = cardController;

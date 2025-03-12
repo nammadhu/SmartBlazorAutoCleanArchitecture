@@ -9,7 +9,7 @@ public class Card_AdditionalTownRespository(DbContextProvider dbContextProvider,
     private const int ResultLimit = 30;
     private readonly DbSet<Card_AdditionalTown> cardAdditionalTownsDb = dbContextProvider.DbContext.Set<Card_AdditionalTown>();
 
-    public async Task<List<iCardDto>> SearchTownAdditionalVerifiedCards(int townId, string name,
+    public async Task<List<CardDto>> SearchTownAdditionalVerifiedCards(int townId, string name,
       bool includeNonSensitiveData = false, bool includeDetails = false)
         {
         if (townId == 0) return null;
@@ -28,15 +28,15 @@ public class Card_AdditionalTownRespository(DbContextProvider dbContextProvider,
 
         if (includeDetails)//this is for full page related only
             query = query.Include(x => x.iCard).ThenInclude(c => c.CardDetail);
-        return await query.Select(x => mapper.Map<iCardDto>(x.iCard)).ToListAsync();
+        return await query.Select(x => mapper.Map<CardDto>(x.iCard)).ToListAsync();
         }
 
     //showing for approval selection
-    public async Task<List<iCardDto>> GetTownAdditionalVerifiedCardsOfType(GetVerifiedCardsOfTypeInTownQuery query, CancellationToken cancellationToken)
+    public async Task<List<CardDto>> GetTownAdditionalVerifiedCardsOfType(GetVerifiedCardsOfTypeInTownQuery query, CancellationToken cancellationToken)
         {
         return await
             cardAdditionalTownsDb.Include(x => x.iCard)
             .Where(x => x.IdTown == query.TownId && x.iCard.IdCardType == query.TypeId)
-            .Select(p => mapper.Map<iCardDto>(p.iCard)).ToListAsync(cancellationToken);
+            .Select(p => mapper.Map<CardDto>(p.iCard)).ToListAsync(cancellationToken);
         }
     }

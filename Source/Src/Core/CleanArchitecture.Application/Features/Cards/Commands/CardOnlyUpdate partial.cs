@@ -20,7 +20,7 @@ public partial class CU_CardCommandHandler
          * Approve/Reject is  separate endpoint or can club
          */
 
-    private async Task<BaseResult<iCardDto>> UpdateCardOnly(CU_CardCommand updateCommand, CancellationToken cancellationToken)
+    private async Task<BaseResult<CardDto>> UpdateCardOnly(CU_CardCommand updateCommand, CancellationToken cancellationToken)
         {
         /*
          Cases:
@@ -35,7 +35,7 @@ Update Approval
         //for drafts, just restrict on ui itself,for weekly only 3 updates.in code no restriction
         //so cache will be updated always to make it quicker
 
-        iCardDto? existingCardDto = null;
+        CardDto? existingCardDto = null;
         (TownCardsDto? townCache, DateTime? cacheSetTime) = cachingServiceTown.Get<TownCardsDto>(ConstantsCachingServer.CacheCardsOfTownIdKey(updateCommand.IdTown));
         if (townCache?.VerifiedCards != null && townCache.VerifiedCards.Exists(x => x.Id == updateCommand.Id))
             existingCardDto = townCache.VerifiedCards.FirstOrDefault(x => x.Id == updateCommand.Id);
@@ -147,13 +147,13 @@ Update Approval
             //currently refresh only to verified,if draft required then tweak here
 
             cardToUpdate.NullifyNavigatingObjectsTownCardType();
-            var result = mapper.Map<iCardDto>(cardToUpdate);
+            var result = mapper.Map<CardDto>(cardToUpdate);
 
             cachingServiceTown.AddOrUpdateCardInTown(updateCommand.IdTown, result, cardData: existingCardDto?.CardData, cardDetail: existingCardDto?.CardDetail, isVerified: result.IsVerified == true, townCardsModifiedTime: result.LastModified ?? DateTimeExtension.CurrentTime);
-            return BaseResult<iCardDto>.OkNoClientCaching(result);
+            return BaseResult<CardDto>.OkNoClientCaching(result);
             }
         //no changes,so return original as it is
-        return BaseResult<iCardDto>.OkNoClientCaching(mapper.Map<iCardDto>(existingCard) ?? new());
+        return BaseResult<CardDto>.OkNoClientCaching(mapper.Map<CardDto>(existingCard) ?? new());
         }
 
     private async Task<bool> AddUpdateApproverVerifiers(int cardId, List<CardApproval>? existing, List<CardApproval>? newSelectedSet, CancellationToken cancellationToken)

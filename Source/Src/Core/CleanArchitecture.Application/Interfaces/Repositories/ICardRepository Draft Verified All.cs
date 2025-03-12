@@ -13,9 +13,9 @@
 
     public interface ICard_AdditionalTownRepository : IGenericRepository<Card_AdditionalTown>
         {
-        Task<List<iCardDto>> GetTownAdditionalVerifiedCardsOfType(GetVerifiedCardsOfTypeInTownQuery query, CancellationToken cancellationToken);
+        Task<List<CardDto>> GetTownAdditionalVerifiedCardsOfType(GetVerifiedCardsOfTypeInTownQuery query, CancellationToken cancellationToken);
 
-        Task<List<iCardDto>> SearchTownAdditionalVerifiedCards(int townId, string name,
+        Task<List<CardDto>> SearchTownAdditionalVerifiedCards(int townId, string name,
         bool includeNonSensitiveData = false, bool includeDetails = false);
         }
 
@@ -37,19 +37,19 @@
         Task<PagedResponse<iCardDto>> GetTownVerifiedCardsPagedListAsync(int townId, int pageNumber, int pageSize, CancellationToken cancellationToken, string name);
         */
 
-        Task<List<iCardDto>> GetVerifiedCardsOfTypeInTown(GetVerifiedCardsOfTypeInTownQuery query, CancellationToken cancellationToken);
+        Task<List<CardDto>> GetVerifiedCardsOfTypeInTown(GetVerifiedCardsOfTypeInTownQuery query, CancellationToken cancellationToken);
         }
 
     public interface ICardRepository : IGenericRepository<Card>
         {
-        Task<List<iCardDto>> GetUserCards(Guid userId, CancellationToken cancellationToken);
+        Task<List<CardDto>> GetUserCards(Guid userId, CancellationToken cancellationToken);
         Task<(bool approvedResult, int townIdRefreshRequired)> ApproveCardAsync(ApproveCardCommand request, CancellationToken cancellationToken);
 
         Task<bool?> ApproveCardByAdmin(ApproveCardCommand request, Card card, CancellationToken cancellationToken);
 
         Task<Card> GetByIdIntAsync(int id, CancellationToken cancellationToken);
 
-        Task<IList<iCardDto>> GetByNameAsync(string name, CancellationToken cancellationToken);
+        Task<IList<CardDto>> GetByNameAsync(string name, CancellationToken cancellationToken);
 
         /// this wont fetch town,instead only town cards. And drafts are only 100-verified
         Task<TownCardsDto> GetCardsOfTown(int townId, CancellationToken cancellationToken);

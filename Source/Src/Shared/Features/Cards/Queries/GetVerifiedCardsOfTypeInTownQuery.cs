@@ -3,7 +3,7 @@ using Shared.DTOs;
 
 namespace Shared.Features.Cards.Queries;
 
-public class GetVerifiedCardsOfTypeInTownQuery : IRequest<BaseResult<List<iCardDto>>>
+public class GetVerifiedCardsOfTypeInTownQuery : IRequest<BaseResult<List<CardDto>>>
     {
     public int TownId { get; set; }
     public int TypeId { get; set; }

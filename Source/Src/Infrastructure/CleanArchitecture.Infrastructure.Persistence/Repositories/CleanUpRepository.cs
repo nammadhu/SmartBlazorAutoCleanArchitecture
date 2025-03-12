@@ -11,7 +11,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Repositories
         {
         private ApplicationDbContext dbContext = dbContextProvider.DbContext;
 
-        public async Task<iCardDto> GetCardFromTrash(int cardId, CancellationToken cancellationToken)
+        public async Task<CardDto> GetCardFromTrash(int cardId, CancellationToken cancellationToken)
             {
             string message = null;
             if (cardId > 0)
@@ -21,7 +21,7 @@ namespace CleanArchitecture.Infrastructure.Persistence.Repositories
                     {
                     if (JsonExtensions.TryDeserialize<Card>(trash.CardDataAsJsonString, out Card card))
                         {
-                        iCardDto result = mapper.Map<iCardDto>(card);
+                        CardDto result = mapper.Map<CardDto>(card);
                         return result;
                         }
                     else

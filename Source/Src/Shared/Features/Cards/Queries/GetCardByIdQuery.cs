@@ -2,7 +2,7 @@
 
 namespace Shared.Features.Cards.Queries
     {
-    public class GetCardByIdQuery : IRequest<BaseResult<iCardDto>>
+    public class GetCardByIdQuery : IRequest<BaseResult<CardDto>>
         {
         public bool IsDraft { get; set; } = false;
         public int IdCard { get; set; }

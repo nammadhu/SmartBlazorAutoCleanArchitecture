@@ -11,7 +11,7 @@ public interface IMyCardsController
 
     Task<BaseResult<bool>> IsICanEditCard(int idCard, CancellationToken cancellationToken = default);
 
-    Task<BaseResult<UserDetailDto>?> AddOrUpdateMyCards(iCardDto iCardDto, CancellationToken cancellationToken = default);
+    Task<BaseResult<UserDetailDto>?> AddOrUpdateMyCards(CardDto iCardDto, CancellationToken cancellationToken = default);
 
     Task<BaseResult<UserDetailDto>?> AddOrUpdateMyCardData(CardData cardData, CancellationToken cancellationToken = default);
 

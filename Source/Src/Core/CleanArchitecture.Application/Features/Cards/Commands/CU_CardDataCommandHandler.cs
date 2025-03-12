@@ -11,7 +11,7 @@ public class CU_CardDataCommandHandler(
         {
         try
             {
-            iCardDto? existingFullCard = null;
+            CardDto? existingFullCard = null;
             (TownCardsDto? townCache, DateTime? cacheSetTime) = cachingServiceTown.Get<TownCardsDto>(ConstantsCachingServer.CacheCardsOfTownIdKey(request.IdTown));
             if (townCache?.VerifiedCards != null && townCache.VerifiedCards.Exists(x => x.Id == request.Id))
                 existingFullCard = townCache.VerifiedCards.FirstOrDefault(x => x.Id == request.Id);

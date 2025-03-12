@@ -28,7 +28,7 @@ public class Mapping : Profile
             //.ForMember(dto => dto.CardApprovals, detailBase => detailBase.Ignore())//not required as both source,destination same
             .ReverseMap();
 
-        CreateMap<Card, iCardDto>()
+        CreateMap<Card, CardDto>()
           //.ForMember(d => d.Brand, opt => opt.MapFrom(src => src.Brand))
           //.ForMember(d => d.Product, opt => opt.MapFrom(src => src.Product))
 
@@ -48,14 +48,14 @@ public class Mapping : Profile
           //  .ForMember(d => d.UserId, opt => opt.Ignore())
           .ReverseMap();
 
-        CreateMap<iCardDto, Card>()//mostly of no use
+        CreateMap<CardDto, Card>()//mostly of no use
               .ForMember(d => d.Town, opt => opt.Ignore())
           .ForMember(d => d.Type, opt => opt.Ignore())
             .ForMember(d => d.Image1, opt => opt.MapFrom(src => ImageInfoBase64Url.GetUrl(src.Image1)))
             .ForMember(d => d.Image2, opt => opt.MapFrom(src => ImageInfoBase64Url.GetUrl(src.Image2)))
             .ForMember(d => d.ApprovedPeerCardIds, opt => opt.Ignore());
 
-        CreateMap<iCardDto, Card_DraftChanges>()//mostly of no use
+        CreateMap<CardDto, Card_DraftChanges>()//mostly of no use
            .ForMember(d => d.Town, opt => opt.Ignore())
           .ForMember(d => d.Type, opt => opt.Ignore())
           .ForMember(d => d.Image1, opt => opt.MapFrom(src => ImageInfoBase64Url.GetUrl(src.Image1)))
@@ -67,7 +67,7 @@ public class Mapping : Profile
         //on save <cardcommand,card> or <cardcommand,carddraftchanges>
         //on page itself having all cards so no need of fetching additional approval cards required
 
-        CreateMap<iCardDto, CU_CardCommand>()//on editing
+        CreateMap<CardDto, CU_CardCommand>()//on editing
            .ForMember(x => x.ApprovedPeerCardIds, opt => opt.MapFrom(s => s.ApprovedPeerCardIds))
            .ForMember(x => x.SelectedApprovalCards, opt => opt.MapFrom(s => s.ApprovedPeerCardIds))
            .ForMember(x => x.IsForVerifiedCard, opt => opt.MapFrom(s => s.IsVerified))
