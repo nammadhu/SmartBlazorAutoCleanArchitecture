@@ -1,51 +1,78 @@
 ﻿@page "/cardtypes"
 @inject AuthenticationStateProvider AuthProvider
 
-<FluentDataGrid Items="@cardTypeQuery" TGridItem="@CardTypeDto" SelectionMode="Single" Style="height: auto; max-width: 100%;">
+<h3>Card Types</h3>
+
+<FluentDataGrid Items="@paginatedCardTypes.AsQueryable()" TGridItem="CardTypeDto" SelectionMode="Single" Style="height: auto; max-width: 100%;">
     <PropertyColumn Property="@(c => c.Id)" Title="ID" Sortable="true" />
     <PropertyColumn Property="@(c => c.Name)" Title="Name" Sortable="true" />
     <PropertyColumn Property="@(c => c.IconColor)" Title="Icon Color" Sortable="true" />
     <PropertyColumn Property="@(c => c.Price)" Title="Price" Sortable="true" />
-    <TemplateColumn Title="Actions" >
+    <TemplateColumn Title="Actions">
         <div>
             <FluentButton Title="Edit" OnClick="() => EditCardType(context)" Disabled="@(!CanEdit)" />
             <FluentButton Title="Delete" OnClick="() => DeleteCardType(context)" Disabled="@(!CanDelete)" />
         </div>
     </TemplateColumn>
 </FluentDataGrid>
-
+@if (totalPages > 1)
+    {
+    <div class="pagination-container">
+        <FluentButton Title="Previous" OnClick="GoToPreviousPage" Disabled="@isFirstPage" />
+        <span>Page @currentPage of @totalPages</span>
+        <FluentButton Title="Next" OnClick="GoToNextPage" Disabled="@isLastPage" />
+    </div>
+    }
 @if (CanCreate)
-{
+    {
     <FluentButton Title="Create New" OnClick="@CreateNew" Style="margin-top: 10px;" />
-}
+    }
+
 <style>
     @@media (max-width: 600px) {
-        fluent-data-grid
+        fluent-data-grid {
+            width: 100%;
+            font-size: 14px;
+        }
 
-    {
-        width: 100%;
-        font-size: 14px;
-    }
+        fluent-button {
+            font-size: 12px;
+            margin: 5px 0;
+        }
 
-    fluent-button {
-        font-size: 12px;
-        margin: 5px 0;
-    }
+        .pagination-container {
+            text-align: center;
+            margin-top: 10px;
+        }
 
+            .pagination-container span {
+                margin: 0 10px;
+            }
     }
 </style>
 
-
 @code {
-    // Define the IQueryable source
     private IQueryable<CardTypeDto> cardTypeQuery => cardTypes.AsQueryable();
-
+    private List<CardTypeDto> paginatedCardTypes => cardTypes
+        .Skip((currentPage - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
 
     private List<CardTypeDto> cardTypes = new()
     {
         new CardTypeDto { Id = 1, Name = "Standard", IconColor = "#FF0000", Price = 100 },
         new CardTypeDto { Id = 2, Name = "Premium", IconColor = "#00FF00", Price = 200 },
+        new CardTypeDto { Id = 3, Name = "Gold", IconColor = "#FFD700", Price = 300 },
+        new CardTypeDto { Id = 4, Name = "Silver", IconColor = "#C0C0C0", Price = 150 },
+        new CardTypeDto { Id = 5, Name = "Bronze", IconColor = "#CD7F32", Price = 50 },
+        new CardTypeDto { Id = 6, Name = "Platinum", IconColor = "#E5E4E2", Price = 500 }
     };
+
+    private int currentPage = 1;
+    private int pageSize = 3; // Items per page
+    private int totalPages => (int)Math.Ceiling(cardTypes.Count / (double)pageSize);
+    private bool isFirstPage => currentPage == 1;
+    private bool isLastPage => currentPage == totalPages;
 
     private bool CanEdit => RolePermissions.CanEdit(GetUserRole());
     private bool CanCreate => RolePermissions.CanCreate(GetUserRole());
@@ -59,6 +86,8 @@
     private void DeleteCardType(CardTypeDto cardType)
         {
         cardTypes.Remove(cardType);
+        // Refresh pagination after delete
+        currentPage = Math.Min(currentPage, totalPages);
         }
 
     private void CreateNew()
@@ -70,13 +99,31 @@
                 IconColor = "#0000FF",
                 Price = 300
                 });
+        // Refresh pagination after adding
+        currentPage = totalPages;
+        }
+
+    private void GoToPreviousPage()
+        {
+        if (currentPage > 1)
+            {
+            currentPage--;
+            }
+        }
+
+    private void GoToNextPage()
+        {
+        if (currentPage < totalPages)
+            {
+            currentPage++;
+            }
         }
 
     private string GetUserRole()
         {
         var authState = AuthProvider.GetAuthenticationStateAsync().Result;
         var user = authState.User;
-        return user.IsInRole("Admin") ? "Admin" : "User"; // Example role fetching
+        return user.IsInRole("Admin") ? "Admin" : "User";
         }
 
     public static class RolePermissions
@@ -85,5 +132,4 @@
         public static bool CanCreate(string role) => role == "Admin";
         public static bool CanDelete(string role) => role == "Admin";
         }
-
 }
