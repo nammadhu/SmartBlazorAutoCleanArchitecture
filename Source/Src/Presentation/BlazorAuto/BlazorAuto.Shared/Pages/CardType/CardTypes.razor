@@ -1,4 +1,6 @@
 ﻿@page "/cardtypes"
+@using SHARED.Features.CardTypes.Commands
+@inject ITownCardTypeController TownCardTypeService
 @inject AuthenticationStateProvider AuthProvider
 
 <h3>Card Types</h3>
@@ -15,14 +17,13 @@
         </div>
     </TemplateColumn>
 </FluentDataGrid>
-@if (totalPages > 1)
-    {
-    <div class="pagination-container">
-        <FluentButton Title="Previous" OnClick="GoToPreviousPage" Disabled="@isFirstPage" />
-        <span>Page @currentPage of @totalPages</span>
-        <FluentButton Title="Next" OnClick="GoToNextPage" Disabled="@isLastPage" />
-    </div>
-    }
+
+<div class="pagination-container">
+    <FluentButton Title="Previous" OnClick="GoToPreviousPage" Disabled="@isFirstPage" />
+    <span>Page @currentPage of @totalPages</span>
+    <FluentButton Title="Next" OnClick="GoToNextPage" Disabled="@isLastPage" />
+</div>
+
 @if (CanCreate)
     {
     <FluentButton Title="Create New" OnClick="@CreateNew" Style="margin-top: 10px;" />
@@ -52,21 +53,11 @@
 </style>
 
 @code {
-    private IQueryable<CardTypeDto> cardTypeQuery => cardTypes.AsQueryable();
+    private List<CardTypeDto> cardTypes = new();
     private List<CardTypeDto> paginatedCardTypes => cardTypes
         .Skip((currentPage - 1) * pageSize)
         .Take(pageSize)
         .ToList();
-
-    private List<CardTypeDto> cardTypes = new()
-    {
-        new CardTypeDto { Id = 1, Name = "Standard", IconColor = "#FF0000", Price = 100 },
-        new CardTypeDto { Id = 2, Name = "Premium", IconColor = "#00FF00", Price = 200 },
-        new CardTypeDto { Id = 3, Name = "Gold", IconColor = "#FFD700", Price = 300 },
-        new CardTypeDto { Id = 4, Name = "Silver", IconColor = "#C0C0C0", Price = 150 },
-        new CardTypeDto { Id = 5, Name = "Bronze", IconColor = "#CD7F32", Price = 50 },
-        new CardTypeDto { Id = 6, Name = "Platinum", IconColor = "#E5E4E2", Price = 500 }
-    };
 
     private int currentPage = 1;
     private int pageSize = 3; // Items per page
@@ -78,29 +69,48 @@
     private bool CanCreate => RolePermissions.CanCreate(GetUserRole());
     private bool CanDelete => RolePermissions.CanDelete(GetUserRole());
 
-    private void EditCardType(CardTypeDto cardType)
+    protected override async Task OnInitializedAsync()
         {
-        // Navigate to edit page or show a dialog for editing
+        await LoadCardTypesAsync();
         }
 
-    private void DeleteCardType(CardTypeDto cardType)
+    private async Task LoadCardTypesAsync()
         {
-        cardTypes.Remove(cardType);
-        // Refresh pagination after delete
-        currentPage = Math.Min(currentPage, totalPages);
+        var result = await TownCardTypeService.GetAll();
+        if (result.Success)
+            {
+            cardTypes = result.Data;
+            }
         }
 
-    private void CreateNew()
+    private async Task EditCardType(CardTypeDto cardType)
         {
-        cardTypes.Add(new CardTypeDto
+        await TownCardTypeService.Update(new CU_CardTypeCommand
                 {
-                Id = cardTypes.Count + 1,
+                Id = cardType.Id,
+                Name = cardType.Name,
+                IconColor = cardType.IconColor,
+                Price = cardType.Price
+                });
+        await LoadCardTypesAsync();
+        }
+
+    private async Task DeleteCardType(CardTypeDto cardType)
+        {
+        await TownCardTypeService.Delete(cardType.Id);
+        await LoadCardTypesAsync();
+        }
+
+    private async Task CreateNew()
+        {
+        var newCardType = new CU_CardTypeCommand
+                {
                 Name = "New Card",
                 IconColor = "#0000FF",
                 Price = 300
-                });
-        // Refresh pagination after adding
-        currentPage = totalPages;
+                };
+        await TownCardTypeService.Create(newCardType);
+        await LoadCardTypesAsync();
         }
 
     private void GoToPreviousPage()

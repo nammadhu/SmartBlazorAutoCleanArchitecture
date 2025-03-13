@@ -10,6 +10,7 @@ using CleanArchitecture.Infrastructure.Persistence.Contexts;
 using CleanArchitecture.Infrastructure.Persistence.Seeds;
 using CleanArchitecture.Infrastructure.Resources;
 using CleanArchitecture.WebApi;
+using CleanArchitecture.WebApi.Controllers.v1;
 using CleanArchitecture.WebApi.Infrastructure.Extensions;
 using CleanArchitecture.WebApi.Infrastructure.Middlewares;
 using CleanArchitecture.WebApi.Infrastructure.Services;
@@ -50,6 +51,9 @@ AppConfigurations config = new();
 config.Initialize(builder.Configuration, environmentName: environmentName, isDevelopment);
 builder.Services.AddSingleton(config);
 builder.Services.AddAzureInfrastructure(builder.Configuration, useInMemoryDatabase);
+
+builder.Services.AddScoped<ITownCardTypeController, TownCardTypeController>();
+
 
 builder.Services.AddResourcesInfrastructure();
 builder.Services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();

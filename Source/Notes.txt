@@ -1,4 +1,47 @@
+on shared project, 
+on page will have IProductService 
+on client render mode on wasm implementation with Indexeddb & api fetch, 
+on server render mode on server,it will be Controller direct call service call & no cache
+
+on page if customization required then ProductService which calls 
+ProductIntermediateService,in which all customizations all and then api calls or whataever
+
+
+
+
+
+
+on shared project, service which uses IFetchData,ICache
+on client render mode on wasm, it will be IApiFetch,IndexedDbService
+on server render mode on server,it will be Controller service call & no cache
+on 
+
+
+
+
+
+
+
+since we are in blazor auto render, in which it runs sometimes on client-server and other time only on server mode. so each service from page will have to get data from service of interface of 2 types of implementations,
+1> on client server mode, server side api HTTpReponse from controller endpoint & on page calls client service that makes httpclient call and responses will be stored on client cache storage using Indexeddb
+2> on server render mode, page calls serice that makes direct service call to controller method instead of any http call.
+now my previous full code should be modified like this,
+
+To handle the dual-rendering modes (Blazor Server and Blazor WebAssembly), we can create a service abstraction using an interface with two implementations:
+
+Client-Server Mode: Uses HttpClient to make API calls, caching responses using IndexedDB.
+
+Server-Render Mode: Bypasses HttpClient and directly calls the server-side services.
+
+
+
 seeding
+show existing data on screen
+client side rendering
+add,edit,delete
+cache,api call
+
+
 
 
 Add Town

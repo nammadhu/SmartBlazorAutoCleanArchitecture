@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
 using SHARED;
 using SHARED.DTOs;
+using SHARED.Interfaces;
 
 namespace BlazorAuto.Web.Client;
 
@@ -21,6 +22,9 @@ class Program
 
         builder.Services.AddDependencyInjectionCommon();//server & client common
         builder.Services.AddDependencyInjectionClientRender();//only client(wasm+MAUI apps)
+
+        builder.Services.AddScoped<ITownCardTypeController, ClientTownCardTypeService>();//only for wasm so here //todo
+
         builder.Services.AddFluentUIComponents();
 
         builder.Services.AddAuthorizationCore();
