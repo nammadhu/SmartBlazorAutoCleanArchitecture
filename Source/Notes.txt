@@ -1,3 +1,9 @@
+M@dhusC0d$
+
+
+
+https://localhost:5001/manage-regions/countries/3dc5102c-9945-4e8d-9082-da1656c65f2e/atcs/44cfa7d8-91b9-431d-995b-fc0108a1e1b1/transaction-report
+
 on shared project, 
 on page will have IProductService 
 on client render mode on wasm implementation with Indexeddb & api fetch, 

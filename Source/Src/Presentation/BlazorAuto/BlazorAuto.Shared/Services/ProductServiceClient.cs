@@ -10,6 +10,8 @@ namespace BlazorAuto.Shared.Services;
 
 public class ProductServiceClient(IHttpClientFactory httpClientFactory) : IProduct
     {
+    //Direct API calls without any client caching here,so can be accessed at any app or wasm
+    //if caching required then had to make interface of caching and resolve dependency dynamically
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient(CONSTANTS.ClientAnonymous);
     const string apiKey = "api/v1/product/";
 

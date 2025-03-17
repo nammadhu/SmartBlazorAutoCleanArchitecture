@@ -12,11 +12,30 @@ public class ClientCacheIndexedDb(IJSRuntime jSRuntime, string name, int version
     //these are just like tables, add whatever required for clientside and use it.
     }
 
-
-public class IndexedDbService<T>(IJSRuntime jsRuntime, string storeName) where T : class
+public class IndexedDbService<T> where T : class
     {
-    private readonly IJSRuntime _jsRuntime = jsRuntime;
-    private readonly string _storeName = storeName;
+    private readonly IJSRuntime _jsRuntime;
+    private readonly string _storeName;
+
+    public IndexedDbService(IJSRuntime jsRuntime, string storeName)
+        {
+        _jsRuntime = jsRuntime;
+        _storeName = storeName;
+
+        }
+
+    public async Task InitializeStoreAsync()
+        {
+        try
+            {
+            await _jsRuntime.InvokeVoidAsync("indexedDbHelpers.ensureStoreExists", _storeName);
+            Console.WriteLine($"Object store '{_storeName}' initialized.");
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Failed to initialize object store '{_storeName}': {ex.Message}");
+            }
+        }
 
     public async Task AddOrUpdateAsync(string key, T entity)
         {
@@ -32,8 +51,16 @@ public class IndexedDbService<T>(IJSRuntime jsRuntime, string storeName) where T
 
     public async Task<List<T>> GetAllAsync()
         {
-        var json = await _jsRuntime.InvokeAsync<string>("indexedDbHelpers.getAll", _storeName);
-        return string.IsNullOrEmpty(json) ? new List<T>() : JsonSerializer.Deserialize<List<T>>(json)!;
+        try
+            {
+            var json = await _jsRuntime.InvokeAsync<string>("indexedDbHelpers.getAll", _storeName);
+            return string.IsNullOrEmpty(json) ? new List<T>() : JsonSerializer.Deserialize<List<T>>(json)!;
+            }
+        catch (JSException ex)
+            {
+            Console.WriteLine($"GetAllAsync failed for store '{_storeName}': {ex.Message}");
+            return new List<T>();
+            }
         }
 
     public async Task DeleteAsync(string key)

@@ -5,9 +5,11 @@ using BlazorAuto.Shared.Services;
 using BlazorAuto.Web.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.JSInterop;
 using SHARED;
 using SHARED.DTOs;
 using SHARED.Interfaces;
+using System.Xml;
 
 namespace BlazorAuto.Web.Client;
 
@@ -23,7 +25,33 @@ class Program
         builder.Services.AddDependencyInjectionCommon();//server & client common
         builder.Services.AddDependencyInjectionClientRender();//only client(wasm+MAUI apps)
 
-        builder.Services.AddScoped<ITownCardTypeController, ClientTownCardTypeService>();//only for wasm so here //todo
+        //only for wasm so here //todo
+        builder.Services.AddSingleton<IIndexedDbFactory, IndexedDbFactory>();
+        //builder.Services.AddSingleton<IndexedDbService<CardTypeDto>>();//wrong
+        builder.Services.AddScoped(typeof(IndexedDbService<>), typeof(IndexedDbService<>));
+        builder.Services.AddScoped(sp =>
+        {
+            var jsRuntime = sp.GetRequiredService<IJSRuntime>();
+            return new IndexedDbService<CardTypeDto>(jsRuntime, nameof(CardTypeDto));
+            // Factory for creating services with different store names
+            //return (Type serviceType) =>
+            //{
+            //    var storeName = serviceType.Name.Replace("Dto", ""); // Example: Map DTO type to store name
+            //    return Activator.CreateInstance(typeof(IndexedDbService<>).MakeGenericType(serviceType), jsRuntime, storeName);
+            //};
+        });
+
+        //builder.Services.AddScoped(typeof(IndexedDbService<>), sp =>
+        //{
+        //    var jsRuntime = sp.GetRequiredService<IJSRuntime>();
+        //    return (Type serviceType) =>
+        //    {
+        //        var storeName = serviceType.GetGenericArguments()[0].Name + "Store";
+        //        return Activator.CreateInstance(typeof(IndexedDbService<>).MakeGenericType(serviceType.GetGenericArguments()), jsRuntime, storeName);
+        //    };
+        //});
+
+        builder.Services.AddScoped<ITownCardTypeController, ClientTownCardTypeService>();
 
         builder.Services.AddFluentUIComponents();
 
@@ -31,7 +59,8 @@ class Program
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddAuthenticationStateDeserialization();
 
-        builder.Services.AddSingleton<IIndexedDbFactory, IndexedDbFactory>();
+       
+    
         builder.Services.AddScoped<ICacheService<ProductDto>, ProductCacheServiceWasm>();
 
         //builder.Services.AddHttpClient<ProductServiceClient>("",client =>
