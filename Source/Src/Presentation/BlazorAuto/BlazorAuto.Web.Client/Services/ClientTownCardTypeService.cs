@@ -12,11 +12,11 @@ using System.Net.Http.Json;
 using BASE;
 
 namespace BlazorAuto.Web.Client.Services;
-public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, IndexedDbService<CardTypeDto> indexedDbService) : ITownCardTypeController
+public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, IndexedDbService<CardTypeDto,int> indexedDbService) : ITownCardTypeController
     {
     const string endPoint = "api/v1/TownCardType/";
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient(CONSTANTS.ClientAnonymous);
-    private readonly IndexedDbService<CardTypeDto> _indexedDbService = indexedDbService;
+    private readonly IndexedDbService<CardTypeDto,int> _indexedDbService = indexedDbService;
 
     public async Task<BaseResult<CardTypeDto>> Create(CU_CardTypeCommand model, CancellationToken cancellationToken = default)
         {
@@ -50,6 +50,8 @@ public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, Ind
         var response = await _httpClient.GetFromJsonAsync<BaseResult<List<CardTypeDto>>>($"{endPoint}{nameof(ITownCardTypeController.GetAll)}", cancellationToken);
         if (response?.Success == true && response.Data != null)
             {
+            //await _indexedDbService.AddOrUpdateBulkAsync(response.Data);
+            //addOrUpdateBulk works but key should be proper. currently its giving undefined,so will be using addOrUpdate
             foreach (var item in response.Data)
                 {
                 await _indexedDbService.AddOrUpdateAsync(item.Id.ToString(), item);

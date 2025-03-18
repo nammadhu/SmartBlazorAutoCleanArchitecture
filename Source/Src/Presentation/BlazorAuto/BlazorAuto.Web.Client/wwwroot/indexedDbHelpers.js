@@ -1,4 +1,4 @@
-﻿const version = 2; // Define the database version
+﻿const version = 5; // Define the database version
 let dbConnection = null; // Shared reference to the opened database
 
 window.indexedDbHelpers = {
@@ -74,6 +74,53 @@ window.indexedDbHelpers = {
             };
         });
     },
+
+    //addOrUpdateBulk works but key should be proper. currently its giving undefined,so will be using above addOrUpdate
+    addOrUpdateBulk: async function (storeName, items) {
+        console.log('addOrUpdateBulk called: ' + storeName);
+
+        return new Promise((resolve, reject) => {
+            const dbRequest = indexedDB.open('MyDatabase', version);
+
+            dbRequest.onupgradeneeded = (event) => {
+                const db = event.target.result;
+
+                // Ensure the store exists
+                if (!db.objectStoreNames.contains(storeName)) {
+                    db.createObjectStore(storeName, { keyPath: 'key' });
+                }
+            };
+
+            dbRequest.onsuccess = () => {
+                const db = dbRequest.result;
+                try {
+                    const tx = db.transaction(storeName, 'readwrite');
+                    const store = tx.objectStore(storeName);
+
+                    for (const item of items) {
+                        // Convert the key to a string
+                        console.log('key:' + item.key);
+                        store.put({ key: item.key.toString(), value: item.value });
+                    }
+
+                    tx.oncomplete = () => {
+                        console.log(`Bulk data added/updated in store: '${storeName}'`);
+                        resolve();
+                    };
+                    tx.onerror = (event) => reject(event.target.error);
+                } catch (err) {
+                    console.error(`Transaction error: ${err.message}`);
+                    reject(err);
+                }
+            };
+
+            dbRequest.onerror = (event) => {
+                console.error('Database error:', event.target.error);
+                reject(event.target.error);
+            };
+        });
+    },
+
 
     get: async function (storeName, key) {
         console.log('get called: ' + storeName);

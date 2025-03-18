@@ -1,4 +1,5 @@
-﻿using Blazor.IndexedDB;
+﻿using BASE.Common;
+using Blazor.IndexedDB;
 using Microsoft.JSInterop;
 using SHARED.DTOs;
 using System.Text.Json;
@@ -12,7 +13,8 @@ public class ClientCacheIndexedDb(IJSRuntime jSRuntime, string name, int version
     //these are just like tables, add whatever required for clientside and use it.
     }
 
-public class IndexedDbService<T> where T : class
+
+public class IndexedDbService<T,TKey> where T : class, IAuditableBaseEntity<TKey>
     {
     private readonly IJSRuntime _jsRuntime;
     private readonly string _storeName;
@@ -67,6 +69,23 @@ public class IndexedDbService<T> where T : class
             {
             Console.WriteLine($"Failed to add/update key '{key}' in store '{_storeName}': {ex.Message}");
             throw;
+            }
+        }
+
+    // //addOrUpdateBulk works but key should be proper. currently its giving undefined,so will be using addOrUpdate
+    public async Task AddOrUpdateBulkAsync(List<T> items)
+        {
+        try
+            {
+            await InitializeStoreAsync();
+
+            // Convert items to JSON and invoke the JS function
+            var json = JsonSerializer.Serialize(items.Select(x => new { key = x.Id.ToString(), value = x }));
+            await _jsRuntime.InvokeVoidAsync("indexedDbHelpers.addOrUpdateBulk", _storeName, json);
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Failed to add or update bulk data in store '{_storeName}': {ex.Message}");
             }
         }
 

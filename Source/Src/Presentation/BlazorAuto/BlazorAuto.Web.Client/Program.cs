@@ -28,11 +28,11 @@ class Program
         //only for wasm so here //todo
         builder.Services.AddSingleton<IIndexedDbFactory, IndexedDbFactory>();
         //builder.Services.AddSingleton<IndexedDbService<CardTypeDto>>();//wrong
-        builder.Services.AddScoped(typeof(IndexedDbService<>), typeof(IndexedDbService<>));
+        builder.Services.AddScoped(typeof(IndexedDbService<,>), typeof(IndexedDbService<,>));
         builder.Services.AddScoped(sp =>
         {
             var jsRuntime = sp.GetRequiredService<IJSRuntime>();
-            return new IndexedDbService<CardTypeDto>(jsRuntime, nameof(CardTypeDto));
+            return new IndexedDbService<CardTypeDto, int>(jsRuntime, nameof(CardTypeDto));
             // Factory for creating services with different store names
             //return (Type serviceType) =>
             //{
