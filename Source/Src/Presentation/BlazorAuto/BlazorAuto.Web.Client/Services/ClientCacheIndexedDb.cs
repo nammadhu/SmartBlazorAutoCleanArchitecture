@@ -53,6 +53,7 @@ public class IndexedDbService<T> where T : class
         {
         try
             {
+            await InitializeStoreAsync(); // Ensure store is ready
             var json = await _jsRuntime.InvokeAsync<string>("indexedDbHelpers.getAll", _storeName);
             return string.IsNullOrEmpty(json) ? new List<T>() : JsonSerializer.Deserialize<List<T>>(json)!;
             }

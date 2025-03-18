@@ -1,5 +1,9 @@
+i have below but giving error at    const tx = db.transaction(storeName, 'readonly');, as even previous line executing fine. looks like this error itself an issue,
+
+
 M@dhusC0d$
 
+page,
 
 
 https://localhost:5001/manage-regions/countries/3dc5102c-9945-4e8d-9082-da1656c65f2e/atcs/44cfa7d8-91b9-431d-995b-fc0108a1e1b1/transaction-report
