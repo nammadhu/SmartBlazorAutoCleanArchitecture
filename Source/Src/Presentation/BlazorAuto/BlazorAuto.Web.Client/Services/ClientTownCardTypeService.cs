@@ -41,14 +41,14 @@ public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, Ind
         await _indexedDbService.InitializeStoreAsync();
         // First, try to retrieve data from IndexedDB
         var cachedData = await _indexedDbService.GetAllAsync();
-        if (cachedData.Any())
+        if (cachedData != null && cachedData.Any())
             {
             return new BaseResult<List<CardTypeDto>> { Data = cachedData, Success = true };
             }
 
         // Fallback to API if IndexedDB is empty
         var response = await _httpClient.GetFromJsonAsync<BaseResult<List<CardTypeDto>>>($"{endPoint}{nameof(ITownCardTypeController.GetAll)}", cancellationToken);
-        if (response?.Success == true)
+        if (response?.Success == true && response.Data != null)
             {
             foreach (var item in response.Data)
                 {
@@ -75,7 +75,7 @@ public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, Ind
         {
         //todo add name,all 
         var response = await _httpClient.PostAsJsonAsync($"{endPoint}{nameof(ITownCardTypeController.GetPagedList)}" +
-            $"/{(model.All?nameof(GetCardTypesPagedListQuery.All)=="true": string.Empty)}" +
+            $"/{(model.All ? nameof(GetCardTypesPagedListQuery.All) == "true" : string.Empty)}" +
             $"/{(!string.IsNullOrEmpty(model.Name) ? nameof(GetCardTypesPagedListQuery.Name) == model.Name : string.Empty)}", model, cancellationToken);
         return await response.Content.ReadFromJsonAsync<PagedResponse<CardTypeDto>>();
         }
