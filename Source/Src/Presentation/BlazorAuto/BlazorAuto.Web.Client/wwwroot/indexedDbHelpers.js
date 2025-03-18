@@ -159,28 +159,40 @@ window.indexedDbHelpers = {
     },
 
     getAll: async function (storeName) {
-        console.log('getAll called: ' + storeName);
+        console.log('getAll called with storeName: ' + storeName);
 
         return new Promise((resolve, reject) => {
-            if (!dbConnection) {
-                reject('Database is not initialized. Call ensureStoreExists first.');
-                return;
-            }
-
             try {
                 const tx = dbConnection.transaction(storeName, 'readonly');
                 const store = tx.objectStore(storeName);
                 const request = store.getAll();
 
-                request.onsuccess = () =>
-                    resolve(request.result.map((item) => item.value));
-                request.onerror = () => reject(request.error);
+                request.onsuccess = () => {
+                    console.log('getAll request succeeded. Result:', request.result);
+                   
+                    // Parse the 'value' field into an object
+                    const parsedResult = request.result.map(item => {
+                        return {
+                            key: item.key,
+                            value: JSON.parse(item.value) // Parse the JSON string
+                        };
+                    });
+
+                    console.log('Parsed Result:', parsedResult);
+                    resolve(parsedResult);
+                };
+
+                request.onerror = () => {
+                    console.error('getAll request failed with error:', request.error);
+                    reject(request.error || new Error('Unknown error occurred during getAll.'));
+                };
             } catch (err) {
-                console.error(`Transaction error: ${err.message}`);
+                console.error('Transaction error:', err);
                 reject(err);
             }
         });
     },
+
 
     delete: async function (storeName, key) {
         console.log('delete called: ' + storeName);

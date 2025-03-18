@@ -41,7 +41,7 @@ public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, Ind
         await _indexedDbService.InitializeStoreAsync();
         // First, try to retrieve data from IndexedDB
         var cachedData = await _indexedDbService.GetAllAsync();
-        if (cachedData != null && cachedData.Any())
+        if (cachedData?.Count > 0)
             {
             return new BaseResult<List<CardTypeDto>> { Data = cachedData, Success = true };
             }

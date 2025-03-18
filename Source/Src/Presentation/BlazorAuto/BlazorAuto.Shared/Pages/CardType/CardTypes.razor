@@ -77,7 +77,7 @@
     private async Task LoadCardTypesAsync()
         {
         var result = await TownCardTypeService.GetAll();
-        if (result.Success)
+        if (result?.Success == true)
             {
             cardTypes = result.Data;
             }

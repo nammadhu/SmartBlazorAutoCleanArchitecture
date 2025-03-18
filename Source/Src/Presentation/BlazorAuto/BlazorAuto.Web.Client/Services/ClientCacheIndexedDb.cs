@@ -14,7 +14,7 @@ public class ClientCacheIndexedDb(IJSRuntime jSRuntime, string name, int version
     }
 
 
-public class IndexedDbService<T,TKey> where T : class, IAuditableBaseEntity<TKey>
+public class IndexedDbService<T, TKey> where T : class, IAuditableBaseEntity<TKey>
     {
     private readonly IJSRuntime _jsRuntime;
     private readonly string _storeName;
@@ -50,7 +50,46 @@ public class IndexedDbService<T,TKey> where T : class, IAuditableBaseEntity<TKey
             throw;
             }
         }
+    /// <summary>
+    /// Retrieves all entities from the IndexedDB store.
+    /// </summary>
+    public async Task<List<T>> GetAllAsync()
+        {
+        try
+            {
+            // Ensure the store is initialized before performing the operation
+            await InitializeStoreAsync();
 
+            // Get the raw data (key-value pairs) from JavaScript
+            var rawData = await _jsRuntime.InvokeAsync<List<Dictionary<string, object>>>("indexedDbHelpers.getAll", _storeName);
+
+            if (rawData == null || rawData.Count == 0)
+                {
+                Console.WriteLine($"No data found in store '{_storeName}'.");
+                return new List<T>();
+                }
+
+            // Parse the 'value' field and deserialize it into the target class
+            var result = rawData.Select(item =>
+            {
+                var valueJson = item["value"]?.ToString(); // Get the 'value' field as a JSON string
+                if (string.IsNullOrWhiteSpace(valueJson))
+                    {
+                    return default(T); // Handle missing or empty values gracefully
+                    }
+                return JsonSerializer.Deserialize<T>(valueJson);
+            }).Where(item => item != null).ToList(); // Filter out null results
+
+            Console.WriteLine($"Successfully retrieved and mapped {result.Count} items from store '{_storeName}'.");
+            return result!;
+            }
+        catch (Exception ex)
+            {
+            Console.WriteLine($"Failed to retrieve all data from store '{_storeName}': {ex.Message}");
+            //throw;
+            return null;
+            }
+        }
     /// <summary>
     /// Adds or updates an entity in the IndexedDB store.
     /// </summary>
@@ -110,26 +149,6 @@ public class IndexedDbService<T,TKey> where T : class, IAuditableBaseEntity<TKey
             }
         }
 
-    /// <summary>
-    /// Retrieves all entities from the IndexedDB store.
-    /// </summary>
-    public async Task<List<T>> GetAllAsync()
-        {
-        try
-            {
-            // Ensure the store is initialized before performing the operation
-            await InitializeStoreAsync();
-
-            var json = await _jsRuntime.InvokeAsync<string?>("indexedDbHelpers.getAll", _storeName);
-            return string.IsNullOrEmpty(json) ? new List<T>() : JsonSerializer.Deserialize<List<T>>(json)!;
-            }
-        catch (Exception ex)
-            {
-            Console.WriteLine($"Failed to retrieve all data from store '{_storeName}': {ex.Message}");
-            //throw;
-            return null;
-            }
-        }
 
     /// <summary>
     /// Deletes an entity by its key from the IndexedDB store.
