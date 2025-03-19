@@ -10,7 +10,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Blazor.IndexedDB" Version="3.0.3" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
