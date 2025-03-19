@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Domain.Products.DTOs;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SHARED.DTOs;
 
 namespace BlazorAuto.Services;
 

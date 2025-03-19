@@ -1,7 +1,9 @@
 using CleanArchitecture.FunctionalTests.Common;
-using Shared.DTOs.Account.Requests;
-using Shared.DTOs.Account.Responses;
-using Shared.Wrappers;
+using SHARED.DTOs;
+using SHARED.DTOs.Account.Requests;
+using SHARED.DTOs.Account.Responses;
+using SHARED.Features.Products.Commands;
+using SHARED.Wrappers;
 using Shouldly;
 
 namespace CleanArchitecture.FunctionalTests.ApiEndpoints;

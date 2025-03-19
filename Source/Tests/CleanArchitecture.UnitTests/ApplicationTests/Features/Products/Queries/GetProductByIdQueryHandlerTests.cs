@@ -3,9 +3,11 @@ using CleanArchitecture.Application.Interfaces;
 using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Domain;
 using Moq;
-using Shared;
-using Shared.Features.Products.Queries;
-using Shared.Wrappers;
+using SHARED;
+using SHARED.DTOs;
+using SHARED.Features.Products.Commands;
+using SHARED.Features.Products.Queries;
+using SHARED.Wrappers;
 using Shouldly;
 
 namespace CleanArchitecture.UnitTests.ApplicationTests.Features.Products.Queries;

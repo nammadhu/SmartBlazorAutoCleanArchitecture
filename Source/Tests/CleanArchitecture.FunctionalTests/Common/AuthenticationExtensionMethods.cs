@@ -1,5 +1,6 @@
-using Shared.DTOs.Account.Responses;
-using Shared.Wrappers;
+
+using SHARED.DTOs.Account.Responses;
+using SHARED.Wrappers;
 
 namespace CleanArchitecture.FunctionalTests.Common;
 

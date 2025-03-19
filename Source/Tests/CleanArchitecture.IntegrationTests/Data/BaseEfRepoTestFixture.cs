@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PublicCommon;
 using System.Security.Claims;
 
 namespace CleanArchitecture.IntegrationTests.Data;
@@ -57,7 +56,7 @@ public abstract class BaseEfRepoTestFixture
 internal record AuthenticatedUserService(string UserId, string UserName) : IAuthenticatedUserService
     {
     public ClaimsPrincipal User => throw new NotImplementedException();
-
+    public List<string> Roles => throw new NotImplementedException();
     public bool IsAuthenticated => throw new NotImplementedException();
 
     public Guid UserGuId => throw new NotImplementedException();

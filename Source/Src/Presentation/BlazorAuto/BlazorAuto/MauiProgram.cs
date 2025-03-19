@@ -1,12 +1,12 @@
 ﻿using System.Security.Claims;
 using BlazorAuto.Services;
 using BlazorAuto.Shared.Services;
-using CleanArchitecture.Domain.Products.DTOs;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
-using SharedResponse;
+using SHARED;
+using SHARED.DTOs;
 
 namespace BlazorAuto;
 
