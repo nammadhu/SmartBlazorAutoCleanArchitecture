@@ -100,15 +100,15 @@
         //    Price = price;
         //    }
         /*
-        public static TownCardType? Get(int id)
+        public static CardType? Get(int id)
             {
             return StandardList.Find(x => x.Id == id);
             }
-        public static TownCardType? GetFirst(string nameContains)
+        public static CardType? GetFirst(string nameContains)
             {
             return StandardList.Where(x => x.Name.Contains(nameContains, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
             }
-        public static List<TownCardType>? GetList(string nameContains)
+        public static List<CardType>? GetList(string nameContains)
             {
             return StandardList.Where(x => x.Name.Contains(nameContains, StringComparison.InvariantCultureIgnoreCase)).ToList();
             }

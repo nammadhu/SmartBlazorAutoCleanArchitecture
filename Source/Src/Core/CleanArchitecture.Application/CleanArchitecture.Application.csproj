@@ -10,8 +10,8 @@
 	  <Compile Remove="Features\Cards\Commands\CU Update CardKeyInfoPlusData.cs" />
 	  <Compile Remove="Features\Cards\Commands\CU Update partial - Backup.cs" />
 	  <Compile Remove="Features\Cards\Commands\UpdateCardCommandHandler.cs" />
-	  <Compile Remove="Features\CardTypes\Commands\CreateTownCardTypeCommandHandler.cs" />
-	  <Compile Remove="Features\CardTypes\Commands\UpdateTownCardTypeCommandHandler.cs" />
+	  <Compile Remove="Features\CardTypes\Commands\CreateCardTypeCommandHandler.cs" />
+	  <Compile Remove="Features\CardTypes\Commands\UpdateCardTypeCommandHandler.cs" />
 	  <Compile Remove="Features\Towns\Commands\CreateTownCommandHandler.cs" />
 	  <Compile Remove="Features\Towns\Commands\UpdateTownCommandHandler.cs" />
 	</ItemGroup>

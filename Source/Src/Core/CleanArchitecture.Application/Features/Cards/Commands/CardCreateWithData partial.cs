@@ -197,7 +197,7 @@ S8.add to cache of town
                 CardDto cacheCardToUpdate;
                 DateTime townCardsModifiedTime = newCard.Created;
 
-                newCard.NullifyNavigatingObjectsTownCardType();
+                newCard.NullifyNavigatingObjectsCardType();
                 cacheCardToUpdate = mapper.Map<CardDto>(newCard);
                 //townModifiedTime = newDraftCard!.Created;//already set,so again not required
 

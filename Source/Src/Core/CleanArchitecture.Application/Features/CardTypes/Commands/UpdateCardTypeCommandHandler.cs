@@ -1,10 +1,8 @@
-﻿using MyTown.SharedModels.Features.CardTypes.Commands;
-using SharedResponse;
-
+﻿
 namespace CleanArchitecture.Application.Features.CardTypes.Commands
     {
     //not using this,instead using CreateUpdate
-    public class UpdateTownCardTypeCommandHandler(ITownCardTypeRepository repository, IUnitOfWork unitOfWork
+    public class UpdateCardTypeCommandHandler(ICardTypeRepository repository, IUnitOfWork unitOfWork
         , ITranslator translator, IMapper mapper) : IRequestHandler<UpdateCardTypeCommand, BaseResult>
         {
         public async Task<BaseResult> Handle(UpdateCardTypeCommand request, CancellationToken cancellationToken)

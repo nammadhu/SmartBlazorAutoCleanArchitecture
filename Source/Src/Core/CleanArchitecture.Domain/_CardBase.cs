@@ -101,7 +101,7 @@ namespace CleanArchitecture.Domain
             Image2 = null;
             }
 
-        public void NullifyNavigatingObjectsTownCardType()
+        public void NullifyNavigatingObjectsCardType()
             {
             Town = null;
             Type = null;

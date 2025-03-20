@@ -1,6 +1,6 @@
 ﻿@page "/cardtypes"
 @using SHARED.Features.CardTypes.Commands
-@inject ICardTypeController TownCardTypeService
+@inject ICardTypeController CardTypeService
 @inject AuthenticationStateProvider AuthProvider
 
 <h3>Card Types</h3>
@@ -76,7 +76,7 @@
 
     private async Task LoadCardTypesAsync()
         {
-        var result = await TownCardTypeService.GetAll();
+        var result = await CardTypeService.GetAll();
         if (result?.Success == true)
             {
             cardTypes = result.Data;
@@ -85,7 +85,7 @@
 
     private async Task EditCardType(CardTypeDto cardType)
         {
-        await TownCardTypeService.Update(new CU_CardTypeCommand
+        await CardTypeService.Update(new CU_CardTypeCommand
                 {
                 Id = cardType.Id,
                 Name = cardType.Name,
@@ -97,7 +97,7 @@
 
     private async Task DeleteCardType(CardTypeDto cardType)
         {
-        await TownCardTypeService.Delete(cardType.Id);
+        await CardTypeService.Delete(cardType.Id);
         await LoadCardTypesAsync();
         }
 
@@ -109,7 +109,7 @@
                 IconColor = "#0000FF",
                 Price = 300
                 };
-        await TownCardTypeService.Create(newCardType);
+        await CardTypeService.Create(newCardType);
         await LoadCardTypesAsync();
         }
 

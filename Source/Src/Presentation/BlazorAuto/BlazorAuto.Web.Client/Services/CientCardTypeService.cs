@@ -14,7 +14,7 @@ using BASE;
 namespace BlazorAuto.Web.Client.Services;
 public class CientCardTypeService(IHttpClientFactory httpClientFactory, IndexedDbService<CardTypeDto,int> indexedDbService) : ICardTypeController
     {
-    const string endPoint = "api/v1/TownCardType/";
+    const string endPoint = "api/v1/CardType/";
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient(CONSTANTS.ClientAnonymous);
     private readonly IndexedDbService<CardTypeDto,int> _indexedDbService = indexedDbService;
 
