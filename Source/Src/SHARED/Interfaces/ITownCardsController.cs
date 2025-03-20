@@ -1,5 +1,4 @@
 ﻿using SHARED.DTOs;
-using SHARED.Features.Cards.Commands;
 using SHARED.Features.Cards.Queries;
 
 namespace SHARED.Interfaces;

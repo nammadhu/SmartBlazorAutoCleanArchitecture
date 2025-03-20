@@ -9,7 +9,6 @@ using Microsoft.JSInterop;
 using SHARED;
 using SHARED.DTOs;
 using SHARED.Interfaces;
-using System.Xml;
 
 namespace BlazorAuto.Web.Client;
 
@@ -63,8 +62,8 @@ class Program
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddAuthenticationStateDeserialization();
 
-       
-    
+
+
         builder.Services.AddScoped<ICacheService<ProductDto>, ProductCacheServiceWasm>();
 
         //builder.Services.AddHttpClient<ProductServiceClient>("",client =>

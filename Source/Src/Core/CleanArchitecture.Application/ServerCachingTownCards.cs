@@ -2,7 +2,7 @@
 
 namespace CleanArchitecture.Application;
 
-public class ServerCachingTownCards(IMemoryCache memoryCache) : ServerCachingBase(memoryCache) 
+public class ServerCachingTownCards(IMemoryCache memoryCache) : ServerCachingBase(memoryCache)
     {
     //  private static ConcurrentDictionary<int, TownDto> _townsDictionary = new ConcurrentDictionary<int, TownDto>();
     //static bool _isCacheLoaded = false;

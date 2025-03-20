@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BASE;
 using SHARED.DTOs;
 using SHARED.Features.CardTypes.Commands;
 using SHARED.Features.CardTypes.Queries;
 using SHARED.Interfaces;
 using SHARED.Wrappers;
 using System.Net.Http.Json;
-using BASE;
 
 namespace BlazorAuto.Web.Client.Services;
-public class CientCardTypeService(IHttpClientFactory httpClientFactory, IndexedDbService<CardTypeDto,int> indexedDbService) : ICardTypeController
+public class CientCardTypeService(IHttpClientFactory httpClientFactory, IndexedDbService<CardTypeDto, int> indexedDbService) : ICardTypeController
     {
     const string endPoint = "api/v1/CardType/";
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient(CONSTANTS.ClientAnonymous);
-    private readonly IndexedDbService<CardTypeDto,int> _indexedDbService = indexedDbService;
+    private readonly IndexedDbService<CardTypeDto, int> _indexedDbService = indexedDbService;
 
     public async Task<BaseResult<CardTypeDto>> Create(CU_CardTypeCommand model, CancellationToken cancellationToken = default)
         {

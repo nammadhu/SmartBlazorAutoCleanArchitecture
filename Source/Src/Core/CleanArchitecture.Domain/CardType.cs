@@ -21,7 +21,7 @@
     //no db entity
 
     //db entity
-    public class CardType : AuditableBaseEntity, IMasterData,IAuditableBaseEntity<int>
+    public class CardType : AuditableBaseEntity, IMasterData, IAuditableBaseEntity<int>
         {//this is only masterdata
         [Key]
         public override int Id { get; set; }

@@ -1,7 +1,4 @@
-﻿using BlazorAuto.Web.Services;
-using CleanArchitecture.WebApi.Controllers.v1;
-using SHARED;
-using SHARED.DTOs;
+﻿using CleanArchitecture.WebApi.Controllers.v1;
 using SHARED.Interfaces;
 
 namespace BlazorAuto.Web;

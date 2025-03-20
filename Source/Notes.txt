@@ -1,3 +1,7 @@
+add cardtype,edit,delete calls with caching
+town same all
+
+
 i have below but giving error at    const tx = db.transaction(storeName, 'readonly');, as even previous line executing fine. looks like this error itself an issue,
 
 
