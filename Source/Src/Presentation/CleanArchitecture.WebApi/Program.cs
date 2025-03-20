@@ -53,6 +53,10 @@ builder.Services.AddSingleton(config);
 builder.Services.AddAzureInfrastructure(builder.Configuration, useInMemoryDatabase);
 
 builder.Services.AddScoped<ICardTypeController, CardTypeController>();
+builder.Services.AddScoped<ICardController, CardController>();
+builder.Services.AddScoped<ITownCardsController, TownCardsController>();
+builder.Services.AddScoped<IMyCardsController, MyCardsController>();
+builder.Services.AddScoped<ITownController, TownController>();
 
 
 builder.Services.AddResourcesInfrastructure();

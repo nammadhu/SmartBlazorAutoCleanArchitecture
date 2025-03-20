@@ -32,7 +32,7 @@ public partial class SignalRHubTownCards : Hub, ISignalRTownCards
             {
             if (model.IdTown > 0)
                 {
-                var townResult = await _cardController.GetCardsOfTown(model);//, cancellationToken);
+                var townResult = await _townCardsController.GetCardsOfTown(model);//, cancellationToken);
                 if (townResult.Success && townResult.Data != null)
                     {
                     var item = new TownCardsDto() { Id = townResult.Data.Id, VerifiedCards = townResult.Data.VerifiedCards, DraftCards = townResult.Data.DraftCards, UserCount = 0, LastAccessedTime = DateTimeExtension.CurrentTime };

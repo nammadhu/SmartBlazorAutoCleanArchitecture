@@ -52,6 +52,10 @@ class Program
         //});
 
         builder.Services.AddScoped<ICardTypeController, CientCardTypeService>();
+        //builder.Services.AddScoped<ICardController, ClientCardService>();
+        //builder.Services.AddScoped<ITownCardsController, ClientTownCardService>();
+        //builder.Services.AddScoped<IMyCardsController, ClientMyCardsService>();
+        //builder.Services.AddScoped<ITownController, ClientTownService>();
 
         builder.Services.AddFluentUIComponents();
 

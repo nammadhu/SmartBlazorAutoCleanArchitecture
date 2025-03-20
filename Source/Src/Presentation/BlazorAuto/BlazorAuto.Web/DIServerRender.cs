@@ -12,6 +12,10 @@ public static class DIServerRender
         {
         services.AddScoped<IProduct, ProductController>();
         services.AddScoped<ICardTypeController, CardTypeController>();
+        services.AddScoped<ICardController, CardController>();
+        services.AddScoped<ITownCardsController, TownCardsController>();
+        services.AddScoped<IMyCardsController, MyCardsController>();
+        services.AddScoped<ITownController, TownController>();
         }
 
     }
