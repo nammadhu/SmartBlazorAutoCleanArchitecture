@@ -12,16 +12,16 @@
     <PropertyColumn Property="@(c => c.Price)" Title="Price" Sortable="true" />
     <TemplateColumn Title="Actions">
         <div>
-            <FluentButton Title="Edit" OnClick="() => EditCardType(context)" Disabled="@(!CanEdit)" />
-            <FluentButton Title="Delete" OnClick="() => DeleteCardType(context)" Disabled="@(!CanDelete)" />
+            <FluentButton Title="Edit" IconEnd=@(new Icons.Regular.Size24.Edit()) OnClick="() => EditCardType(context)" Disabled="@(!CanEdit)" />
+            <FluentButton Title="Delete" IconEnd=@(new Icons.Regular.Size24.Delete()) OnClick="() => DeleteCardType(context)" Disabled="@(!CanDelete)" />
         </div>
     </TemplateColumn>
 </FluentDataGrid>
 
 <div class="pagination-container">
-    <FluentButton Title="Previous" OnClick="GoToPreviousPage" Disabled="@isFirstPage" />
+    <FluentButton Title="Previous" IconEnd=@(new Icons.Regular.Size24.Previous()) OnClick="GoToPreviousPage" Disabled="@isFirstPage" />
     <span>Page @currentPage of @totalPages</span>
-    <FluentButton Title="Next" OnClick="GoToNextPage" Disabled="@isLastPage" />
+    <FluentButton Title="Next" IconEnd=@(new Icons.Regular.Size24.Next()) OnClick="GoToNextPage" Disabled="@isLastPage" />
 </div>
 
 @if (CanCreate)
@@ -133,7 +133,7 @@
         {
         var authState = AuthProvider.GetAuthenticationStateAsync().Result;
         var user = authState.User;
-        return user.IsInRole("Admin") ? "Admin" : "User";
+        return user.IsInRole("Admin") ? "Admin" : "Editor";
         }
 
     public static class RolePermissions
