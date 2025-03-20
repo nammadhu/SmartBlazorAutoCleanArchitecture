@@ -146,7 +146,7 @@ Update Approval
             //currently only update cache for verified cards,not for drafts
             //currently refresh only to verified,if draft required then tweak here
 
-            cardToUpdate.NullifyNavigatingObjectsTownCardType();
+            cardToUpdate.NullifyNavigatingObjectsCardType();
             var result = mapper.Map<CardDto>(cardToUpdate);
 
             cachingServiceTown.AddOrUpdateCardInTown(updateCommand.IdTown, result, cardData: existingCardDto?.CardData, cardDetail: existingCardDto?.CardDetail, isVerified: result.IsVerified == true, townCardsModifiedTime: result.LastModified ?? DateTimeExtension.CurrentTime);

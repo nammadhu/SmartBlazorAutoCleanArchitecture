@@ -11,7 +11,11 @@ public static class DIServerRender
     public static void AddDependencyInjectionServerRender(this IServiceCollection services)
         {
         services.AddScoped<IProduct, ProductController>();
-        services.AddScoped<ITownCardTypeController, TownCardTypeController>();
+        services.AddScoped<ICardTypeController, CardTypeController>();
+        services.AddScoped<ICardController, CardController>();
+        services.AddScoped<ITownCardsController, TownCardsController>();
+        services.AddScoped<IMyCardsController, MyCardsController>();
+        services.AddScoped<ITownController, TownController>();
         }
 
     }

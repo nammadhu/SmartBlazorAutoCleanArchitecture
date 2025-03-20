@@ -4,7 +4,7 @@ using System.Security.Claims;
 namespace MyTown.Application;
 
 public partial class SignalRHubTownCards(IHttpContextAccessor httpContextAccessor,
-ITownCardController cardController, ILogger<SignalRHubTownCards> logger)
+ITownCardsController _townCardsController, ICardController _cardController, ILogger<SignalRHubTownCards> logger)
 //IMediator mediator, IIdentityRepository identityRepository,IAuthenticatedUserService authenticatedUserService,
     {
     //private readonly IMediator _mediator;
@@ -13,7 +13,6 @@ ITownCardController cardController, ILogger<SignalRHubTownCards> logger)
     private readonly ILogger<SignalRHubTownCards> _logger = logger;
 
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
-    private ITownCardController _cardController = cardController;
 
     // Property to get the current HttpContext
     private HttpContext? HttpContext => _httpContextAccessor?.HttpContext;

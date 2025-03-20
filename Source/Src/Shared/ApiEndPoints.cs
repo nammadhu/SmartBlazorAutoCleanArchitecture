@@ -88,7 +88,7 @@ public class ApiEndPoints
 
     //public const string Town = "Town";
     //public const string TownCard = "TownCard";
-    //public const string TownCardType = "TownCardType";
+    //public const string CardType = "CardType";
 
     //public static string BaseUrl(string type)
     //    {

@@ -39,9 +39,9 @@ public class CU_CardTypeCommandHandler(ICardTypeRepository repository, IUnitOfWo
                 if (isDuplicateResult != null) return isDuplicateResult;
 
                 var obj = mapper.Map<CardType>(request);
-                //var obj = request.To<CreateUpdateTownCardTypeCommand, TownCardType>();
+                //var obj = request.To<CreateUpdateCardTypeCommand, CardType>();
                 //todo should modify above
-                //var product = new TownCardType(request.Name, request.Price, request.BarCode);
+                //var product = new CardType(request.Name, request.Price, request.BarCode);
 
                 obj.Id = idNextGenerator.GetNextID();//we can take of this as not necessary now
                 var result = await repository.AddAsync(obj, cancellationToken);

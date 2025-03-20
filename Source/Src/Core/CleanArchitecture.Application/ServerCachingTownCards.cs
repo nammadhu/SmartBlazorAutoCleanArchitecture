@@ -2,17 +2,10 @@
 
 namespace CleanArchitecture.Application;
 
-public class ServerCachingTownCards : ServerCachingBase
+public class ServerCachingTownCards(IMemoryCache memoryCache) : ServerCachingBase(memoryCache) 
     {
     //  private static ConcurrentDictionary<int, TownDto> _townsDictionary = new ConcurrentDictionary<int, TownDto>();
-    public static bool _isCacheLoaded = false;
-
-    private IMemoryCache memoryCache;
-
-    public ServerCachingTownCards(IMemoryCache memoryCache) : base(memoryCache)
-        {
-        this.memoryCache = memoryCache;
-        }
+    //static bool _isCacheLoaded = false;
 
     /// <summary>
     /// for removal card will be null,idCardToRemove some value

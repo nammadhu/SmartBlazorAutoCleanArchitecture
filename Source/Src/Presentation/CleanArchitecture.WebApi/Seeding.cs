@@ -31,7 +31,7 @@ public class Seed
                 await SeedIdentity.SeedDefaultUsersAsync(services.GetRequiredService<UserManager<ApplicationUser>>());
 #endif
 
-                await DefaultTownCardTypeSeeds.SeedCardTypes(
+                await DefaultCardTypeSeeds.SeedCardTypes(
                     services.GetRequiredService<DbContextProvider>().DbContext);
 
                 //currently loading town from script only,as its list is more
