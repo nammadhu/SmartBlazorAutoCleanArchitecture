@@ -52,7 +52,7 @@ config.Initialize(builder.Configuration, environmentName: environmentName, isDev
 builder.Services.AddSingleton(config);
 builder.Services.AddAzureInfrastructure(builder.Configuration, useInMemoryDatabase);
 
-builder.Services.AddScoped<ITownCardTypeController, TownCardTypeController>();
+builder.Services.AddScoped<ICardTypeController, CardTypeController>();
 
 
 builder.Services.AddResourcesInfrastructure();

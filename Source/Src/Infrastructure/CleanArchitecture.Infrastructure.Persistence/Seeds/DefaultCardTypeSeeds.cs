@@ -3,7 +3,7 @@ using SHARED;
 namespace CleanArchitecture.Infrastructure.Persistence.Seeds;
 
 //currently not inserting this,instead using sql file or script to manually load by turning off identity and then on
-public static class DefaultTownCardTypeSeeds
+public static class DefaultCardTypeSeeds
     {
     public static async Task SeedCardTypes(ApplicationDbContext applicationDbContext)
         {

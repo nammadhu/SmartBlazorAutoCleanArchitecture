@@ -51,7 +51,7 @@ class Program
         //    };
         //});
 
-        builder.Services.AddScoped<ITownCardTypeController, ClientTownCardTypeService>();
+        builder.Services.AddScoped<ICardTypeController, CientCardTypeService>();
 
         builder.Services.AddFluentUIComponents();
 

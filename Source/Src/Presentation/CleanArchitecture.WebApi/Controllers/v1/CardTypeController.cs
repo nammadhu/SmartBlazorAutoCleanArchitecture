@@ -4,8 +4,8 @@ using SHARED.Features.CardTypes.Queries;
 namespace CleanArchitecture.WebApi.Controllers.v1
     {
     [ApiVersion("1")]
-    public class TownCardTypeController(IMediator mediator) : BaseApiController(mediator), ITownCardTypeController
-        {//ILogger<TownCardTypeController> logger,
+    public class CardTypeController(IMediator mediator) : BaseApiController(mediator), ICardTypeController
+        {//ILogger<CardTypeController> logger,
         //to avoid second operation started error fr firsttime adding this flag.No other reason.
         private static bool firstTime = true;
 

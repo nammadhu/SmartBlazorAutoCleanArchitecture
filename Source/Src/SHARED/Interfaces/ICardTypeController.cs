@@ -4,7 +4,7 @@ using SHARED.Features.CardTypes.Queries;
 
 namespace SHARED.Interfaces;
 
-public interface ITownCardTypeController
+public interface ICardTypeController
     {
     Task<BaseResult<CardTypeDto>> Create(CU_CardTypeCommand model, CancellationToken cancellationToken = default);
 

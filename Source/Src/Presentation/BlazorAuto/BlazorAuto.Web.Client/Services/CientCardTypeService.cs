@@ -12,7 +12,7 @@ using System.Net.Http.Json;
 using BASE;
 
 namespace BlazorAuto.Web.Client.Services;
-public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, IndexedDbService<CardTypeDto,int> indexedDbService) : ITownCardTypeController
+public class CientCardTypeService(IHttpClientFactory httpClientFactory, IndexedDbService<CardTypeDto,int> indexedDbService) : ICardTypeController
     {
     const string endPoint = "api/v1/TownCardType/";
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient(CONSTANTS.ClientAnonymous);
@@ -20,19 +20,19 @@ public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, Ind
 
     public async Task<BaseResult<CardTypeDto>> Create(CU_CardTypeCommand model, CancellationToken cancellationToken = default)
         {
-        var response = await _httpClient.PostAsJsonAsync($"{endPoint}{nameof(ITownCardTypeController.Create)}", model, cancellationToken);
+        var response = await _httpClient.PostAsJsonAsync($"{endPoint}{nameof(ICardTypeController.Create)}", model, cancellationToken);
         return await response.Content.ReadFromJsonAsync<BaseResult<CardTypeDto>>();
         }
 
     public async Task<BaseResult<CardTypeDto>> CreateUpdate(CU_CardTypeCommand model, CancellationToken cancellationToken = default)
         {
-        var response = await _httpClient.PutAsJsonAsync($"{endPoint}{nameof(ITownCardTypeController.CreateUpdate)}", model, cancellationToken);
+        var response = await _httpClient.PutAsJsonAsync($"{endPoint}{nameof(ICardTypeController.CreateUpdate)}", model, cancellationToken);
         return await response.Content.ReadFromJsonAsync<BaseResult<CardTypeDto>>();
         }
 
     public async Task<BaseResult> Delete(int id, CancellationToken cancellationToken = default)
         {
-        var response = await _httpClient.DeleteAsync($"{endPoint}{nameof(ITownCardTypeController.Delete)}", cancellationToken);
+        var response = await _httpClient.DeleteAsync($"{endPoint}{nameof(ICardTypeController.Delete)}", cancellationToken);
         return await response.Content.ReadFromJsonAsync<BaseResult>();
         }
 
@@ -47,7 +47,7 @@ public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, Ind
             }
 
         // Fallback to API if IndexedDB is empty
-        var response = await _httpClient.GetFromJsonAsync<BaseResult<List<CardTypeDto>>>($"{endPoint}{nameof(ITownCardTypeController.GetAll)}", cancellationToken);
+        var response = await _httpClient.GetFromJsonAsync<BaseResult<List<CardTypeDto>>>($"{endPoint}{nameof(ICardTypeController.GetAll)}", cancellationToken);
         if (response?.Success == true && response.Data != null)
             {
             //await _indexedDbService.AddOrUpdateBulkAsync(response.Data);
@@ -70,13 +70,13 @@ public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, Ind
             }
 
         // Fallback to API
-        return await _httpClient.GetFromJsonAsync<BaseResult<CardTypeDto>>($"{endPoint}{nameof(ITownCardTypeController.GetById)}/{id}", cancellationToken);
+        return await _httpClient.GetFromJsonAsync<BaseResult<CardTypeDto>>($"{endPoint}{nameof(ICardTypeController.GetById)}/{id}", cancellationToken);
         }
 
     public async Task<PagedResponse<CardTypeDto>> GetPagedList(GetCardTypesPagedListQuery model, CancellationToken cancellationToken = default)
         {
         //todo add name,all 
-        var response = await _httpClient.PostAsJsonAsync($"{endPoint}{nameof(ITownCardTypeController.GetPagedList)}" +
+        var response = await _httpClient.PostAsJsonAsync($"{endPoint}{nameof(ICardTypeController.GetPagedList)}" +
             $"/{(model.All ? nameof(GetCardTypesPagedListQuery.All) == "true" : string.Empty)}" +
             $"/{(!string.IsNullOrEmpty(model.Name) ? nameof(GetCardTypesPagedListQuery.Name) == model.Name : string.Empty)}", model, cancellationToken);
         return await response.Content.ReadFromJsonAsync<PagedResponse<CardTypeDto>>();
@@ -84,7 +84,7 @@ public class ClientTownCardTypeService(IHttpClientFactory httpClientFactory, Ind
 
     public async Task<BaseResult<CardTypeDto>> Update(CU_CardTypeCommand model, CancellationToken cancellationToken = default)
         {
-        var response = await _httpClient.PutAsJsonAsync($"{endPoint}{nameof(ITownCardTypeController.Update)}", model, cancellationToken);
+        var response = await _httpClient.PutAsJsonAsync($"{endPoint}{nameof(ICardTypeController.Update)}", model, cancellationToken);
         return await response.Content.ReadFromJsonAsync<BaseResult<CardTypeDto>>();
         }
     }
