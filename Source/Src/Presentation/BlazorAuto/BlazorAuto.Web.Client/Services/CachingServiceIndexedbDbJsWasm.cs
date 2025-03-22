@@ -1,5 +1,6 @@
 ﻿using BASE.Common;
 using Blazor.IndexedDB;
+using BlazorAuto.Shared.Services;
 using Microsoft.JSInterop;
 using SHARED.DTOs;
 using System.Text.Json;
@@ -7,24 +8,29 @@ using System.Text.Json;
 namespace BlazorAuto.Web.Client.Services;
 //https://github.com/brianly1003/Blazor.IndexedDB
 //https://www.syncfusion.com/faq/blazor/general/how-do-i-use-indexeddb-in-blazor-webassembly
-public class ClientCacheIndexedDb(IJSRuntime jSRuntime, string name, int version) : IndexedDb(jSRuntime, name, version)
+/// <summary>
+/// using C# like ef core  Blazor.IndexedDB but not having generic implementation so using other one
+/// </summary>
+/// <param name="jSRuntime"></param>
+/// <param name="name"></param>
+/// <param name="version"></param>
+public class CachingIndexedDbWasm(IJSRuntime jSRuntime, string name, int version) : IndexedDb(jSRuntime, name, version)
     {
     public IndexedSet<ProductDto> Products { get; set; }
     //these are just like tables, add whatever required for clientside and use it.
     }
 
 
-public class IndexedDbService<T, TKey> where T : class, IAuditableBaseEntity<TKey>
+/// <summary>
+/// using js file
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <typeparam name="TKey"></typeparam>
+/// <param name="_jsRuntime"></param>
+/// <param name="_storeName"></param>
+public class CachingServiceIndexedbDbJsWasm<T, TKey>(IJSRuntime _jsRuntime, string _storeName) : ICachingServiceClient<T, TKey> where T : class, IAuditableBaseEntity<TKey>
     {
-    private readonly IJSRuntime _jsRuntime;
-    private readonly string _storeName;
     private bool _isInitialized = false; // Track if the store is initialized
-
-    public IndexedDbService(IJSRuntime jsRuntime, string storeName)
-        {
-        _jsRuntime = jsRuntime;
-        _storeName = storeName;
-        }
 
     /// <summary>
     /// Ensures the object store is initialized by invoking the JavaScript function `ensureStoreExists`.

@@ -11,7 +11,7 @@ public class ProductCacheServiceWasm(IIndexedDbFactory DbFactory, IProduct produ
     {
     public async Task<bool> Create(CancellationToken cancellationToken = default)
         {
-        using var db = await DbFactory.Create<ClientCacheIndexedDb>();
+        using var db = await DbFactory.Create<CachingIndexedDbWasm>();
         var personWithId1 = db.Products.Single(x => x.Id == 1);
         personWithId1.Name = "This is 100% a first name";
         await db.SaveChanges();
@@ -19,12 +19,12 @@ public class ProductCacheServiceWasm(IIndexedDbFactory DbFactory, IProduct produ
         }
 
     public async Task<List<ProductDto>> GetDataAsync(CancellationToken cancellationToken = default)
-    => [.. (await DbFactory.Create<ClientCacheIndexedDb>()).Products];
+    => [.. (await DbFactory.Create<CachingIndexedDbWasm>()).Products];
 
 
     public async Task<bool> SyncDataAsync(CancellationToken cancellationToken = default)
         {
-        using var _dbContext = await DbFactory.Create<ClientCacheIndexedDb>();
+        using var _dbContext = await DbFactory.Create<CachingIndexedDbWasm>();
         DateTime? latestTimestamp = _dbContext.Products.Count != 0 ?
                          //.Select(x => new { CreatedDateTime = x.CreatedDateTime, LastModified = x.LastModified ?? DateTime.MinValue })
                          _dbContext.Products.Max(x => x.CreatedDateTime) : DateTime.MinValue;

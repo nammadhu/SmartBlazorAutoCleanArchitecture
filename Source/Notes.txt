@@ -22,6 +22,9 @@ ProductIntermediateService,in which all customizations all and then api calls or
 
 update happening but response cache not modifying,had to do on server and client also mostly
 
+lets make common shared service with ihttpclient,icachingservice
+
+on wasm, make icachingservice as indexeddb
 
 
 

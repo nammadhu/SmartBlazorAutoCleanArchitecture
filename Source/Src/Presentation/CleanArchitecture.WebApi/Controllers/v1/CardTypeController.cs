@@ -9,8 +9,8 @@ namespace CleanArchitecture.WebApi.Controllers.v1
         //to avoid second operation started error fr firsttime adding this flag.No other reason.
         private static bool firstTime = true;
 
-        [HttpGet]
-        [ResponseCache(Duration = 3600, Location = ResponseCacheLocation.Any)]
+        [HttpGet]//this caching had to be updated on updates
+        //[ResponseCache(Duration = 3600, Location = ResponseCacheLocation.Any)]
         public async Task<BaseResult<List<CardTypeDto>>> GetAll(CancellationToken cancellationToken = default)
             {
             try

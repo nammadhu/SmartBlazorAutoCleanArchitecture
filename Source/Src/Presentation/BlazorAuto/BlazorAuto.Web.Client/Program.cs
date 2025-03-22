@@ -26,31 +26,38 @@ class Program
 
         //only for wasm so here //todo
         builder.Services.AddSingleton<IIndexedDbFactory, IndexedDbFactory>();
-        //builder.Services.AddSingleton<IndexedDbService<CardTypeDto>>();//wrong
-        builder.Services.AddScoped(typeof(IndexedDbService<,>), typeof(IndexedDbService<,>));
-        builder.Services.AddScoped(sp =>
+        //builder.Services.AddSingleton<CachingServiceIndexedbDbJsWasm<CardTypeDto>>();//wrong
+        
+        //builder.Services.AddScoped(typeof(CachingServiceIndexedbDbJsWasm<,>), typeof(CachingServiceIndexedbDbJsWasm<,>));
+
+        //builder.Services.AddSingleton<IJSRuntime>();
+        //builder.Services.AddScoped<ICachingServiceClient<CardTypeDto, int>, CachingServiceIndexedbDbJsWasm<CardTypeDto, int>>();
+        //since above is not possible so doing in below mode
+        builder.Services.AddScoped<ICachingServiceClient<CardTypeDto, int>>(sp =>
         {
             var jsRuntime = sp.GetRequiredService<IJSRuntime>();
-            return new IndexedDbService<CardTypeDto, int>(jsRuntime, nameof(CardTypeDto));
+            return new CachingServiceIndexedbDbJsWasm<CardTypeDto, int>(jsRuntime, nameof(CardTypeDto));
             // Factory for creating services with different store names
             //return (Type serviceType) =>
             //{
             //    var storeName = serviceType.Name.Replace("Dto", ""); // Example: Map DTO type to store name
-            //    return Activator.CreateInstance(typeof(IndexedDbService<>).MakeGenericType(serviceType), jsRuntime, storeName);
+            //    return Activator.CreateInstance(typeof(CachingServiceIndexedbDbJsWasm<>).MakeGenericType(serviceType), jsRuntime, storeName);
             //};
         });
 
-        //builder.Services.AddScoped(typeof(IndexedDbService<>), sp =>
+
+        //builder.Services.AddScoped(typeof(CachingServiceIndexedbDbJsWasm<>), sp =>
         //{
         //    var jsRuntime = sp.GetRequiredService<IJSRuntime>();
         //    return (Type serviceType) =>
         //    {
         //        var storeName = serviceType.GetGenericArguments()[0].Name + "Store";
-        //        return Activator.CreateInstance(typeof(IndexedDbService<>).MakeGenericType(serviceType.GetGenericArguments()), jsRuntime, storeName);
+        //        return Activator.CreateInstance(typeof(CachingServiceIndexedbDbJsWasm<>).MakeGenericType(serviceType.GetGenericArguments()), jsRuntime, storeName);
         //    };
         //});
 
-        builder.Services.AddScoped<ICardTypeController, CientCardTypeService>();
+
+
         //builder.Services.AddScoped<ICardController, ClientCardService>();
         //builder.Services.AddScoped<ITownCardsController, ClientTownCardService>();
         //builder.Services.AddScoped<IMyCardsController, ClientMyCardsService>();

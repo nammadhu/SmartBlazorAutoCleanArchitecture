@@ -9,6 +9,7 @@ public static class DIClientRender
     public static void AddDependencyInjectionClientRender(this IServiceCollection services)
         {
         services.AddScoped<IProduct, ProductServiceClient>();
+        services.AddScoped<ICardTypeController, CardTypeServiceClient>();
 
         services.AddMemoryCache();
 
