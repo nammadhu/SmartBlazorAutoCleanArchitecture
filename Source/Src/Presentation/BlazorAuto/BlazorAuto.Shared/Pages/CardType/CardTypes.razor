@@ -94,7 +94,7 @@
         {
         var dialog = await DialogServices.ShowDialogAsync<CreateUpdateCardTypeDialog>(cardType, new DialogParameters()
                 {
-                Height = "240px",
+                // Height = "240px",
                 Title = cardType.Id > 0 ? "Creating New" : $"Updating the {cardType.Name}",
                 PreventDismissOnOverlayClick = true,
                 PreventScroll = true,

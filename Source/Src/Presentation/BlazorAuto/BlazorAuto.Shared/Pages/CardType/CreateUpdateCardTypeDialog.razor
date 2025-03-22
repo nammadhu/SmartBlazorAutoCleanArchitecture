@@ -3,17 +3,29 @@
 @inject ICardTypeController CardTypeService
 @inject AuthenticationStateProvider AuthProvider
 
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.WindowApps())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+<FluentDialogFooter>
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Save</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Cancel</FluentButton>
+</FluentDialogFooter>
 
 @if (Content != null)
     {
-    <FluentDialog IsOpen="@IsOpen" OnDismiss="OnCancel">
-        <h3> @heading</h3>
-        <FluentTextField @bind-Value="Content.Name" Placeholder="Name" />
-        <FluentTextField @bind-Value="Content.IconColor" Placeholder="Icon Color" />
-        <FluentNumberField @bind-Value="Content.Price" Placeholder="Price" />
-        <FluentButton Title="Save" OnClick="SaveAsync" Appearance="Appearance.Accent" />
-        <FluentButton Title="Cancel" OnClick="CancelAsync" Appearance="Appearance.Neutral" />
-    </FluentDialog>
+    <FluentDialogBody>
+       @*  <h3> @heading</h3> *@
+        <FluentTextField @bind-Value="Content.Name" Placeholder="Name" Required>Name:</FluentTextField>
+        <FluentTextField @bind-Value="Content.IconColor" Placeholder="Icon Color">Icon Color:</FluentTextField>
+        <FluentNumberField @bind-Value="Content.Price" Placeholder="Numbers" Required>Price:</FluentNumberField>
+       @*  <FluentButton Title="Save" OnClick="SaveAsync" Appearance="Appearance.Accent" />
+        <FluentButton Title="Cancel" OnClick="CancelAsync" Appearance="Appearance.Neutral" /> *@
+    </FluentDialogBody>
     }
 @code {
     [Parameter] public bool IsOpen { get; set; }
@@ -29,6 +41,8 @@
         {
         if (Content == null || Content.Id == default) heading = "Create Card Type";
         else heading = $"Update Card Type({Content.Name})";
+
+        Dialog.Instance.Parameters.Title=heading;
         Content ??= new CardTypeDto();
         base.OnInitialized();
         }
@@ -48,5 +62,5 @@
 
     private async Task CancelAsync()
        => await Dialog.CancelAsync();
-        
+
 }
