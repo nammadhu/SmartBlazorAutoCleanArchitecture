@@ -7,7 +7,7 @@ namespace CleanArchitecture.WebApi.Controllers.v1
     public class CardTypeController(IMediator mediator) : BaseApiController(mediator), ICardTypeController
         {//ILogger<CardTypeController> logger,
         //to avoid second operation started error fr firsttime adding this flag.No other reason.
-        private static bool firstTime = true;
+        //private static bool firstTime = true;
 
         [HttpGet]//this caching had to be updated on updates
         //[ResponseCache(Duration = 3600, Location = ResponseCacheLocation.Any)]
@@ -15,8 +15,8 @@ namespace CleanArchitecture.WebApi.Controllers.v1
             {
             try
                 {
-                if (firstTime) { firstTime = false; return null; }
-                else
+                //if (firstTime) { firstTime = false; return null; }
+                //else
                     return await Mediator.Send(new GetCardTypesAllQuery(), cancellationToken);
                 }
             catch (Exception e)
