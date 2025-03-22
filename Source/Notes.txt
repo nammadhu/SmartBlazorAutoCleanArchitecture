@@ -20,7 +20,7 @@ on server render mode on server,it will be Controller direct call service call &
 on page if customization required then ProductService which calls 
 ProductIntermediateService,in which all customizations all and then api calls or whataever
 
-
+update happening but response cache not modifying,had to do on server and client also mostly
 
 
 
@@ -29,10 +29,6 @@ on shared project, service which uses IFetchData,ICache
 on client render mode on wasm, it will be IApiFetch,IndexedDbService
 on server render mode on server,it will be Controller service call & no cache
 on 
-
-
-
-
 
 
 
@@ -95,7 +91,6 @@ using BlazorAuto.Web.Components;
 using BlazorAuto.Web.Services;
 using Microsoft.FluentUI.AspNetCore.Components;
 
-builder.Services.AddFluentUIComponents();
 builder.Services.AddFluentUIComponents();
 
 add signalr

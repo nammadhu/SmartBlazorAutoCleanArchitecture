@@ -12,8 +12,8 @@
     <PropertyColumn Property="@(c => c.Price)" Title="Price" Sortable="true" />
     <TemplateColumn Title="Actions">
         <div>
-            <FluentButton Title="Edit" IconEnd=@(new Icons.Regular.Size24.Edit()) OnClick="() => EditCardType(context)" Disabled="@(!CanEdit)" />
-            <FluentButton Title="Delete" IconEnd=@(new Icons.Regular.Size24.Delete()) OnClick="() => DeleteCardType(context)" Disabled="@(!CanDelete)" />
+            <FluentButton Title="Edit" IconEnd=@(new Icons.Regular.Size24.Edit()) OnClick="() => OpenUpdateDialog(context)" Disabled="@(!CanEdit)" />
+            <FluentButton Title="Delete" IconEnd=@(new Icons.Regular.Size24.Delete()) OnClick="() => OpenDeleteDialog(context)" Disabled="@(!CanDelete)" />
         </div>
     </TemplateColumn>
 </FluentDataGrid>
@@ -77,63 +77,66 @@
     private async Task LoadCardTypesAsync()
         {
         var result = await CardTypeService.GetAll();
-        if (result?.Success == true)
+        if (result?.Success == true && result?.Data != null)
             {
             cardTypes = result.Data;
             }
+        else cardTypes = [];
         }
 
-    private async Task EditCardType(CardTypeDto cardType)
+
+
+
+    //private CardTypeDto? SelectedDto { get; set; }
+
+    private async Task CreateNew() => await OpenUpdateDialog(new CardTypeDto());
+    private async Task OpenUpdateDialog(CardTypeDto cardType)
         {
-        await CardTypeService.Update(new CU_CardTypeCommand
+        var dialog = await DialogServices.ShowDialogAsync<CreateUpdateCardTypeDialog>(cardType, new DialogParameters()
                 {
-                Id = cardType.Id,
-                Name = cardType.Name,
-                IconColor = cardType.IconColor,
-                Price = cardType.Price
+                Height = "240px",
+                Title = cardType.Id > 0 ? "Creating New" : $"Updating the {cardType.Name}",
+                PreventDismissOnOverlayClick = true,
+                PreventScroll = true,
                 });
-        await LoadCardTypesAsync();
-        }
 
-    private async Task DeleteCardType(CardTypeDto cardType)
-        {
-        await CardTypeService.Delete(cardType.Id);
-        await LoadCardTypesAsync();
-        }
-
-    private async Task CreateNew()
-        {
-        var newCardType = new CU_CardTypeCommand
-                {
-                Name = "New Card",
-                IconColor = "#0000FF",
-                Price = 300
-                };
-        await CardTypeService.Create(newCardType);
-        await LoadCardTypesAsync();
-        }
-
-    private void GoToPreviousPage()
-        {
-        if (currentPage > 1)
+        var result = await dialog.Result;
+        if (!result.Cancelled && result.Data != null)
             {
-            currentPage--;
+            cardType = (CardTypeDto)result.Data;
+            await LoadCardTypesAsync();
             }
         }
 
-    private void GoToNextPage()
+
+
+    private void OpenDeleteDialog(CardTypeDto cardType)
         {
-        if (currentPage < totalPages)
-            {
-            currentPage++;
-            }
+        //add dialog to confirm for deletion then  call DeleteCardType(CardTypeDto cardType)
         }
+
+        //move below inside dialog 
+    // private async Task DeleteCardType(CardTypeDto cardType)
+    //     {
+    //     await CardTypeService.Delete(cardType.Id);
+    //     await LoadCardTypesAsync();
+    //     }
+
+
+
+
+
+    private void GoToPreviousPage() => currentPage -= (currentPage > 1 ? 1 : 0);
+
+    private void GoToNextPage() => currentPage += (currentPage < totalPages ? 1 : 0);
 
     private string GetUserRole()
         {
         var authState = AuthProvider.GetAuthenticationStateAsync().Result;
         var user = authState.User;
-        return user.IsInRole("Admin") ? "Admin" : "Editor";
+        if (user?.Identity?.IsAuthenticated == true)
+            return user.IsInRole("Admin") ? "Admin" : "Editor";
+        else return null;
         }
 
     public static class RolePermissions

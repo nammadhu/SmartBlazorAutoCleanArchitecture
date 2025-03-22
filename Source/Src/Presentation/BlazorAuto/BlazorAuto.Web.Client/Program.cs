@@ -56,8 +56,7 @@ class Program
         //builder.Services.AddScoped<IMyCardsController, ClientMyCardsService>();
         //builder.Services.AddScoped<ITownController, ClientTownService>();
 
-        builder.Services.AddFluentUIComponents();
-
+        //FluentUI configurations are in shared project
         builder.Services.AddAuthorizationCore();
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddAuthenticationStateDeserialization();

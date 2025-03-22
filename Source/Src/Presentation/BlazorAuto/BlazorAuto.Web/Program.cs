@@ -54,7 +54,9 @@ public class Program
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents()
             .AddAuthenticationStateSerialization();
-        builder.Services.AddFluentUIComponents();
+
+        //FluentUI configurations are in shared project
+
         // Add device-specific services used by the BlazorAuto.Shared project
         builder.Services.AddSingleton<IFormFactor, FormFactor>();
 

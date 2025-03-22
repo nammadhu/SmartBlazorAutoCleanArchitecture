@@ -1,0 +1,18 @@
+﻿<FluentDialog IsOpen="@IsOpen" OnDismiss="OnCancel">
+    <h3>Confirm Deletion</h3>
+    <p>Are you sure you want to delete "<strong>@CardType.Name</strong>"?</p>
+    <FluentButton Title="Delete" OnClick="ConfirmDelete" />
+    <FluentButton Title="Cancel" OnClick="OnCancel" />
+</FluentDialog>
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public required CardTypeDto CardType { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback<CardTypeDto> OnDelete { get; set; }
+
+    private async Task ConfirmDelete()
+        {
+        await OnDelete.InvokeAsync(CardType);
+        }
+}

@@ -1,0 +1,52 @@
+﻿@using SHARED.Features.CardTypes.Commands
+@implements IDialogContentComponent<CardTypeDto>
+@inject ICardTypeController CardTypeService
+@inject AuthenticationStateProvider AuthProvider
+
+
+@if (Content != null)
+    {
+    <FluentDialog IsOpen="@IsOpen" OnDismiss="OnCancel">
+        <h3> @heading</h3>
+        <FluentTextField @bind-Value="Content.Name" Placeholder="Name" />
+        <FluentTextField @bind-Value="Content.IconColor" Placeholder="Icon Color" />
+        <FluentNumberField @bind-Value="Content.Price" Placeholder="Price" />
+        <FluentButton Title="Save" OnClick="SaveAsync" Appearance="Appearance.Accent" />
+        <FluentButton Title="Cancel" OnClick="CancelAsync" Appearance="Appearance.Neutral" />
+    </FluentDialog>
+    }
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public required CardTypeDto Content { get; set; }
+    // [Parameter] public EventCallback OnCancel { get; set; }
+    // [Parameter] public EventCallback<CardTypeDto> OnSave { get; set; }
+
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
+
+    string heading = string.Empty;
+    protected override void OnInitialized()
+        {
+        if (Content == null || Content.Id == default) heading = "Create Card Type";
+        else heading = $"Update Card Type({Content.Name})";
+        Content ??= new CardTypeDto();
+        base.OnInitialized();
+        }
+
+
+    private async Task SaveAsync()
+        {
+        await CardTypeService.Update(new CU_CardTypeCommand
+                {
+                Id = Content.Id,
+                Name = Content.Name,
+                IconColor = Content.IconColor,
+                Price = Content.Price
+                });
+        await Dialog.CloseAsync(Content);
+        }
+
+    private async Task CancelAsync()
+       => await Dialog.CancelAsync();
+        
+}

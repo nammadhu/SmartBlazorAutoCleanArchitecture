@@ -54,7 +54,7 @@ namespace CleanArchitecture.WebApi.Controllers.v1
             return await Mediator.Send(model, cancellationToken);
             }
 
-        [HttpPost, Authorize(Roles = CONSTANTS.ROLES.Role_Admin)]
+        [HttpPost]//, Authorize(Roles = CONSTANTS.ROLES.Role_Admin)]
         public async Task<BaseResult<CardTypeDto>> CreateUpdate(CU_CardTypeCommand model, CancellationToken cancellationToken)
             {
             if (model.Id == 0)
@@ -63,7 +63,7 @@ namespace CleanArchitecture.WebApi.Controllers.v1
                 return await Update(model, cancellationToken);
             }
 
-        [HttpPut, Authorize(Roles = CONSTANTS.ROLES.Role_Admin)]
+        [HttpPut]//, Authorize(Roles = CONSTANTS.ROLES.Role_Admin)]
         public async Task<BaseResult<CardTypeDto>> Update(CU_CardTypeCommand model, CancellationToken cancellationToken = default)
             {
             //model.LastModifiedBy = UserIdExtract();
