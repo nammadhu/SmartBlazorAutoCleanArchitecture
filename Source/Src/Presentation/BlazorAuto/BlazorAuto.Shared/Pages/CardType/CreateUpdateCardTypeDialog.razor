@@ -19,17 +19,26 @@
 @if (Content != null)
     {
     <FluentDialogBody>
-       @*  <h3> @heading</h3> *@
-        <FluentTextField @bind-Value="Content.Name" Placeholder="Name" Required>Name:</FluentTextField>
-        <FluentTextField @bind-Value="Content.IconColor" Placeholder="Icon Color">Icon Color:</FluentTextField>
-        <FluentNumberField @bind-Value="Content.Price" Placeholder="Numbers" Required>Price:</FluentNumberField>
-       @*  <FluentButton Title="Save" OnClick="SaveAsync" Appearance="Appearance.Accent" />
-        <FluentButton Title="Cancel" OnClick="CancelAsync" Appearance="Appearance.Neutral" /> *@
+        <EditForm EditContext="@_editContext" FormName="simple_register">
+            <DataAnnotationsValidator />
+            <FluentLabel Style="margin-bottom: 16px;">
+                Your name must be between 3 and 20 characters long,
+                and your age between 1 and 99.
+            </FluentLabel>
+            @*  <h3> @heading</h3> *@
+            <FluentTextField @bind-Value="Content.Name" Placeholder="Name" Required>Name:</FluentTextField>
+            <FluentTextField @bind-Value="Content.IconColor" Placeholder="Icon Color">Icon Color:</FluentTextField>
+            <FluentNumberField @bind-Value="Content.Price" Placeholder="Numbers" Required>Price:</FluentNumberField>
+            <div style="color: var(--error);">
+                <FluentValidationSummary />
+            </div>
+        </EditForm>
     </FluentDialogBody>
     }
 @code {
     [Parameter] public bool IsOpen { get; set; }
     [Parameter] public required CardTypeDto Content { get; set; }
+    private EditContext _editContext = default!;
     // [Parameter] public EventCallback OnCancel { get; set; }
     // [Parameter] public EventCallback<CardTypeDto> OnSave { get; set; }
 
@@ -42,22 +51,26 @@
         if (Content == null || Content.Id == default) heading = "Create Card Type";
         else heading = $"Update Card Type({Content.Name})";
 
-        Dialog.Instance.Parameters.Title=heading;
+        Dialog.Instance.Parameters.Title = heading;
         Content ??= new CardTypeDto();
+        _editContext = new EditContext(Content);
         base.OnInitialized();
         }
 
 
     private async Task SaveAsync()
         {
-        await CardTypeService.Update(new CU_CardTypeCommand
-                {
-                Id = Content.Id,
-                Name = Content.Name,
-                IconColor = Content.IconColor,
-                Price = Content.Price
-                });
-        await Dialog.CloseAsync(Content);
+        if (_editContext.Validate())
+            {
+            await CardTypeService.Update(new CU_CardTypeCommand
+                    {
+                    Id = Content.Id,
+                    Name = Content.Name,
+                    IconColor = Content.IconColor,
+                    Price = Content.Price
+                    });
+            await Dialog.CloseAsync(Content);
+            }
         }
 
     private async Task CancelAsync()

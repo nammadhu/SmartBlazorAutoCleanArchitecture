@@ -1,7 +1,6 @@
 fix cache issue & clearance ...client ok but not on server
 okkk leave for now, will see later
 
-create dialog style changes with header,footer all
 
 add delete feature end to end
 
