@@ -1,3 +1,15 @@
+fix cache issue & clearance ...client ok but not on server
+okkk leave for now, will see later
+
+create dialog style changes with header,footer all
+
+add delete feature end to end
+
+
+cardtype controller make only admin editable
+add cardtype search with multiple parameters,
+prefer on client side first then on server side
+
 add cardtype,edit,delete calls with caching
 town same all
 
